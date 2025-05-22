@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- exporter: blender2ogre 0.9.0 -->
+<!-- export_time: Tue, 20 May 2025 14:26:35 +0000 -->
+<!-- blender_version: 3.6.21 (release; Linux) -->
+<scene author="linda" formatVersion="1.1" >
+  <nodes >
+    <node name="Line003" >
+      <position x="0.000000" y="0.000000" z="-0.000000" />
+      <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+      <scale x="1.000000" y="1.000000" z="1.000000" />
+      <userData >
+        <property data="36" name="MaxHandle" type="int" />
+      </userData>
+      <entity meshFile="Mesh.004.mesh" name="Line003" >
+        <userData />
+      </entity>
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="Material_#428.material" />
+    </item>
+    <item type="material" >
+      <file name="plast.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#438.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#3530.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#941.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#890.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#835.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#912.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#738.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#706.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#714.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#810.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#818.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#826.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#842.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#866.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#882.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#831.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#947.material" />
+    </item>
+    <item type="material" >
+      <file name="ch.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#692.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#946.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#940.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#911.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#834.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#749.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#725.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#733.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#757.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#765.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#773.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#781.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#789.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#797.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#805.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#929.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#803.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#881.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#719.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#943.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#954.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#939.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#910.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#897.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#571.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#886.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#712.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#720.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#744.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#816.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#824.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#832.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#848.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#872.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#888.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#802.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#928.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#880.material" />
+    </item>
+    <item type="material" >
+      <file name="podsvetka.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#938.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#909.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#896.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#885.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#707.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#715.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#739.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#811.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#819.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#827.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#843.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#867.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#879.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#883.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#908.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#701.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#895.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#926.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#857.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#921.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#750.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#28.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#726.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#734.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#758.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#766.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#774.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#782.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#790.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#798.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#878.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#905.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#907.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#894.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#669.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#169.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#925.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#856.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#920.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#713.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#721.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#745.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#817.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#825.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#833.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#849.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#873.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#877.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#889.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#893.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#904.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#906.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#924.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#855.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#919.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#876.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#740.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#708.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#716.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#812.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#820.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#828.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#844.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#868.material" />
+    </item>
+    <item type="material" >
+      <file name="metall.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#884.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#892.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#903.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#865.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#959.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#923.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#854.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#918.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#875.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#902.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#727.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#735.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#751.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#759.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#767.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#775.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#783.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#791.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#799.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#807.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#891.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#864.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#937.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#670.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#922.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#853.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#917.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#170.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#874.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#901.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#935.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#746.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#754.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#429.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#722.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#730.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#762.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#770.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#778.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#786.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#794.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#863.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#936.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#852.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#916.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#900.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#870.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#741.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#709.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#717.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#813.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#815.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#821.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#829.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#845.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#154.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#862.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#927.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#851.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#915.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#173.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#899.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#869.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#934.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#752.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#728.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#736.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#760.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#768.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#776.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#784.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#792.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#800.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#808.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#850.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#861.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#914.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#841.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#690.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#898.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#953.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#171.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#933.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#860.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#723.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#731.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#747.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#743.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#25.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#755.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#763.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#771.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#779.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#787.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#957.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#840.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#952.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#932.material" />
+    </item>
+    <item type="material" >
+      <file name="tv.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#847.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#795.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#859.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#809.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#742.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#710.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#718.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#814.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#822.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#823.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#830.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#846.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#179.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#839.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#887.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#945.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#956.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#951.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#931.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#858.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#737.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#753.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#668.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#729.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#761.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#769.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#777.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#785.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#793.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#801.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#838.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#944.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#955.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#950.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#691.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#930.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#172.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#871.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#748.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#724.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#732.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#756.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#764.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#772.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#780.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#788.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#796.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#804.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#837.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#949.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#806.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#191.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#942.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#913.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#836.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#711.material" />
+    </item>
+    <item type="material" >
+      <file name="Material_#948.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourBackground b="0.050876" g="0.050876" r="0.050876" />
+  </environment>
+</scene>

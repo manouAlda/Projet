@@ -1,0 +1,1345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- exporter: blender2ogre 0.9.0 -->
+<!-- export_time: Tue, 20 May 2025 13:50:15 +0000 -->
+<!-- blender_version: 3.6.21 (release; Linux) -->
+<scene author="linda" formatVersion="1.1" >
+  <nodes >
+    <node name="Sketchfab_model" >
+      <position x="0.000000" y="0.000000" z="-0.000000" />
+      <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+      <scale x="1.000000" y="1.000000" z="1.000000" />
+      <node name="Collada visual scene group" >
+        <position x="0.000000" y="0.000000" z="-0.000000" />
+        <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+        <scale x="1.000000" y="1.000000" z="1.000000" />
+        <node name="Bowling_Alley_VR:Couch" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Couch3" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Couch5" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Couch6" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Couch7" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Couch8" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Couch9" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Floor" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Floor.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Floor5" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+          <node name="defaultMaterial.226" >
+            <position x="0.000000" y="0.000000" z="-0.000000" />
+            <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+            <scale x="1.000000" y="1.000000" z="1.000000" />
+            <entity meshFile="defaultMaterial.226.mesh" name="defaultMaterial.226" >
+              <userData />
+            </entity>
+          </node>
+        </node>
+        <node name="Bowling_Alley_VR:Floor5.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:InfoPult" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Lane" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Lane1" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Lane2" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:Lane3" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube15" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube15.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube15.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube15.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube16" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube16.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube16.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube16.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube17" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube17.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube17.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube17.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube18" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube18.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube18.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube18.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube19.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube2" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube20" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube20.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube20.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube20.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube20.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube20.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube20.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube20.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube21" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube23" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube3" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube4" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube4.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCube4.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder10" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder10.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder10.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder10.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder10.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder10.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder10.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder10.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder2" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder2.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder2.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder2.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder3.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder5.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder6.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder7.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder8.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pCylinder9.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.014" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.015" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane1.016" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:pPlane2" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:RoundTable" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:RoundTable2" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:RoundTable3" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Bowling_Alley_VR:ShoeCase1" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="Couch5" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCube2" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCube3" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCube4" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.014" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.015" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder1.016" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder10" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.014" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.015" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder2.016" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder3" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder4" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder5" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder6" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder7" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder8" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pCylinder9" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pPlane1" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pPlane7" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.003" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.004" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.005" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.006" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.007" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.008" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.009" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.010" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.011" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.012" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.013" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.014" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere3.015" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere4" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere4.001" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere4.002" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere5" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere6" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere7" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere8" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="pSphere9" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+        <node name="RoundTable3" >
+          <position x="0.000000" y="0.000000" z="-0.000000" />
+          <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+          <scale x="1.000000" y="1.000000" z="1.000000" />
+        </node>
+      </node>
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="InfoPult.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_Couch1.material" />
+    </item>
+    <item type="material" >
+      <file name="blinn5.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_PinsAlleyWalls.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_BasicTable.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_MainHallWalls.material" />
+    </item>
+    <item type="material" >
+      <file name="Revolving_Door.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_BasicChair.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_RoundTable1.material" />
+    </item>
+    <item type="material" >
+      <file name="PinsAlleyWall.material" />
+    </item>
+    <item type="material" >
+      <file name="PinCollector1.material" />
+    </item>
+    <item type="material" >
+      <file name="Wire_pole.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_ShoeCase.material" />
+    </item>
+    <item type="material" >
+      <file name="BarDesk.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_BallDistributor.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_MainHallWallStraight.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_Roof.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Alley_VR_Floor1.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourBackground b="0.050876" g="0.050876" r="0.050876" />
+  </environment>
+</scene>
