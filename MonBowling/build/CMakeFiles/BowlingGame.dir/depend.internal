@@ -2850,6 +2850,7 @@ CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o
  /usr/local/include/OGRE/OgreAxisAlignedBox.h
  /usr/local/include/OGRE/OgreBlendMode.h
  /usr/local/include/OGRE/OgreBuildSettings.h
+ /usr/local/include/OGRE/OgreCamera.h
  /usr/local/include/OGRE/OgreColourValue.h
  /usr/local/include/OGRE/OgreCommon.h
  /usr/local/include/OGRE/OgreConfig.h
@@ -2865,6 +2866,10 @@ CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o
  /usr/local/include/OGRE/OgreHardwareVertexBuffer.h
  /usr/local/include/OGRE/OgreHeaderPrefix.h
  /usr/local/include/OGRE/OgreHeaderSuffix.h
+ /usr/local/include/OGRE/OgreImage.h
+ /usr/local/include/OGRE/OgreLight.h
+ /usr/local/include/OGRE/OgreLog.h
+ /usr/local/include/OGRE/OgreLogManager.h
  /usr/local/include/OGRE/OgreMaterial.h
  /usr/local/include/OGRE/OgreMath.h
  /usr/local/include/OGRE/OgreMatrix3.h
@@ -2872,7 +2877,11 @@ CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o
  /usr/local/include/OGRE/OgreMemoryAllocatorConfig.h
  /usr/local/include/OGRE/OgreMovableObject.h
  /usr/local/include/OGRE/OgreMurmurHash3.h
+ /usr/local/include/OGRE/OgreNode.h
+ /usr/local/include/OGRE/OgrePass.h
+ /usr/local/include/OGRE/OgrePixelFormat.h
  /usr/local/include/OGRE/OgrePlane.h
+ /usr/local/include/OGRE/OgrePlaneBoundedVolume.h
  /usr/local/include/OGRE/OgrePlatform.h
  /usr/local/include/OGRE/OgrePrerequisites.h
  /usr/local/include/OGRE/OgreQuaternion.h
@@ -2894,6 +2903,9 @@ CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o
  /usr/local/include/OGRE/OgreStringConverter.h
  /usr/local/include/OGRE/OgreStringInterface.h
  /usr/local/include/OGRE/OgreStringVector.h
+ /usr/local/include/OGRE/OgreTechnique.h
+ /usr/local/include/OGRE/OgreTexture.h
+ /usr/local/include/OGRE/OgreTextureUnitState.h
  /usr/local/include/OGRE/OgreUserObjectBindings.h
  /usr/local/include/OGRE/OgreVector.h
  /usr/local/include/OGRE/OgreVertexIndexData.h

@@ -1,0 +1,9 @@
+material BackgroundMaterial {
+    technique {
+        pass {
+            texture_unit {
+                texture parkex.jpg
+            }
+        }
+    }
+}

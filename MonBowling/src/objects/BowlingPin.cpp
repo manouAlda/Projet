@@ -86,6 +86,7 @@ bool BowlingPin::isKnockedDown() const {
         // Une quille est considérée comme renversée si elle est inclinée de plus de 45 degrés
         Ogre::Vector3 upVector = mPinNode->getOrientation() * Ogre::Vector3::UNIT_Y;
         float dotProduct = upVector.dotProduct(Ogre::Vector3::UNIT_Y);
+        Ogre::LogManager::getSingleton().logMessage("Pin " + mPinNode->getName() + " dotProduct: " + Ogre::StringConverter::toString(dotProduct));
         return dotProduct < 0.7071f;  // cos(45°) ≈ 0.7071
     }
     return false;

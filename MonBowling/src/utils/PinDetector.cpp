@@ -1,5 +1,4 @@
 #include "../../include/utils/PinDetector.h"
-#include <OgreLogManager.h>
 
 PinDetector::PinDetector()
     : mPins(nullptr),

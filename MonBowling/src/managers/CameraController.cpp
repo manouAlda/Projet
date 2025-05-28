@@ -58,6 +58,7 @@ void CameraController::handleMouseClick(const OgreBites::MouseButtonEvent& evt) 
             float distance = (currentPos - targetPoint).length();
             Ogre::Vector3 direction = (targetPoint - currentPos).normalisedCopy();
             Ogre::Vector3 newPos = targetPoint - direction * distance;
+
             newPos.y = currentPos.y; // Vue horizontale
 
             // Définir les cibles pour l'animation

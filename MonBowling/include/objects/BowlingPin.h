@@ -5,6 +5,14 @@
 #include "../../include/managers/PhysicsManager.h"
 
 class BowlingPin {
+
+    private:
+        Ogre::SceneManager* mSceneMgr;
+        Ogre::SceneNode* mPinNode;
+        Ogre::Entity* mPinEntity;
+        btRigidBody* mPinBody;
+        Ogre::Vector3 mInitialPosition;
+        
     public:
         BowlingPin(Ogre::SceneManager* sceneMgr);
         ~BowlingPin();
@@ -17,12 +25,6 @@ class BowlingPin {
         btRigidBody* getPinBody() const;
         Ogre::SceneNode* getPinNode() const;
         
-    private:
-        Ogre::SceneManager* mSceneMgr;
-        Ogre::SceneNode* mPinNode;
-        Ogre::Entity* mPinEntity;
-        btRigidBody* mPinBody;
-        Ogre::Vector3 mInitialPosition;
 };
 
 #endif // BOWLING_PIN_H

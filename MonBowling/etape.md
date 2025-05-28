@@ -1080,6 +1080,7 @@ bool Application::mouseReleased(const OgreBites::MouseButtonEvent& evt) {
 #include <OgreResourceGroupManager.h>
 #include <OgreStringConverter.h>
 #include <algorithm>
+#include <iostream>
 
 AimingSystem::AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera)
     : mSceneMgr(sceneMgr),
@@ -1134,35 +1135,6 @@ void AimingSystem::initialize(){
     setAimingActive(true);
 }
 
-void createCoordinateAxes(Ogre::SceneManager* sceneMgr, float length = 500.0f) {
-    // Créer un objet manuel pour dessiner les axes
-    Ogre::ManualObject* axesObject = sceneMgr->createManualObject("CoordinateAxes");
-    
-    // Mode non-éclairé pour une meilleure visibilité
-    axesObject->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_LINE_LIST);
-    
-    // Axe X - Rouge
-    // axesObject->colour(Ogre::ColourValue(1.0f, 0.0f, 0.0f));
-    // axesObject->position(-10, 5, 0);
-    // axesObject->position(200, 15, 0);
-    
-    // Axe Y - Vert
-    // axesObject->colour(Ogre::ColourValue(0.0f, 1.0f, 0.0f));
-    // axesObject->position(0, 5, 0);
-    // axesObject->position(0, 500, 0);
-    
-    // // Axe Z - Bleu
-    axesObject->colour(Ogre::ColourValue(0.0f, 0.0f, 1.0f));
-    axesObject->position(0, 5, 0);
-    axesObject->position(0, 0, length);
-    
-    axesObject->end();
-    
-    // Créer un nœud pour contenir les axes
-    Ogre::SceneNode* axesNode = sceneMgr->getRootSceneNode()->createChildSceneNode("AxesNode");
-    axesNode->attachObject(axesObject);
-}
-
 void AimingSystem::createAimingArrow(){
     // Création d'une flèche directionnelle simple
     // Utilisation d'un cône pour représenter la flèche
@@ -1190,7 +1162,7 @@ void AimingSystem::createAimingArrow(){
     
     // Orientation et mise à l'échelle de la flèche
     mArrowNode->setScale(0.5f, 2.0f, 0.5f);
-    mArrowNode->pitch(Ogre::Degree(90));  // Orienter la flèche vers l'avant
+    mArrowNode->pitch(Ogre::Degree(-90));  // Orienter la flèche vers l'avant
     
     // Positionnement initial de la flèche (à ajuster selon la position de la boule)
     mArrowNode->setPosition(14.0f, 1.5f, -69.0f);  // Légèrement au-dessus du sol
@@ -1218,18 +1190,20 @@ void AimingSystem::createPowerBar(){
     mPowerBarBackground->setDimensions(30, 200);
     
     // Création du matériau pour l'arrière-plan
-    Ogre::MaterialPtr backgroundMaterial = Ogre::MaterialManager::getSingleton().create("PowerBarBackgroundMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);    
-
-        // Obtention de la technique et du pass
+    Ogre::MaterialPtr backgroundMaterial = Ogre::MaterialManager::getSingleton().create(
+        "PowerBarBackgroundMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    
+    // Obtention de la technique et du pass
     Ogre::Technique* backgroundTechnique = backgroundMaterial->getTechnique(0);
     Ogre::Pass* backgroundPass = backgroundTechnique->getPass(0);
     
     backgroundPass->setDiffuse(Ogre::ColourValue(0.2f, 0.2f, 0.2f, 0.8f));
     backgroundPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
     backgroundPass->setDepthWriteEnabled(false);
-    
-    mPowerBarBackground->setMaterialName("PowerBarBackgroundMaterial");
+    backgroundPass->setDiffuse(Ogre::ColourValue(0.5f, 0.5f, 0.5f, 1.0f));  // Plus opaque et plus clair
 
+    mPowerBarBackground->setMaterialName("PowerBarBackgroundMaterial");
+    
     // Création de la barre de remplissage
     mPowerBarFill = overlayManager.createOverlayElement("Panel", "PowerBarFill");
     mPowerBarFill->setMetricsMode(Ogre::GMM_PIXELS);
@@ -1243,26 +1217,41 @@ void AimingSystem::createPowerBar(){
     // Obtention de la technique et du pass
     Ogre::Technique* fillTechnique = fillMaterial->getTechnique(0);
     Ogre::Pass* fillPass = fillTechnique->getPass(0);
-    
-    fillPass->setDiffuse(Ogre::ColourValue(0.0f, 1.0f, 0.0f, 0.8f));  // Vert
+        // Rendre la barre plus voyante pour le débogage
+
+    fillPass->setDiffuse(Ogre::ColourValue(1.0f, 0.0f, 0.0f, 1.0f));  // Rouge vif et opaque
+
     fillPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
     fillPass->setDepthWriteEnabled(false);
     
     // Assemblage de la barre de puissance
     mPowerBarContainer->addChild(mPowerBarBackground);
     mPowerBarContainer->addChild(mPowerBarFill);
-    
-    mPowerBarFill->setMaterialName("PowerBarFillMaterial");
 
+    mPowerBarFill->setMaterialName("PowerBarFillMaterial");
+    
     // Ajout à l'overlay principal
     mGameOverlay->add2D(mPowerBarContainer);
     
     // Masquer la barre de puissance initialement
-    mPowerBarContainer->hide();
-    
+    //mPowerBarContainer->hide();
+    mPowerBarContainer->show();
+
     // Affichage de l'overlay
-    mGameOverlay->setZOrder(100);
+    mGameOverlay->setZOrder(300);
+
     mGameOverlay->show();
+
+    std::cout << "GAMEOVERLAY-DEBUT" << std::endl;
+
+    if (mGameOverlay->isVisible()) {
+        std::cout << "GameOverlay est visible" << std::endl;
+    } else {
+        std::cout << "GameOverlay est masqué !" << std::endl;
+    }
+    
+    std::cout << "GAMEOVERLAY-FIN" << std::endl;
+
 }
 
 void AimingSystem::createSpinEffectControl(){
@@ -1301,7 +1290,7 @@ void AimingSystem::createSpinEffectControl(){
     mSpinEffectIndicator->setMetricsMode(Ogre::GMM_PIXELS);
     mSpinEffectIndicator->setPosition(95, 0);  // Position centrale
     mSpinEffectIndicator->setDimensions(10, 30);
-    
+
     // Création du matériau pour l'indicateur du curseur
     Ogre::MaterialPtr spinIndicatorMaterial = Ogre::MaterialManager::getSingleton().create(
         "SpinEffectIndicatorMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
@@ -1398,8 +1387,7 @@ void AimingSystem::createCancelButton(){
     mGameOverlay->add2D(mScoreContainer);
 }
 
-void AimingSystem::update(float deltaTime)
-{
+void AimingSystem::update(float deltaTime){
     if (mAimingActive) {
         updateAimingArrow();
         
@@ -1418,7 +1406,7 @@ void AimingSystem::updateAimingArrow(){
         Ogre::Vector3 direction = mAimingDirection.normalisedCopy();
         
         // Calcul de la rotation pour orienter la flèche
-        Ogre::Quaternion rotation = Ogre::Vector3::UNIT_Y.getRotationTo(direction);
+        Ogre::Quaternion rotation = Ogre::Vector3::UNIT_Z.getRotationTo(direction);
         mArrowNode->setOrientation(rotation);
         
         // La flèche reste à une position fixe (à ajuster selon la position de la boule)
@@ -1468,55 +1456,7 @@ void AimingSystem::updateSpinEffectControl(){
     }
 }
 
-void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt) {
-    if (mAimingActive) {
-        // Exemple : mise à jour de la direction de visée en fonction du mouvement de la souris
-        float deltaX = evt.xrel * 0.01f; // Sensibilité horizontale
-        float deltaY = evt.yrel * 0.01f; // Sensibilité verticale
-
-        // Ajuster la direction de visée
-        mAimingDirection.x += deltaX;
-        mAimingDirection.y -= deltaY;
-
-        // Normaliser la direction pour éviter des valeurs incorrectes
-        mAimingDirection.normalise();
-
-        // Mettre à jour la flèche de visée
-        updateAimingArrow();
-    }
-}
-
-void AimingSystem::setAimingActive(bool active) {
-    mAimingActive = active;
-}
-
-Ogre::Vector3 AimingSystem::getAimingDirection() const {
-    return mAimingDirection;
-}
-
-float AimingSystem::getPower() const {
-    return mPowerValue;
-}
-
-float AimingSystem::getSpinEffect() const {
-    return mSpinEffect;
-}
-
-void AimingSystem::resetAiming() {
-    mAimingDirection = Ogre::Vector3::ZERO;
-    mPowerValue = 0.0f;
-    mSpinEffect = 0.0f;
-    mAimingActive = false;
-}
-
-void AimingSystem::startPowerBar() {
-    mPowerBarActive = true;
-    mPowerBarContainer->show();
-}
-
-/*
-void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt)
-{
+void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt){
     if (mAimingActive) {
         // Gestion du mouvement de la souris pour la visée
         // Conversion des coordonnées de la souris en rayon dans l'espace 3D
@@ -1539,8 +1479,502 @@ void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt)
             // Mise à jour de la direction de visée
             setAimingDirection(direction);
         }
+        
+        // Gestion du curseur d'effet
     }
 }
-        // Gestion du curseur d'effet
-        // V
+
+void AimingSystem::setAimingDirection(const Ogre::Vector3& direction) {
+    mAimingDirection = direction;
+}
+
+void AimingSystem::setAimingActive(bool active) {
+    mAimingActive = active;
+}
+
+Ogre::Vector3 AimingSystem::getAimingDirection() const {
+    return mAimingDirection;
+}
+
+float AimingSystem::getPower() const {
+    return mPowerValue;
+}
+
+float AimingSystem::getSpinEffect() const {
+    return mSpinEffect;
+}
+
+void AimingSystem::resetAiming(){
+    mAimingDirection = Ogre::Vector3::ZERO;  
+    mPowerValue = 0.0f;                      
+    mSpinEffect = 0.0f;                       
+    mAimingActive = false;
+    
+    if (mPowerBarContainer) {
+        mPowerBarContainer->hide();
+    }
+    
+    if (mArrowNode) {
+        mArrowNode->setVisible(false);
+    }
+    
+    if (mArrowNode) {
+        mArrowNode->setOrientation(Ogre::Quaternion::IDENTITY);
+        mArrowNode->setPosition(Ogre::Vector3::ZERO);
+        mArrowNode->setVisible(true); 
+    }
+    
+    if (mPowerBarContainer) {
+        mPowerBarContainer->setPosition(400, 200);
+        mPowerBarContainer->setDimensions(50, 300);
+        mPowerBarContainer->show();
+    }
+    
+    updateAimingArrow();
+}
+
+void AimingSystem::startPowerBar() {
+    mPowerBarActive = true;
+    if (mGameOverlay) {
+        mGameOverlay->show();  // S'assurer que l'overlay principal est visible
+    }
+    mPowerBarContainer->show();
+    std::cout << "startPowerBar appelé, mPowerBarActive = " << mPowerBarActive << std::endl;    
+    std::cout << "PowerBar position: " << mPowerBarContainer->getLeft() 
+              << ", " << mPowerBarContainer->getTop() << std::endl;
+}
+
+void AimingSystem::showAimingArrow() {
+    if (mArrowNode) {
+        mArrowNode->setVisible(true);
+    }
+}
+
+void AimingSystem::hideAimingArrow() {
+    if (mArrowNode) {
+        mArrowNode->setVisible(false);
+    }
+}
+
+void AimingSystem::stopPowerBar() {
+    mPowerBarActive = false;
+    mPowerBarContainer->hide();
+}
+
+void AimingSystem::hidePowerBar() {
+    mPowerBarActive = false;
+    mPowerBarContainer->hide();
+}
+
+*******************************************************************************************************
+#ifndef AIMINGSYSTEM_H
+#define AIMINGSYSTEM_H
+
+#include <OgreSceneManager.h>
+#include <OgreSceneNode.h>
+#include <OgreEntity.h>
+#include <OgreMaterial.h>
+#include <OgreMaterialManager.h>
+#include <OgreTechnique.h>
+#include <OgrePass.h>
+#include <OgreOverlay.h>
+#include <OgreOverlayManager.h>
+#include <OgreOverlayContainer.h>
+#include <OgreOverlayElement.h>
+#include <OgreTextAreaOverlayElement.h>
+#include <Ogre.h>
+#include <OgreQuaternion.h>
+#include <OgreRay.h>
+#include <OgreCamera.h>
+#include <OgreInput.h>
+//#include <OgreBitesEvents.h>
+
+class AimingSystem {
+    private:
+        // Création des éléments visuels
+        void createAimingArrow();
+        void createPowerBar();
+        void createSpinEffectControl();
+        void createCancelButton();
+        
+        // Mise à jour des éléments visuels
+        void updateAimingArrow();
+        void updatePowerBar(float deltaTime);
+        void updateSpinEffectControl();
+        
+        // Références aux objets externes
+        Ogre::SceneManager* mSceneMgr;
+        Ogre::Camera* mCamera;
+        
+        // Éléments de la flèche de visée
+        Ogre::SceneNode* mArrowNode;
+        Ogre::Entity* mArrowEntity;
+        
+        // Éléments de l'interface utilisateur (overlay)
+        Ogre::Overlay* mGameOverlay;
+        Ogre::OverlayContainer* mPowerBarContainer;
+        Ogre::OverlayElement* mPowerBarBackground;
+        Ogre::OverlayElement* mPowerBarFill;
+        Ogre::OverlayElement* mSpinEffectControl;
+        Ogre::OverlayElement* mSpinEffectIndicator;
+        Ogre::OverlayElement* mCancelButton;
+        Ogre::OverlayContainer* mScoreContainer;
+        Ogre::TextAreaOverlayElement* mScoreDisplay;
+        
+        // État du système de visée
+        bool mAimingActive;
+        Ogre::Vector3 mAimingDirection;
+        
+        // État de la barre de puissance
+        bool mPowerBarActive;
+        float mPowerValue;
+        float mPowerDirection;  // 1 pour croissant, -1 pour décroissant
+        float mPowerSpeed;      // Vitesse de remplissage
+        
+        // État de l'effet
+        float mSpinEffect;      // -1.0 à 1.0 (gauche à droite)
+        
+        // Constantes
+        const float MAX_POWER = 30.0f;
+        const float MIN_POWER = 5.0f;
+
+    public:
+        AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera);
+        ~AimingSystem();
+
+        // Initialisation du système de visée
+        void initialize();
+        
+        // Mise à jour du système de visée
+        void update(float deltaTime);
+        
+        // Gestion des événements souris
+        void handleMouseMove(const OgreBites::MouseMotionEvent& evt);
+        void handleMouseClick(const OgreBites::MouseButtonEvent& evt);
+        
+        // Gestion de la visée
+        void setAimingDirection(const Ogre::Vector3& direction);
+        Ogre::Vector3 getAimingDirection() const;
+        void showAimingArrow();
+        void hideAimingArrow();
+        
+        // Gestion de la puissance
+        void startPowerBar();
+        void stopPowerBar();
+        void hidePowerBar();
+        float getPower() const;
+        bool isPowerBarActive() const;
+        
+        // Gestion de l'effet
+        void setSpinEffect(float effect);
+        float getSpinEffect() const;
+        
+        // Gestion de l'annulation
+        void resetAiming();
+        
+        // État du système
+        bool isAimingActive() const;
+        void setAimingActive(bool active);
+        
+        // Accesseurs pour les éléments d'interface
+        Ogre::SceneNode* getArrowNode() const;
+        Ogre::OverlayElement* getPowerBarElement() const;
+        Ogre::OverlayElement* getSpinEffectElement() const;
+        Ogre::OverlayElement* getCancelButtonElement() const;
+
+};
+
+#endif // AIMINGSYSTEM_H
+*********************************************************************************
+#include "../../include/core/GameManager.h"
+#include <OgreLogManager.h>
+#include <OgreStringConverter.h>
+
+// Initialisation de l'instance statique à nullptr
+GameManager* GameManager::mInstance = nullptr;
+
+GameManager* GameManager::getInstance() {
+    // Création de l'instance si elle n'existe pas encore
+    if (mInstance == nullptr) {
+        mInstance = new GameManager();
+    }
+    return mInstance;
+}
+
+GameManager::GameManager()
+    : mGameState(GameState::AIMING),
+      mSceneMgr(nullptr),
+      mCamera(nullptr),
+      mBall(nullptr),
+      mLane(nullptr) {
+}
+
+GameManager::~GameManager() {}
+
+void GameManager::initialize(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera, 
+                            BowlingBall* ball, BowlingLane* lane) {
+    // Stockage des références
+    mSceneMgr = sceneMgr;
+    mCamera = camera;
+    mBall = ball;
+    mLane = lane;
+    
+    // Initialisation des systèmes
+    aiming = std::make_unique<AimingSystem>(sceneMgr, camera);
+    aiming->initialize();
+    
+    mPinDetector = std::make_unique<PinDetector>();
+    //mPinDetector->initialize(lane->getPins());
+/*    
+    mCameraFollower = std::make_unique<CameraFollower>(camera, ball);
+    mCameraFollower->initialize();
+*/    
+    // Initialisation du gestionnaire de score
+    //ScoreManager::getInstance()->initialize();
+    
+    // État initial
+    changeState(GameState::AIMING);
+    
+    Ogre::LogManager::getSingleton().logMessage("GameManager initialisé");
+}
+
+void GameManager::update(float deltaTime) {
+    // Mise à jour en fonction de l'état actuel
+    switch (mGameState) {
+        case GameState::AIMING:
+            handleAimingState(deltaTime);
+            break;
+        case GameState::POWER:
+            handlePowerState(deltaTime);
+            break;
+        case GameState::ROLLING:
+            handleRollingState(deltaTime);
+            break;
+        case GameState::SCORING:
+            handleScoringState(deltaTime);
+            break;
+        case GameState::RESET:
+            handleResetState(deltaTime);
+            break;
+    }
+    
+    // Mise à jour des systèmes
+    if (aiming) {
+        aiming->update(deltaTime);
+    }
+   
+    if (mPinDetector) {
+        mPinDetector->update(deltaTime);
+    }
+ /*
+    if (mCameraFollower) {
+        mCameraFollower->update(deltaTime);
+    }
 */
+}
+
+bool GameManager::handleMouseMove(const OgreBites::MouseMotionEvent& evt) {
+    // Transmission de l'événement au système de visée si actif
+    if (mGameState == GameState::AIMING && aiming) {
+        aiming->handleMouseMove(evt);
+        return true;
+    }
+    return false;
+}
+
+bool GameManager::handleMousePress(const OgreBites::MouseButtonEvent& evt) {
+    // Gestion du clic de souris en fonction de l'état
+    if (mGameState == GameState::AIMING && aiming) {
+        // En mode visée, le clic peut démarrer la barre de puissance
+        if (evt.button == OgreBites::BUTTON_LEFT) {
+            // Vérification si le clic est sur le bouton d'annulation
+            if (evt.x >= 20 && evt.x <= 120 && evt.y >= 320 && evt.y <= 360) {
+                resetGame();
+                return true;
+            }
+            // Sinon, passage à l'état de puissance
+            changeState(GameState::POWER);
+            return true;
+        }
+    } else if (mGameState == GameState::POWER && aiming) {
+        // En mode puissance, le clic arrête la barre et lance la boule
+        if (evt.button == OgreBites::BUTTON_LEFT) {
+            launchBall();
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool GameManager::handleMouseRelease(const OgreBites::MouseButtonEvent& evt) {
+    // Gestion du relâchement de la souris
+    return false;
+}
+
+bool GameManager::handleKeyPress(const OgreBites::KeyboardEvent& evt) {
+    // Gestion des touches clavier
+    if (evt.keysym.sym == OgreBites::SDLK_SPACE) {
+        // Espace pour lancer la boule en mode puissance
+        if (mGameState == GameState::POWER) {
+            launchBall();
+            return true;
+        }
+        // Espace pour démarrer la barre de puissance en mode visée
+        else if (mGameState == GameState::AIMING) {
+            changeState(GameState::POWER);
+            return true;
+        }
+    } else if (evt.keysym.sym == 'r' || evt.keysym.sym == 'R') {
+        // R pour réinitialiser
+        resetGame();
+        return true;
+    }
+    
+    return false;
+}
+
+void GameManager::launchBall() {
+    if (mGameState != GameState::POWER || !aiming || !mBall) {
+        return;
+    }
+    
+    // Récupération des paramètres de lancer
+    Ogre::Vector3 direction = aiming->getAimingDirection();
+    float power = aiming->getPower();
+    float spin = aiming->getSpinEffect();
+    aiming->hideAimingArrow();
+
+    aiming->hideAimingArrow();
+    aiming->stopPowerBar();
+    
+    // Lancement de la boule
+    mBall->launch(direction, power, spin);
+/*    
+    // Démarrage du suivi de la caméra
+    if (mCameraFollower) {
+        mCameraFollower->startFollowing();
+    }
+*/    
+    // Passage à l'état de roulement
+    changeState(GameState::ROLLING);
+    
+    Ogre::LogManager::getSingleton().logMessage("Boule lancée avec direction=" + 
+                                               Ogre::StringConverter::toString(direction) + 
+                                               ", puissance=" + Ogre::StringConverter::toString(power) + 
+                                               ", effet=" + Ogre::StringConverter::toString(spin));
+}
+
+void GameManager::resetGame() {
+    // Réinitialisation de la boule
+    if (mBall) {
+        mBall->reset();
+    }
+    
+    // Réinitialisation des quilles
+    if (mLane) {
+        mLane->resetPins();
+    }
+    
+    // Réinitialisation des systèmes
+    if (aiming) {
+        aiming->resetAiming();
+    }
+    
+    if (mPinDetector) {
+        mPinDetector->reset();
+    }
+/*   
+    if (mCameraFollower) {
+        mCameraFollower->stopFollowing();
+    }
+*/    
+    // Passage à l'état de visée
+    changeState(GameState::AIMING);
+    
+    Ogre::LogManager::getSingleton().logMessage("Jeu réinitialisé");
+}
+
+GameState GameManager::getGameState() const {
+    return mGameState;
+}
+
+void GameManager::changeState(GameState newState) {
+    // Transition d'état
+    GameState oldState = mGameState;
+    mGameState = newState;
+    
+    // Actions spécifiques à la transition
+    switch (newState) {
+        case GameState::AIMING:
+            if (aiming) {
+                aiming->setAimingActive(true);
+            }
+            break;
+        case GameState::POWER:
+            if (aiming) {
+                aiming->startPowerBar();
+            }
+            break;
+        case GameState::ROLLING:
+            if (aiming) {
+                aiming->setAimingActive(false);
+            }
+            if (mPinDetector) {
+                mPinDetector->startDetection();
+            }
+            break;
+        case GameState::SCORING:
+            // Rien de spécial à faire ici
+            break;
+        case GameState::RESET:
+            mStateTimer.reset();
+            break;
+    }
+    
+    Ogre::LogManager::getSingleton().logMessage("État actuel : " + Ogre::StringConverter::toString(static_cast<int>(mGameState)));
+    Ogre::LogManager::getSingleton().logMessage("Changement d'état : " + 
+                                               Ogre::StringConverter::toString(static_cast<int>(oldState)) + 
+                                               " -> " + 
+                                               Ogre::StringConverter::toString(static_cast<int>(newState)));
+}
+
+void GameManager::handleAimingState(float deltaTime) {
+    aiming->showAimingArrow();
+    aiming->setAimingActive(true);
+}
+
+void GameManager::handlePowerState(float deltaTime) {
+    aiming->startPowerBar();
+}
+
+void GameManager::handleRollingState(float deltaTime) {
+    aiming->hidePowerBar();
+    // Vérification si la boule s'est arrêtée
+    if (mBall && !mBall->isRolling()) {
+        // Passage à l'état de calcul du score
+        changeState(GameState::SCORING);
+    }
+}
+
+void GameManager::handleScoringState(float deltaTime) {
+    // Vérification si la détection des quilles est terminée
+    if (mPinDetector && mPinDetector->isDetectionComplete()) {
+        // Mise à jour du score
+        int knockedDownPins = mPinDetector->getKnockedDownPinCount();
+        ScoreManager::getInstance()->updateScore(knockedDownPins);
+        
+        // Passage à l'état de réinitialisation
+        changeState(GameState::RESET);
+    }
+}
+
+void GameManager::handleResetState(float deltaTime) {
+    aiming->resetAiming();
+    if (mStateTimer.getMilliseconds() > 2000) {  // 2 secondes
+        // Passage à l'état de visée
+        changeState(GameState::AIMING);
+    }
+}
+***************************************************************************************************
+

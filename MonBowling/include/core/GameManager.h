@@ -9,6 +9,10 @@
 #include "../include/objects/BowlingLane.h"
 #include <OgreInput.h>
 #include <iostream>
+#include <OgreInput.h>
+#include <OgreLogManager.h>
+#include <OgreStringConverter.h>
+#include <OgreTimer.h>
 
 // Pattern State pour les états du jeu
 enum class GameState {
@@ -16,75 +20,55 @@ enum class GameState {
     POWER,      // Sélection de la puissance
     ROLLING,    // Boule en mouvement
     SCORING,    // Calcul du score
-    RESET       // Réinitialisation
+    RESET,       // Réinitialisation
+    GAME_OVER // Fin de la partie
 };
 
 // Classe principale pour la gestion du jeu (pattern Singleton)
 class GameManager {
-
+    public:
+        static GameManager* getInstance();
+        void initialize(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera, BowlingBall* ball, BowlingLane* lane);
+        void update(float deltaTime);
+        void resetGame();
+        void launchBall();
+        GameState getGameState() const;
+        void changeState(GameState newState);
+        bool handleMouseMove(const OgreBites::MouseMotionEvent& evt);
+        bool handleMousePress(const OgreBites::MouseButtonEvent& evt);
+        bool handleMouseRelease(const OgreBites::MouseButtonEvent& evt);
+        bool handleKeyPress(const OgreBites::KeyboardEvent& evt);
+    
+        CameraFollower* getCameraFollower() const;
+        
     private:
-        // Constructeur privé (pattern Singleton)
         GameManager();
-        
-        // Destructeur
         ~GameManager();
-        
-        // Instance unique
+    
         static GameManager* mInstance;
-        
-        // État actuel du jeu
+    
+        // Membres ajoutés
+        int mCurrentFrame;               // Frame actuelle
+        int mCurrentRollInFrame;         // Lancer actuel dans la frame
+        int mPinsKnockedFirstRoll;       // Quilles tombées au premier lancer
+        const int MAX_FRAMES = 10;       // Nombre maximum de frames dans une partie
+    
+        // Autres membres existants
         GameState mGameState;
-        
-        // Références aux objets du jeu
         Ogre::SceneManager* mSceneMgr;
         Ogre::Camera* mCamera;
         BowlingBall* mBall;
         BowlingLane* mLane;
-        
-        // Systèmes de jeu
-        std::unique_ptr<AimingSystem> aiming;
+        std::unique_ptr<AimingSystem> mAimingSystem;
         std::unique_ptr<PinDetector> mPinDetector;
         std::unique_ptr<CameraFollower> mCameraFollower;
-        
-        // Minuteur pour les transitions d'état
-        Ogre::Timer mStateTimer;
-        
-        // Méthodes de transition d'état
-        void changeState(GameState newState);
+    
+        // Méthodes privées
         void handleAimingState(float deltaTime);
         void handlePowerState(float deltaTime);
         void handleRollingState(float deltaTime);
         void handleScoringState(float deltaTime);
-        void handleResetState(float deltaTime);
+        std::string gameStateToString(GameState state); // Ajout de la déclaration
+    };
 
-    public:
-        // Obtenir l'instance unique
-        static GameManager* getInstance();
-        
-        // Initialisation du gestionnaire de jeu
-        void initialize(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera, 
-                        BowlingBall* ball, BowlingLane* lane);
-        
-        // Mise à jour du jeu
-        void update(float deltaTime);
-        
-        // Gestion des événements souris
-        bool handleMouseMove(const OgreBites::MouseMotionEvent& evt);
-        bool handleMousePress(const OgreBites::MouseButtonEvent& evt);
-        bool handleMouseRelease(const OgreBites::MouseButtonEvent& evt);
-        
-        // Gestion des événements clavier
-        bool handleKeyPress(const OgreBites::KeyboardEvent& evt);
-        
-        // Lancement de la boule
-        void launchBall();
-        
-        // Réinitialisation du jeu
-        void resetGame();
-        
-        // Obtenir l'état actuel du jeu
-        GameState getGameState() const;
-
-};
-
-#endif
+#endif // GAMEMANAGER_H

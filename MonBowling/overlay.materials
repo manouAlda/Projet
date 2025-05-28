@@ -1,0 +1,61 @@
+material BaseWhite
+{
+    technique
+    {
+        pass
+        {
+            ambient 1 1 1 1
+            diffuse 1 1 1 1
+            lighting off
+            scene_blend alpha_blend
+        }
+    }
+}
+
+material Examples/BeachStones
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture beachStones.png
+                tex_address_mode clamp
+            }
+            lighting off
+            scene_blend alpha_blend
+        }
+    }
+}
+
+******************************************************************
+# Exemple de CMakeLists.txt pour un projet Ogre3D avec OverlaySystem et gestion basique des entrées
+
+cmake_minimum_required(VERSION 3.10)
+project(BowlingForceBar)
+
+# Trouver le package Ogre (ajuster selon installation Ogre)
+find_package(OGRE 1.10 REQUIRED COMPONENTS Bites RTShaderSystem Overlay OverlaySystem)
+
+# Si vous utilisez OIS pour la gestion d'input :
+# find_package(OIS REQUIRED) 
+
+add_executable(BowlingForceBar main.cpp)  # Remplacez main.cpp par votre fichier source
+
+# Inclure les répertoires Ogre
+target_include_directories(BowlingForceBar PRIVATE ${OGRE_INCLUDE_DIRS})
+
+# Lier les bibliothèques Ogre nécessaires
+target_link_libraries(BowlingForceBar PRIVATE 
+    ${OGRE_LIBRARIES}
+    # OIS::OIS   # Décommentez si vous liez OIS
+)
+
+# Définir les options de compilation C++ (optionnel)
+target_compile_features(BowlingForceBar PRIVATE cxx_std_17)
+
+# Ajouter les définitions ou options spécifiques à Ogre si besoin
+# target_compile_definitions(BowlingForceBar PRIVATE -DOGRE_STATIC_LIB)
+
+# Drapeaux supplémentaires comme le threading ou autres peuvent être nécessaires selon la configuration

@@ -1,7 +1,7 @@
 Arial
 {
     type truetype
-    source arial-font/arial.ttf
+    source arial.ttf
     size 16
     resolution 96
 }

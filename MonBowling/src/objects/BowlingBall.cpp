@@ -59,15 +59,40 @@ void BowlingBall::create(const Ogre::Vector3& position) {
 
 void BowlingBall::reset() {
     if (mBallNode && mBallBody) {
-        // Réinitialisation de la position
+        // Réinitialisation de la position du nœud Ogre (Graphique)
         mBallNode->setPosition(mInitialPosition);
+        mBallNode->setOrientation(Ogre::Quaternion::IDENTITY);
+        Ogre::LogManager::getSingleton().logMessage("[BowlingBall::reset] Noeud Ogre réinitialisé à : " + 
+            Ogre::StringConverter::toString(mInitialPosition));
         
-        // Réinitialisation de la vitesse et de la rotation
+        // Arrêt complet du corps physique Bullet
         mBallBody->setLinearVelocity(btVector3(0, 0, 0));
         mBallBody->setAngularVelocity(btVector3(0, 0, 0));
+        mBallBody->clearForces(); // Important pour annuler toute force appliquée
+
+        // Réinitialisation de la position et de l'orientation du corps physique Bullet
+        btTransform initialTransform;
+        initialTransform.setIdentity(); // Commence avec une transformation identité (rotation nulle)
+        initialTransform.setOrigin(btVector3(mInitialPosition.x, mInitialPosition.y, mInitialPosition.z));
         
-        // Réinitialisation de l'état
+        // Appliquer la transformation au corps rigide lui-même
+        mBallBody->setWorldTransform(initialTransform);
+
+        // Mettre à jour l'état de mouvement (MotionState) qui lie Bullet à Ogre
+        // C'est crucial pour que Ogre sache que Bullet a bougé.
+        if (mBallBody->getMotionState()) {
+            mBallBody->getMotionState()->setWorldTransform(initialTransform);
+        }
+
+        //  Réactivation du corps physique
+        mBallBody->activate(true);
+
+        Ogre::LogManager::getSingleton().logMessage("[BowlingBall::reset] Corps physique réinitialisé à : " + 
+            Ogre::StringConverter::toString(mInitialPosition));
+
         mIsRolling = false;
+    } else {
+        Ogre::LogManager::getSingleton().logWarning("[BowlingBall::reset] Tentative de réinitialisation mais mBallNode ou mBallBody est nul.");
     }
 }
 

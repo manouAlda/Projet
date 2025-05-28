@@ -4,6 +4,9 @@
 #include <OgreCamera.h>
 #include <OgreSceneNode.h>
 #include <Ogre.h>
+#include <OgreQuaternion.h>
+#include <OgreLogManager.h>
+#include <OgreStringConverter.h>
 #include "../include/objects/BowlingBall.h"
 
 class CameraFollower {
@@ -22,7 +25,6 @@ class CameraFollower {
         
         // Position et orientation initiales de la caméra
         Ogre::Vector3 mInitialPosition;
-        Ogre::Quaternion mInitialOrientation;
         
         // Position cible de la caméra
         Ogre::Vector3 mTargetPosition;
@@ -39,7 +41,7 @@ class CameraFollower {
         // Retour à la position initiale
         bool mReturningToInitial;
         float mReturnProgress;
-        
+
     public:
         CameraFollower(Ogre::Camera* camera, BowlingBall* ball);
         ~CameraFollower();
@@ -61,11 +63,8 @@ class CameraFollower {
         
         // Définir la position initiale de la caméra
         void setInitialPosition(const Ogre::Vector3& position);
-        
-        // Définir l'orientation initiale de la caméra
-        void setInitialOrientation(const Ogre::Quaternion& orientation);
 
+        void resetToStartPosition();
 };
 
 #endif 
-

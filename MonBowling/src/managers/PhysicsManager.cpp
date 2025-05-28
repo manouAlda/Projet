@@ -14,9 +14,7 @@ PhysicsManager* PhysicsManager::getInstance(){
 PhysicsManager::PhysicsManager()
     : mSceneMgr(nullptr),
       mDebugNode(nullptr)
-{
-    // Le constructeur est privé (pattern Singleton)
-}
+{}
 
 PhysicsManager::~PhysicsManager(){}
 

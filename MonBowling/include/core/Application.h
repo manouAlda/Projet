@@ -13,6 +13,7 @@
 #include <OgreOverlayContainer.h>
 #include <OgreOverlaySystem.h>
 #include <iostream>
+#include <OgreTimer.h>
 
 #include "../objects/BowlingBall.h"
 #include "../objects/BowlingLane.h"
@@ -23,7 +24,7 @@
 class Application : public OgreBites::ApplicationContext, public OgreBites::InputListener {
     private:
         // Gestionnaire de scène
-        Ogre::SceneManager* mSceneMgr;
+        Ogre::SceneManager* scene;
         
         // Caméra
         Ogre::Camera* mCamera;
@@ -44,6 +45,8 @@ class Application : public OgreBites::ApplicationContext, public OgreBites::Inpu
         
         // État des touches
         bool mKeyW, mKeyA, mKeyS, mKeyD, mKeySpace, mKeyC;
+
+        Ogre::Timer mCascadeTimer;
 
     public:
         Application();

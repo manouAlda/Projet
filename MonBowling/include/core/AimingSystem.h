@@ -18,37 +18,24 @@
 #include <OgreRay.h>
 #include <OgreCamera.h>
 #include <OgreInput.h>
-//#include <OgreBitesEvents.h>
 
 class AimingSystem {
-    private:
-        // Création des éléments visuels
-        void createAimingArrow();
-        void createPowerBar();
-        void createSpinEffectControl();
-        void createCancelButton();
-        
-        // Mise à jour des éléments visuels
-        void updateAimingArrow();
-        void updatePowerBar(float deltaTime);
-        void updateSpinEffectControl();
-        
+    private: 
         // Références aux objets externes
-        Ogre::SceneManager* mSceneMgr;
-        Ogre::Camera* mCamera;
+        Ogre::SceneManager* scene;
+        Ogre::Camera* camera;
         
         // Éléments de la flèche de visée
-        Ogre::SceneNode* mArrowNode;
-        Ogre::Entity* mArrowEntity;
+        Ogre::SceneNode* arrowNode;
+        Ogre::Entity* arrowEntity;
         
         // Éléments de l'interface utilisateur (overlay)
-        Ogre::Overlay* mGameOverlay;
-        Ogre::OverlayContainer* mPowerBarContainer;
+        Ogre::Overlay* gameOverlay;
+        Ogre::OverlayContainer* powerBarContainer;
         Ogre::OverlayElement* mPowerBarBackground;
         Ogre::OverlayElement* mPowerBarFill;
         Ogre::OverlayElement* mSpinEffectControl;
         Ogre::OverlayElement* mSpinEffectIndicator;
-        Ogre::OverlayElement* mCancelButton;
         Ogre::OverlayContainer* mScoreContainer;
         Ogre::TextAreaOverlayElement* mScoreDisplay;
         
@@ -66,8 +53,18 @@ class AimingSystem {
         float mSpinEffect;      // -1.0 à 1.0 (gauche à droite)
         
         // Constantes
-        const float MAX_POWER = 30.0f;
+        const float MAX_POWER = 100.0f;
         const float MIN_POWER = 5.0f;
+
+         // Création des éléments visuels
+         void createAimingArrow();
+         void createPowerBar();
+         void createSpinEffectControl();
+         
+         // Mise à jour des éléments visuels
+         void updateAimingArrow();
+         void updatePowerBar(float deltaTime);
+         void updateSpinEffectControl();
 
     public:
         AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera);
@@ -75,7 +72,6 @@ class AimingSystem {
 
         // Initialisation du système de visée
         void initialize();
-        void debugForceBar();
         
         // Mise à jour du système de visée
         void update(float deltaTime);
@@ -87,13 +83,10 @@ class AimingSystem {
         // Gestion de la visée
         void setAimingDirection(const Ogre::Vector3& direction);
         Ogre::Vector3 getAimingDirection() const;
-        void showAimingArrow();
-        void hideAimingArrow();
         
         // Gestion de la puissance
         void startPowerBar();
         void stopPowerBar();
-        void hidePowerBar();
         float getPower() const;
         bool isPowerBarActive() const;
         

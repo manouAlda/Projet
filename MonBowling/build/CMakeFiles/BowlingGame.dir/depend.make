@@ -2849,6 +2849,7 @@ CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGR
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreAxisAlignedBox.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreBlendMode.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreBuildSettings.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreCamera.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreColourValue.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreCommon.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreConfig.h
@@ -2864,6 +2865,10 @@ CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGR
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreHardwareVertexBuffer.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreHeaderPrefix.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreHeaderSuffix.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreImage.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreLight.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreLog.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreLogManager.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreMaterial.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreMath.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreMatrix3.h
@@ -2871,7 +2876,11 @@ CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGR
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreMemoryAllocatorConfig.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreMovableObject.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreMurmurHash3.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreNode.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgrePass.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgrePixelFormat.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgrePlane.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgrePlaneBoundedVolume.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgrePlatform.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgrePrerequisites.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreQuaternion.h
@@ -2893,6 +2902,9 @@ CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGR
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreStringConverter.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreStringInterface.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreStringVector.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreTechnique.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreTexture.h
+CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreTextureUnitState.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreUserObjectBindings.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreVector.h
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: /usr/local/include/OGRE/OgreVertexIndexData.h

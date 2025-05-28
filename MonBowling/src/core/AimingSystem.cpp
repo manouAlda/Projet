@@ -4,20 +4,18 @@
 #include <OgreResourceGroupManager.h>
 #include <OgreStringConverter.h>
 #include <algorithm>
-#include <iostream>
 
 AimingSystem::AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera)
-    : mSceneMgr(sceneMgr),
-      mCamera(camera),
-      mArrowNode(nullptr),
-      mArrowEntity(nullptr),
-      mGameOverlay(nullptr),
-      mPowerBarContainer(nullptr),
+    : scene(sceneMgr),
+      camera(camera),
+      arrowNode(nullptr),
+      arrowEntity(nullptr),
+      gameOverlay(nullptr),
+      powerBarContainer(nullptr),
       mPowerBarBackground(nullptr),
       mPowerBarFill(nullptr),
       mSpinEffectControl(nullptr),
       mSpinEffectIndicator(nullptr),
-      mCancelButton(nullptr),
       mScoreContainer(nullptr),
       mScoreDisplay(nullptr),
       mAimingActive(false),
@@ -32,113 +30,33 @@ AimingSystem::AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera)
 
 AimingSystem::~AimingSystem(){
     // Nettoyage des overlays
-    if (mGameOverlay) {
-        Ogre::OverlayManager::getSingleton().destroy(mGameOverlay);
+    if (gameOverlay) {
+        Ogre::OverlayManager::getSingleton().destroy(gameOverlay);
     }
     
     // Nettoyage des nœuds de scène
-    if (mArrowNode) {
-        mArrowNode->detachAllObjects();
-        mSceneMgr->destroySceneNode(mArrowNode);
+    if (arrowNode) {
+        arrowNode->detachAllObjects();
+        scene->destroySceneNode(arrowNode);
     }
     
     // Nettoyage des entités
-    if (mArrowEntity) {
-        mSceneMgr->destroyEntity(mArrowEntity);
+    if (arrowEntity) {
+        scene->destroyEntity(arrowEntity);
     }
-}
-
-void AimingSystem::debugForceBar() {
-    // Force la visibilité de tous les éléments d'UI
-    if (mGameOverlay) {
-        mGameOverlay->show();
-    }
-    
-    if (mPowerBarContainer) {
-        mPowerBarContainer->show();
-        // Position plus évidente
-        mPowerBarContainer->setPosition(20, 20);  // Centre-gauche
-        mPowerBarContainer->setDimensions(50, 300);  // Plus grand
-        
-        if (mPowerBarFill) {
-            // Forcer une valeur visible pour le remplissage
-            mPowerBarFill->setPosition(0, 150);
-            mPowerBarFill->setDimensions(50, 150);  // 50% de remplissage
-            
-            // Couleur éclatante
-            Ogre::MaterialPtr fillMaterial = Ogre::MaterialManager::getSingleton().getByName("PowerBarFillMaterial");
-            if (fillMaterial) {
-                Ogre::Pass* pass = fillMaterial->getTechnique(0)->getPass(0);
-                pass->setDiffuse(Ogre::ColourValue(1.0f, 0.0f, 0.0f, 1.0f));  // Rouge vif
-            }
-        }
-    }
-/*
-    // 2. Créez d'abord votre matériau s'il n'existe pas déjà
-    Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create(
-        "PowerBarBackgroundMaterial2", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    
-    material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
-    material->getTechnique(0)->getPass(0)->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-    material->getTechnique(0)->getPass(0)->setCullingMode(Ogre::CULL_NONE);
-    material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
-    material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
-    
-    // Définir une couleur rouge semi-transparente (RGBA)
-    material->getTechnique(0)->getPass(0)->setAmbient(1.0, 0.0, 0.0);
-    material->getTechnique(0)->getPass(0)->setDiffuse(1.0, 0.0, 0.0, 0.7);
-    
-    // 3. Accédez au gestionnaire d'overlay
-    Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
-    
-    // 4. Créez l'overlay (en supprimant d'abord s'il existe déjà)
-    Ogre::Overlay* existingOverlay = overlayManager.getByName("TestOverlay");
-    if (existingOverlay) {
-        overlayManager.destroy("TestOverlay");
-    }
-    Ogre::Overlay* testOverlay = overlayManager.create("TestOverlay");
-    
-    // 5. Créez le container (panel)
-    Ogre::OverlayContainer* testContainer = static_cast<Ogre::OverlayContainer*>(
-        overlayManager.createOverlayElement("Panel", "TestContainer"));
-    
-    // 6. Configurez le container - utiliser des valeurs relatives peut être plus fiable
-    testContainer->setMetricsMode(Ogre::GMM_RELATIVE); // Mode relatif (0-1) plutôt que pixels
-    testContainer->setPosition(0.05, 0.05);           // 5% depuis le coin supérieur gauche
-    testContainer->setDimensions(0.2, 0.2);          // 20% de la taille de l'écran
-    testContainer->setMaterialName("PowerBarBackgroundMaterial2");
-    
-    // 7. Ajoutez le container à l'overlay
-    testOverlay->add2D(testContainer);
-    
-    // 8. Définissez un Z-order élevé (pour être sûr qu'il est au-dessus)
-    testOverlay->setZOrder(655);
-    
-    // 9. Rendez l'overlay visible
-    testOverlay->show();
-*/
-    
-    // Afficher un message dans la console
-    std::cout << "Debug force bar called - UI elements should be visible" << std::endl;
-
-    
 }
 
 void AimingSystem::initialize(){
-    // Création des éléments visuels
     createAimingArrow();
     createPowerBar();
     createSpinEffectControl();
-    createCancelButton();
     
     // Activation du système de visée
     setAimingActive(true);
 }
 
 void AimingSystem::createAimingArrow(){
-    // Création d'une flèche directionnelle simple
-    // Utilisation d'un cône pour représenter la flèche
-    mArrowEntity = mSceneMgr->createEntity("AimingArrow", "cone.mesh");
+    arrowEntity = scene->createEntity("AimingArrow", "cone.mesh");
     
     // Création d'un matériau pour la flèche
     Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create(
@@ -154,35 +72,34 @@ void AimingSystem::createAimingArrow(){
     pass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
     pass->setDepthWriteEnabled(false);
     
-    mArrowEntity->setMaterialName("AimingArrowMaterial");
+    arrowEntity->setMaterialName("AimingArrowMaterial");
     
     // Création du nœud pour la flèche
-    mArrowNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("AimingArrowNode");
-    mArrowNode->attachObject(mArrowEntity);
+    arrowNode = scene->getRootSceneNode()->createChildSceneNode("AimingArrowNode");
+    arrowNode->attachObject(arrowEntity);
     
     // Orientation et mise à l'échelle de la flèche
-    mArrowNode->setScale(0.5f, 2.0f, 0.5f);
-    mArrowNode->pitch(Ogre::Degree(-90));  // Orienter la flèche vers l'avant
+    arrowNode->setScale(0.5f, 2.0f, 0.5f);
+    arrowNode->pitch(Ogre::Degree(-90));  // Orienter la flèche vers l'avant
     
-    // Positionnement initial de la flèche (à ajuster selon la position de la boule)
-    mArrowNode->setPosition(14.0f, 1.5f, -69.0f);  // Légèrement au-dessus du sol
+    arrowNode->setPosition(14.0f, 1.5f, -69.0f);  // Légèrement au-dessus du sol
 }
 
 void AimingSystem::createPowerBar(){
     // Création de l'overlay pour l'interface utilisateur
     Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
     
-    if (!mGameOverlay) {
-        mGameOverlay = overlayManager.create("GameOverlay");
+    if (!gameOverlay) {
+        gameOverlay = overlayManager.create("GameOverlay");
     }
     
     // Création du conteneur pour la barre de puissance
-    mPowerBarContainer = static_cast<Ogre::OverlayContainer*>(
+    powerBarContainer = static_cast<Ogre::OverlayContainer*>(
         overlayManager.createOverlayElement("Panel", "PowerBarContainer"));
-    mPowerBarContainer->setMetricsMode(Ogre::GMM_PIXELS);
-    mPowerBarContainer->setPosition(20, 100);
-    mPowerBarContainer->setDimensions(30, 200);
-    
+    powerBarContainer->setMetricsMode(Ogre::GMM_PIXELS);
+    powerBarContainer->setPosition(20, 100);
+    powerBarContainer->setDimensions(30, 200);
+      
     // Création de l'arrière-plan de la barre de puissance
     mPowerBarBackground = overlayManager.createOverlayElement("Panel", "PowerBarBackground");
     mPowerBarBackground->setMetricsMode(Ogre::GMM_PIXELS);
@@ -197,13 +114,12 @@ void AimingSystem::createPowerBar(){
     Ogre::Technique* backgroundTechnique = backgroundMaterial->getTechnique(0);
     Ogre::Pass* backgroundPass = backgroundTechnique->getPass(0);
     
-    // backgroundPass->setDiffuse(Ogre::ColourValue(0.2f, 0.2f, 0.2f, 0.8f));
-    backgroundPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-    backgroundPass->setDepthWriteEnabled(false);
-    // backgroundPass->setDiffuse(Ogre::ColourValue(0.5f, 0.5f, 0.5f, 1.0f));  // Plus opaque et plus clair
+    //backgroundPass->setDiffuse(Ogre::ColourValue(1.0f, 0.0f, 0.0f));
+    //backgroundPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
+    //backgroundPass->setDepthWriteEnabled(false);
 
     mPowerBarBackground->setMaterialName("PowerBarBackgroundMaterial");
-    
+/*
     // Création de la barre de remplissage
     mPowerBarFill = overlayManager.createOverlayElement("Panel", "PowerBarFill");
     mPowerBarFill->setMetricsMode(Ogre::GMM_PIXELS);
@@ -217,45 +133,32 @@ void AimingSystem::createPowerBar(){
     // Obtention de la technique et du pass
     Ogre::Technique* fillTechnique = fillMaterial->getTechnique(0);
     Ogre::Pass* fillPass = fillTechnique->getPass(0);
-        // Rendre la barre plus voyante pour le débogage
 
-    // fillPass->setDiffuse(Ogre::ColourValue(1.0f, 0.0f, 0.0f, 1.0f));  // Rouge vif et opaque
-
-    // backgroundPass->setDiffuse(Ogre::ColourValue(0.0f, 0.0f, 1.0f, 1.0f));  // Bleu opaque
-    // fillPass->setDiffuse(Ogre::ColourValue(1.0f, 0.0f, 0.0f, 1.0f));  // Rouge opaque   
-    
-    // fillPass->setDiffuse(Ogre::ColourValue(0.0f, 1.0f, 0.0f, 0.8f));  // Vert
+    fillPass->setDiffuse(Ogre::ColourValue(1.0f, 0.0f, 0.0f, 0.0f));  // Rouge vif
+    fillPass->setAmbient(1.0f, 0.0f, 0.0f); // Ajouter l'ambiante aussi pour être sûr
     fillPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
     fillPass->setDepthWriteEnabled(false);
-    
-    // Assemblage de la barre de puissance
-    mPowerBarContainer->addChild(mPowerBarBackground);
-    mPowerBarContainer->addChild(mPowerBarFill);
+    // !!! Ajout : Désactiver l'éclairage explicitement pour les overlays !!!
+    fillPass->setLightingEnabled(false);
 
     mPowerBarFill->setMaterialName("PowerBarFillMaterial");
+*/    
+    // Assemblage de la barre de puissance
+    powerBarContainer->addChild(mPowerBarBackground);
+    //powerBarContainer->addChild(mPowerBarFill);
     
     // Ajout à l'overlay principal
-    mGameOverlay->add2D(mPowerBarContainer);
+    gameOverlay->add2D(powerBarContainer);
     
     // Masquer la barre de puissance initialement
-    //mPowerBarContainer->hide();
-    mPowerBarContainer->show();
+    //powerBarContainer->hide();
+    
+    //mPowerBarFill->setDimensions(30, 50); // Afficher une hauteur de 50 pixels
+    //mPowerBarFill->setPosition(0, 200 - 50); // Ajuster la position y
 
     // Affichage de l'overlay
-    mGameOverlay->setZOrder(300);
-
-    mGameOverlay->show();
-
-    std::cout << "GAMEOVERLAY-DEBUT" << std::endl;
-
-    if (mGameOverlay->isVisible()) {
-        std::cout << "GameOverlay est visible" << std::endl;
-    } else {
-        std::cout << "GameOverlay est masqué !" << std::endl;
-    }
-    
-    std::cout << "GAMEOVERLAY-FIN" << std::endl;
-
+    gameOverlay->setZOrder(100);
+    gameOverlay->show();
 }
 
 void AimingSystem::createSpinEffectControl(){
@@ -294,7 +197,7 @@ void AimingSystem::createSpinEffectControl(){
     mSpinEffectIndicator->setMetricsMode(Ogre::GMM_PIXELS);
     mSpinEffectIndicator->setPosition(95, 0);  // Position centrale
     mSpinEffectIndicator->setDimensions(10, 30);
-
+    
     // Création du matériau pour l'indicateur du curseur
     Ogre::MaterialPtr spinIndicatorMaterial = Ogre::MaterialManager::getSingleton().create(
         "SpinEffectIndicatorMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
@@ -314,84 +217,11 @@ void AimingSystem::createSpinEffectControl(){
     spinContainer->addChild(mSpinEffectIndicator);
     
     // Ajout à l'overlay principal
-    mGameOverlay->add2D(spinContainer);
+    gameOverlay->add2D(spinContainer);
 }
 
-void AimingSystem::createCancelButton(){
-    // Création du bouton d'annulation
-    Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
-    
-    // Création du conteneur pour le bouton
-    Ogre::OverlayContainer* cancelContainer = static_cast<Ogre::OverlayContainer*>(
-        overlayManager.createOverlayElement("Panel", "CancelButtonContainer"));
-    cancelContainer->setMetricsMode(Ogre::GMM_PIXELS);
-    cancelContainer->setPosition(20, 320);
-    cancelContainer->setDimensions(100, 40);
-    
-    // Création du bouton
-    mCancelButton = overlayManager.createOverlayElement("Panel", "CancelButton");
-    mCancelButton->setMetricsMode(Ogre::GMM_PIXELS);
-    mCancelButton->setPosition(0, 0);
-    mCancelButton->setDimensions(100, 40);
-    
-    // Création du matériau pour le bouton
-    Ogre::MaterialPtr cancelButtonMaterial = Ogre::MaterialManager::getSingleton().create(
-        "CancelButtonMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    
-    // Obtention de la technique et du pass
-    Ogre::Technique* cancelButtonTechnique = cancelButtonMaterial->getTechnique(0);
-    Ogre::Pass* cancelButtonPass = cancelButtonTechnique->getPass(0);
-    
-    cancelButtonPass->setDiffuse(Ogre::ColourValue(0.8f, 0.0f, 0.0f, 0.8f));  // Rouge
-    cancelButtonPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-    cancelButtonPass->setDepthWriteEnabled(false);
-
-    mCancelButton->setMaterialName("CancelButtonMaterial");
-    
-    // Création du texte pour le bouton
-    Ogre::TextAreaOverlayElement* cancelText = static_cast<Ogre::TextAreaOverlayElement*>(
-        overlayManager.createOverlayElement("TextArea", "CancelButtonText"));
-    cancelText->setMetricsMode(Ogre::GMM_PIXELS);
-    cancelText->setPosition(20, 10);
-    cancelText->setDimensions(60, 20);
-    cancelText->setCharHeight(16);
-    cancelText->setFontName("Arial");
-    cancelText->setColour(Ogre::ColourValue::White);
-    cancelText->setCaption("Annuler");
-    
-    // Assemblage du bouton
-    cancelContainer->addChild(mCancelButton);
-    cancelContainer->addChild(cancelText);
-    
-    // Ajout à l'overlay principal
-    mGameOverlay->add2D(cancelContainer);
-    
-    // Création du conteneur pour l'affichage du score
-    mScoreContainer = static_cast<Ogre::OverlayContainer*>(
-        overlayManager.createOverlayElement("Panel", "ScoreContainer"));
-    mScoreContainer->setMetricsMode(Ogre::GMM_PIXELS);
-    mScoreContainer->setPosition(20, 20);
-    mScoreContainer->setDimensions(100, 30);
-    
-    // Création de l'affichage du score
-    mScoreDisplay = static_cast<Ogre::TextAreaOverlayElement*>(
-        overlayManager.createOverlayElement("TextArea", "ScoreDisplay"));
-    mScoreDisplay->setMetricsMode(Ogre::GMM_PIXELS);
-    mScoreDisplay->setPosition(0, 0);
-    mScoreDisplay->setDimensions(100, 30);
-    mScoreDisplay->setCharHeight(24);
-    mScoreDisplay->setFontName("Arial");
-    mScoreDisplay->setColour(Ogre::ColourValue::White);
-    mScoreDisplay->setCaption("Score: 0");
-    
-    // Ajout du texte au conteneur
-    mScoreContainer->addChild(mScoreDisplay);
-    
-    // Ajout du conteneur à l'overlay principal
-    mGameOverlay->add2D(mScoreContainer);
-}
-
-void AimingSystem::update(float deltaTime){
+void AimingSystem::update(float deltaTime)
+{
     if (mAimingActive) {
         updateAimingArrow();
         
@@ -404,21 +234,17 @@ void AimingSystem::update(float deltaTime){
 }
 
 void AimingSystem::updateAimingArrow(){
-    // Mise à jour de la position et de l'orientation de la flèche
-    if (mArrowNode) {
-        // La flèche pointe dans la direction de visée
+    if (arrowNode) {
         Ogre::Vector3 direction = mAimingDirection.normalisedCopy();
         
         // Calcul de la rotation pour orienter la flèche
         Ogre::Quaternion rotation = Ogre::Vector3::UNIT_Z.getRotationTo(direction);
-        mArrowNode->setOrientation(rotation);
-        
-        // La flèche reste à une position fixe (à ajuster selon la position de la boule)
-        // mArrowNode->setPosition(...);
+        arrowNode->setOrientation(rotation);
     }
 }
 
-void AimingSystem::updatePowerBar(float deltaTime){
+/*void AimingSystem::updatePowerBar(float deltaTime)
+{
     // Mise à jour de la barre de puissance
     if (mPowerBarActive && mPowerBarFill) {
         // Mise à jour de la valeur de puissance
@@ -449,9 +275,43 @@ void AimingSystem::updatePowerBar(float deltaTime){
             pass->setDiffuse(Ogre::ColourValue(ratio, 1.0f - ratio, 0.0f, 0.8f));
         }
     }
+}*/
+
+void AimingSystem::updatePowerBar(float deltaTime){
+    // ...
+    if (mPowerBarActive && mPowerBarFill) {
+        // Mise à jour de la valeur de puissance
+        mPowerValue += mPowerDirection * mPowerSpeed * deltaTime;
+        
+        // Inversion de la direction si les limites sont atteintes
+        // !!! PROBLÈME POTENTIEL ICI !!!
+        if (mPowerValue >= MAX_POWER) { 
+            mPowerValue = MAX_POWER;
+            mPowerDirection = -1;
+        } else if (mPowerValue <= MIN_POWER) { 
+            mPowerValue = MIN_POWER;
+            mPowerDirection = 1;
+        }
+        
+        // Mise à jour de l'affichage de la barre
+        // !!! PROBLÈME POTENTIEL ICI !!!
+        float fillHeight = (mPowerValue / MAX_POWER) * 200.0f; 
+        mPowerBarFill->setPosition(0, 200.0f - fillHeight);
+        mPowerBarFill->setDimensions(30, fillHeight);
+        
+        // Changement de couleur en fonction de la puissance
+        Ogre::MaterialPtr fillMaterial = Ogre::MaterialManager::getSingleton().getByName("PowerBarFillMaterial");
+        if (fillMaterial) {
+            Ogre::Pass* pass = fillMaterial->getTechnique(0)->getPass(0);
+            // !!! PROBLÈME POTENTIEL ICI !!!
+            float ratio = mPowerValue / MAX_POWER; 
+            pass->setDiffuse(Ogre::ColourValue(ratio, 1.0f - ratio, 0.0f, 0.8f));
+        }
+    }
 }
 
-void AimingSystem::updateSpinEffectControl(){
+void AimingSystem::updateSpinEffectControl()
+{
     // Mise à jour de la position de l'indicateur d'effet
     if (mSpinEffectIndicator) {
         // Conversion de la valeur d'effet (-1.0 à 1.0) en position (0 à 200)
@@ -464,9 +324,9 @@ void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt){
     if (mAimingActive) {
         // Gestion du mouvement de la souris pour la visée
         // Conversion des coordonnées de la souris en rayon dans l'espace 3D
-        Ogre::Ray mouseRay = mCamera->getCameraToViewportRay(
-            evt.x / (float)mCamera->getViewport()->getActualWidth(),
-            evt.y / (float)mCamera->getViewport()->getActualHeight());
+        Ogre::Ray mouseRay = camera->getCameraToViewportRay(
+            evt.x / (float)camera->getViewport()->getActualWidth(),
+            evt.y / (float)camera->getViewport()->getActualHeight());
         
         // Intersection avec le plan du sol (y = 0)
         Ogre::Plane groundPlane(Ogre::Vector3::UNIT_Y, 0);
@@ -485,88 +345,142 @@ void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt){
         }
         
         // Gestion du curseur d'effet
+        // Vérification si la souris est sur le curseur d'effet
+        if (evt.x >= 70 && evt.x <= 270 && evt.y >= 100 && evt.y <= 130) {
+            // Conversion de la position de la souris en valeur d'effet (-1.0 à 1.0)
+            float effect = ((evt.x - 70) / 200.0f) * 2.0f - 1.0f;
+            setSpinEffect(effect);
+        }
     }
 }
 
-void AimingSystem::setAimingDirection(const Ogre::Vector3& direction) {
-    mAimingDirection = direction;
+void AimingSystem::handleMouseClick(const OgreBites::MouseButtonEvent& evt)
+{
+    if (mAimingActive) {
+        // Gestion du clic de souris
+        if (evt.button == OgreBites::BUTTON_LEFT) {
+            // Vérification si le clic est sur le bouton d'annulation
+            if (evt.x >= 20 && evt.x <= 120 && evt.y >= 320 && evt.y <= 360) {
+                // Annulation du lancer
+                resetAiming();
+            }
+            // Vérification si le clic est sur la barre de puissance
+            else if (evt.x >= 20 && evt.x <= 50 && evt.y >= 100 && evt.y <= 300) {
+                // Arrêt de la barre de puissance
+                if (mPowerBarActive) {
+                    stopPowerBar();
+                } else {
+                    startPowerBar();
+                }
+            }
+            // Vérification si le clic est sur le curseur d'effet
+            else if (evt.x >= 70 && evt.x <= 270 && evt.y >= 100 && evt.y <= 130) {
+                // Mise à jour de l'effet
+                float effect = ((evt.x - 70) / 200.0f) * 2.0f - 1.0f;
+                setSpinEffect(effect);
+            }
+        }
+    }
 }
 
-void AimingSystem::setAimingActive(bool active) {
-    mAimingActive = active;
+void AimingSystem::setAimingDirection(const Ogre::Vector3& direction)
+{
+    mAimingDirection = direction.normalisedCopy();
 }
 
-Ogre::Vector3 AimingSystem::getAimingDirection() const {
+Ogre::Vector3 AimingSystem::getAimingDirection() const
+{
     return mAimingDirection;
 }
 
-float AimingSystem::getPower() const {
+void AimingSystem::startPowerBar(){
+    mPowerBarActive = true;
+    mPowerValue = MIN_POWER;
+    mPowerDirection = 1;
+    
+    // Affichage de la barre de puissance
+    if (powerBarContainer) {
+        powerBarContainer->show();
+    }
+}
+
+void AimingSystem::stopPowerBar()
+{
+    mPowerBarActive = false;
+    
+    // La valeur de puissance est conservée pour le lancer
+}
+
+float AimingSystem::getPower() const
+{
     return mPowerValue;
 }
 
-float AimingSystem::getSpinEffect() const {
+bool AimingSystem::isPowerBarActive() const
+{
+    return mPowerBarActive;
+}
+
+void AimingSystem::setSpinEffect(float effect)
+{
+    // Limitation de l'effet entre -1.0 et 1.0
+    mSpinEffect = std::max(-1.0f, std::min(1.0f, effect));
+}
+
+float AimingSystem::getSpinEffect() const
+{
     return mSpinEffect;
 }
 
 void AimingSystem::resetAiming(){
-    mAimingDirection = Ogre::Vector3::ZERO;  
-    mPowerValue = 0.0f;                      
-    mSpinEffect = 0.0f;                       
-    mAimingActive = false;
+    // Réinitialisation de la visée
+    mAimingDirection = Ogre::Vector3(0, 0, -1);
     
-    if (mPowerBarContainer) {
-        mPowerBarContainer->hide();
+    // Réinitialisation de la puissance
+    mPowerBarActive = false;
+    mPowerValue = MIN_POWER;
+    
+    // Masquage de la barre de puissance
+    if (powerBarContainer) {
+        powerBarContainer->hide();
     }
     
-    if (mArrowNode) {
-        mArrowNode->setVisible(false);
-    }
+    // Réinitialisation de l'effet
+    mSpinEffect = 0.0f;
     
-    if (mArrowNode) {
-        mArrowNode->setOrientation(Ogre::Quaternion::IDENTITY);
-        mArrowNode->setPosition(Ogre::Vector3::ZERO);
-        mArrowNode->setVisible(true); 
-    }
-    
-    if (mPowerBarContainer) {
-        mPowerBarContainer->setPosition(400, 200);
-        mPowerBarContainer->setDimensions(50, 300);
-        mPowerBarContainer->show();
-    }
-    
+    // Mise à jour des éléments visuels
     updateAimingArrow();
+    updateSpinEffectControl();
 }
 
-void AimingSystem::startPowerBar() {
-    mPowerBarActive = true;
-    if (mGameOverlay) {
-        mGameOverlay->show();  // S'assurer que l'overlay principal est visible
-    }
-    mPowerBarContainer->show();
-    std::cout << "startPowerBar appelé, mPowerBarActive = " << mPowerBarActive << std::endl;    
-    std::cout << "PowerBar position: " << mPowerBarContainer->getLeft() 
-              << ", " << mPowerBarContainer->getTop() << std::endl;
+bool AimingSystem::isAimingActive() const
+{
+    return mAimingActive;
 }
 
-void AimingSystem::showAimingArrow() {
-    if (mArrowNode) {
-        mArrowNode->setVisible(true);
-    }
-}
-
-void AimingSystem::hideAimingArrow() {
-    if (mArrowNode) {
-        mArrowNode->setVisible(false);
+void AimingSystem::setAimingActive(bool active){
+    mAimingActive = active;
+    
+    // Affichage ou masquage des éléments visuels
+    if (arrowNode) {
+        if (active) {
+            arrowNode->setVisible(true);
+        } else {
+            arrowNode->setVisible(false);
+        }
     }
 }
 
-void AimingSystem::stopPowerBar() {
-    mPowerBarActive = false;
-    mPowerBarContainer->hide();
+Ogre::SceneNode* AimingSystem::getArrowNode() const{
+    return arrowNode;
 }
 
-void AimingSystem::hidePowerBar() {
-    mPowerBarActive = false;
-    mPowerBarContainer->hide();
+Ogre::OverlayElement* AimingSystem::getPowerBarElement() const
+{
+    return mPowerBarFill;
 }
 
+Ogre::OverlayElement* AimingSystem::getSpinEffectElement() const
+{
+    return mSpinEffectIndicator;
+}

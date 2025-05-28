@@ -6,7 +6,7 @@
 
 Application::Application()
     : OgreBites::ApplicationContext("Environnement Dynamique Ogre3D 14.3"),
-      mSceneMgr(nullptr),
+      scene(nullptr),
       mCamera(nullptr),
       mCameraNode(nullptr),
       mKeyW(false), mKeyA(false), mKeyS(false), mKeyD(false), mKeySpace(false), mKeyC(false),
@@ -22,22 +22,16 @@ void Application::setup(){
     
     // Création du SceneManager
     Ogre::Root* root = getRoot();
-    mSceneMgr = root->createSceneManager();
-
-    // Initialisation du système d'overlay
-/*    
-    overlaySystem = new Ogre::OverlaySystem();
-    mSceneMgr->addRenderQueueListener(overlaySystem);
-    std::cout << "OverlaySystem initialisé" << std::endl;
-*/    
+    scene = root->createSceneManager();
+ 
     // Configuration du shader system
     Ogre::RTShader::ShaderGenerator* shadergen = 
         Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-    shadergen->addSceneManager(mSceneMgr);
+    shadergen->addSceneManager(scene);
     
     // Création de la caméra
-    mCameraNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    mCamera = mSceneMgr->createCamera("MainCamera");
+    mCameraNode = scene->getRootSceneNode()->createChildSceneNode();
+    mCamera = scene->createCamera("MainCamera");
     mCameraNode->attachObject(mCamera);
     mCameraNode->setPosition(Ogre::Vector3(15, 5, -85));
     mCameraNode->lookAt(Ogre::Vector3(-3, 10, 80), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
@@ -56,48 +50,52 @@ void Application::setup(){
     mCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
     
     // Initialisation du contrôleur de caméra
-    mCameraController = std::make_unique<CameraController>(mCamera, mSceneMgr);
+    mCameraController = std::make_unique<CameraController>(mCamera, scene);
 
     // Configuration de la physique AVANT la création de la scène
     setupPhysics();
 
     // Configurer l'input
     root->addFrameListener(this);
+
+    // Ajout des overlays
+    overlaySystem = Ogre::OverlaySystem::getSingletonPtr();
+    scene->addRenderQueueListener(overlaySystem);
     
     // Création de la scène
     createScene();
 
     // Initialisation du gestionnaire de jeu
-    GameManager::getInstance()->initialize(mSceneMgr, mCamera, mBall.get(), mLane.get());
+    GameManager::getInstance()->initialize(scene, mCamera, mBall.get(), mLane.get());
 }
 
 void Application::createScene(){
     // Lumière ambiante
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.7, 0.7, 0.7));
+    scene->setAmbientLight(Ogre::ColourValue(0.7, 0.7, 0.7));
     
     // Création d'une lumière directionnelle avec SceneNode (méthode moderne)
-    Ogre::SceneNode* lightNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    Ogre::Light* light = mSceneMgr->createLight("MainLight");
+    Ogre::SceneNode* lightNode = scene->getRootSceneNode()->createChildSceneNode();
+    Ogre::Light* light = scene->createLight("MainLight");
     light->setType(Ogre::Light::LT_DIRECTIONAL);
     lightNode->attachObject(light);
     lightNode->setDirection(Ogre::Vector3(-0.5, -0.5, -0.5));
     
     // Ajout d'une deuxième lumière pour mieux éclairer la scène
-    Ogre::SceneNode* lightNode2 = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    Ogre::Light* light2 = mSceneMgr->createLight("SecondLight");
+    Ogre::SceneNode* lightNode2 = scene->getRootSceneNode()->createChildSceneNode();
+    Ogre::Light* light2 = scene->createLight("SecondLight");
     light2->setType(Ogre::Light::LT_DIRECTIONAL);
     lightNode2->attachObject(light2);
     lightNode2->setDirection(Ogre::Vector3(0.5, -0.5, 0.5));
     
     // Création de la piste de bowling
-    mLane = std::make_unique<BowlingLane>(mSceneMgr);
+    mLane = std::make_unique<BowlingLane>(scene);
     mLane->create(Ogre::Vector3(17.0f, 0.0f, 0.0f));
 
     // Création de la boule de bowling
-    mBall = std::make_unique<BowlingBall>(mSceneMgr, "ball.mesh");
+    mBall = std::make_unique<BowlingBall>(scene, "ball.mesh");
     
     // Position initiale de la boule (au début de la piste, légèrement surélevée)
-    Ogre::Vector3 ballPosition(14.0f, 3.0f, -69.0f); 
+    Ogre::Vector3 ballPosition(14.0f, 2.0f, -69.0f); 
     mBall->create(ballPosition);
 }
 
@@ -116,13 +114,20 @@ void Application::createDynamicObjects(){
 
 void Application::setupPhysics(){
     // Initialisation du gestionnaire de physique (Singleton)
-    PhysicsManager::getInstance()->initialize(mSceneMgr);
+    PhysicsManager::getInstance()->initialize(scene);
+
+    // Activer ou desactiver le debugDrawer
+    PhysicsManager::getInstance()->toggleDebugDrawing();
 }
 
 bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt){
+     // Mise à jour du gestionnaire de jeu
+     GameManager::getInstance()->update(evt.timeSinceLastFrame);
+
     // Mise à jour de la simulation physique
     PhysicsManager::getInstance()->update(evt.timeSinceLastFrame);
     
+
     // Mise à jour de la boule de bowling
     if (mBall) {
         mBall->update(evt.timeSinceLastFrame);
@@ -136,9 +141,7 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt){
     // Mise à jour du contrôleur de caméra
     mCameraController->update(evt);
     
-    // Mise à jour du gestionnaire de jeu
-    GameManager::getInstance()->update(evt.timeSinceLastFrame);
-
+   
     // Gestion des touches pour déplacer la caméra
     const Ogre::Real moveSpeed = 200.0f;
     Ogre::Vector3 camMove = Ogre::Vector3::ZERO;
@@ -187,6 +190,9 @@ bool Application::keyPressed(const OgreBites::KeyboardEvent& evt){
         mKeySpace = true;
     if (evt.keysym.sym == 'c' || evt.keysym.sym == 'C')
         mKeyC = true;
+    if (evt.keysym.sym == 'r' || evt.keysym.sym == 'R') {
+        GameManager::getInstance()->resetGame();
+    }
     
     return true;
 }
