@@ -9,7 +9,7 @@ CameraFollower::CameraFollower(Ogre::Camera* camera, BowlingBall* ball)
       mTargetPosition(Ogre::Vector3::ZERO),
       mLookAtTarget(Ogre::Vector3::ZERO),
       mTransitionSpeed(5.0f),
-      mOffset(Ogre::Vector3(0, 5, 15)),  // Décalage par défaut (derrière et au-dessus)
+      mOffset(Ogre::Vector3(0.0f, 2.0f, 1.5f)),  
       mReturningToInitial(false),
       mReturnProgress(0.0f) {
     
@@ -39,12 +39,12 @@ void CameraFollower::update(float deltaTime) {
         // Conserver uniquement le x et z de la boule, avec un y fixe à 10
         mTargetPosition = Ogre::Vector3(
             ballPosition.x,                
-            5.0f,                         
+            0.5f,                         
             ballPosition.z - mOffset.z     
         );
         
         // Point que la caméra regarde (un quille)
-        const float LOOKAT_CHANGE_THRESHOLD_Z = 50.0f;
+        const float LOOKAT_CHANGE_THRESHOLD_Z = 5.0f;
         if (ballPosition.z > LOOKAT_CHANGE_THRESHOLD_Z) {
             mLookAtTarget = ballPosition; 
         } else {
@@ -109,7 +109,8 @@ void CameraFollower::setInitialPosition(const Ogre::Vector3& position) {
 void CameraFollower::resetToStartPosition() {
     if (mCameraNode) {
         // Position et orientation de départ
-        Ogre::Vector3 startPosition = Ogre::Vector3(15, 5, -85);
+        Ogre::Vector3 startPosition = Ogre::Vector3(0.0f, 1.0f, -11.0f);
+        //Ogre::Vector3 startPosition = Ogre::Vector3(15, 5, -85);
         // Ogre::Quaternion startOrientation = Ogre::Quaternion(Ogre::Degree(-10), Ogre::Vector3::UNIT_X); // Regarde légèrement vers le bas
 
         // Définir la position et l'orientation via le nœud de scène

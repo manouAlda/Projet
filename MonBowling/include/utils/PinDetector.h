@@ -44,7 +44,7 @@ private:
     Ogre::Timer mCascadeTimer;
     
     // Délai de cascade (en millisecondes)
-    const unsigned long CASCADE_DELAY = 1500; // 1.5 secondes
+    const unsigned long CASCADE_DELAY = 5000; // 5 secondes
     
     // Nombre de quilles tombées
     int mKnockedDownPinCount;

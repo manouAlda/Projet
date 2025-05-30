@@ -18,7 +18,7 @@ class BowlingBall {
         // Propriétés de la boule
         float mRadius;
         float mMass;
-        float scale= 4.0f;
+        float scale= 0.4f;
         Ogre::ColourValue mColor;
         
         // État de la boule

@@ -79,10 +79,10 @@ void AimingSystem::createAimingArrow(){
     arrowNode->attachObject(arrowEntity);
     
     // Orientation et mise à l'échelle de la flèche
-    arrowNode->setScale(0.5f, 2.0f, 0.5f);
+    arrowNode->setScale(0.05f, 0.2f, 0.05f);
     arrowNode->pitch(Ogre::Degree(-90));  // Orienter la flèche vers l'avant
     
-    arrowNode->setPosition(14.0f, 1.5f, -69.0f);  // Légèrement au-dessus du sol
+    arrowNode->setPosition(0.0f, 0.05f, -7.5f); 
 }
 
 void AimingSystem::createPowerBar(){
@@ -337,7 +337,7 @@ void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt){
             Ogre::Vector3 hitPoint = mouseRay.getPoint(intersection.second);
             
             // Calcul de la direction de visée (depuis la position de la boule vers le point d'intersection)
-            Ogre::Vector3 ballPosition(14.0f, 1.5f, -69.0f);  // À ajuster selon la position réelle de la boule
+            Ogre::Vector3 ballPosition(0.0f, 0.25f, -7.5f);  // À ajuster selon la position réelle de la boule
             Ogre::Vector3 direction = (hitPoint - ballPosition).normalisedCopy();
             
             // Mise à jour de la direction de visée
@@ -354,8 +354,7 @@ void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt){
     }
 }
 
-void AimingSystem::handleMouseClick(const OgreBites::MouseButtonEvent& evt)
-{
+void AimingSystem::handleMouseClick(const OgreBites::MouseButtonEvent& evt){
     if (mAimingActive) {
         // Gestion du clic de souris
         if (evt.button == OgreBites::BUTTON_LEFT) {

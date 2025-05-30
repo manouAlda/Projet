@@ -5,7 +5,7 @@
 #include "../../include/core/GameManager.h"
 
 Application::Application()
-    : OgreBites::ApplicationContext("Environnement Dynamique Ogre3D 14.3"),
+    : OgreBites::ApplicationContext("Crazy Bowling !!!"),
       scene(nullptr),
       mCamera(nullptr),
       mCameraNode(nullptr),
@@ -33,8 +33,8 @@ void Application::setup(){
     mCameraNode = scene->getRootSceneNode()->createChildSceneNode();
     mCamera = scene->createCamera("MainCamera");
     mCameraNode->attachObject(mCamera);
-    mCameraNode->setPosition(Ogre::Vector3(15, 5, -85));
-    mCameraNode->lookAt(Ogre::Vector3(-3, 10, 80), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
+    mCameraNode->setPosition(Ogre::Vector3(0.0f, 1.0f, -11.0f));
+    mCameraNode->lookAt(Ogre::Vector3(-3, 1, 80), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
     mCameraNode->yaw(Ogre::Degree(180));
     
     mCamera->setNearClipDistance(1);
@@ -71,31 +71,31 @@ void Application::setup(){
 
 void Application::createScene(){
     // Lumière ambiante
-    scene->setAmbientLight(Ogre::ColourValue(0.7, 0.7, 0.7));
+    scene->setAmbientLight(Ogre::ColourValue(1, 1, 1));
     
     // Création d'une lumière directionnelle avec SceneNode (méthode moderne)
     Ogre::SceneNode* lightNode = scene->getRootSceneNode()->createChildSceneNode();
     Ogre::Light* light = scene->createLight("MainLight");
     light->setType(Ogre::Light::LT_DIRECTIONAL);
     lightNode->attachObject(light);
-    lightNode->setDirection(Ogre::Vector3(-0.5, -0.5, -0.5));
+    lightNode->setDirection(Ogre::Vector3(3, 5, 80));
     
     // Ajout d'une deuxième lumière pour mieux éclairer la scène
     Ogre::SceneNode* lightNode2 = scene->getRootSceneNode()->createChildSceneNode();
     Ogre::Light* light2 = scene->createLight("SecondLight");
     light2->setType(Ogre::Light::LT_DIRECTIONAL);
     lightNode2->attachObject(light2);
-    lightNode2->setDirection(Ogre::Vector3(0.5, -0.5, 0.5));
+    lightNode2->setDirection(Ogre::Vector3(14, 5, -15));
     
     // Création de la piste de bowling
     mLane = std::make_unique<BowlingLane>(scene);
-    mLane->create(Ogre::Vector3(17.0f, 0.0f, 0.0f));
+    mLane->create(Ogre::Vector3(0.0f, 0.5f, -7.5f));
 
     // Création de la boule de bowling
     mBall = std::make_unique<BowlingBall>(scene, "ball.mesh");
     
     // Position initiale de la boule (au début de la piste, légèrement surélevée)
-    Ogre::Vector3 ballPosition(14.0f, 2.0f, -69.0f); 
+    Ogre::Vector3 ballPosition(0.0f, 0.25f, -7.5f); 
     mBall->create(ballPosition);
 }
 

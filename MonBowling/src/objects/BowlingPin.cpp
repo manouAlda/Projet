@@ -25,7 +25,7 @@ void BowlingPin::create(const Ogre::Vector3& position, int pinIndex) {
     mPinNode->attachObject(mPinEntity);
     mPinNode->setPosition(position);
     
-    float scale = 10.0f;  
+    float scale = 1.0f;  
     mPinNode->setScale(scale, scale, scale);
     
     mPinBody = PhysicsManager::getInstance()->getDynamicsWorld()->addRigidBody(

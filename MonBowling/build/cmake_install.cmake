@@ -1,4 +1,4 @@
-# Install script for directory: /home/linda/L3/Dev/MonBowling
+# Install script for directory: /home/linda/git/projet/MonBowling
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/linda/L3/Dev/MonBowling/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/linda/git/projet/MonBowling/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

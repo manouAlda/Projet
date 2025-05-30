@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- exporter: blender2ogre 0.9.0 -->
+<!-- export_time: Thu, 29 May 2025 21:26:50 +0000 -->
+<!-- blender_version: 3.6.21 (release; Linux) -->
+<scene author="linda" formatVersion="1.1" >
+  <nodes >
+    <node name="Camera" >
+      <position x="10.000000" y="2.750000" z="6.750000" />
+      <rotation qw="0.448826" qx="0.411273" qy="0.584921" qz="-0.535982" />
+      <scale x="1.000000" y="1.000000" z="1.000000" />
+      <userData >
+        <property data='&lt;bpy id prop: owner="OBCamera", name="pov", address=0x7f055dd1dd28&gt;' name="pov" type="IDPropertyGroup" />
+      </userData>
+      <camera fov="0.503380" name="Camera" projectionType="perspective" >
+        <clipping far="1000.000000" near="0.100000" />
+      </camera>
+    </node>
+    <node name="Sun 1" >
+      <position x="30.000000" y="0.000000" z="-1.000000" />
+      <rotation qw="0.892399" qx="0.369644" qy="0.099046" qz="-0.239118" />
+      <scale x="0.125000" y="0.125000" z="0.125000" />
+      <userData >
+        <property data='&lt;bpy id prop: owner="OBSun 1", name="pov", address=0x7f055dd84588&gt;' name="pov" type="IDPropertyGroup" />
+        <property data='&lt;bpy id prop: owner="OBSun 1", name="ant_landscape", address=0x7f055dd84628&gt;' name="ant_landscape" type="IDPropertyGroup" />
+      </userData>
+      <light name="Sun 1" powerScale="0.3" type="directional" >
+        <colourDiffuse b="0.050000" g="0.600000" r="1.000000" />
+        <colourSpecular b="0.050000" g="0.600000" r="1.000000" />
+        <lightAttenuation constant="1.0" linear="1.125000" quadratic="4.687500" range="40.0" />
+      </light>
+    </node>
+    <node name="Sun 3" >
+      <position x="30.000000" y="0.000000" z="1.000000" />
+      <rotation qw="0.000000" qx="-0.000000" qy="-0.258819" qz="0.965926" />
+      <scale x="0.125000" y="0.125000" z="0.125000" />
+      <userData >
+        <property data='&lt;bpy id prop: owner="OBSun 3", name="pov", address=0x7f055dd84948&gt;' name="pov" type="IDPropertyGroup" />
+        <property data='&lt;bpy id prop: owner="OBSun 3", name="ant_landscape", address=0x7f055dd849e8&gt;' name="ant_landscape" type="IDPropertyGroup" />
+      </userData>
+      <light name="Sun 3" powerScale="0.5" type="directional" >
+        <colourDiffuse b="0.500000" g="1.000000" r="0.000000" />
+        <colourSpecular b="0.500000" g="1.000000" r="0.000000" />
+        <lightAttenuation constant="1.0" linear="1.125000" quadratic="4.687500" range="40.0" />
+      </light>
+    </node>
+    <node name="Sun 1.001" >
+      <position x="31.000000" y="0.000000" z="-1.000000" />
+      <rotation qw="0.892399" qx="0.369644" qy="-0.099046" qz="0.239118" />
+      <scale x="0.125000" y="0.125000" z="0.125000" />
+      <userData >
+        <property data='&lt;bpy id prop: owner="OBSun 1.001", name="pov", address=0x7f055dd84768&gt;' name="pov" type="IDPropertyGroup" />
+        <property data='&lt;bpy id prop: owner="OBSun 1.001", name="ant_landscape", address=0x7f055dd84808&gt;' name="ant_landscape" type="IDPropertyGroup" />
+      </userData>
+      <light name="Sun 1.001" powerScale="0.5" type="directional" >
+        <colourDiffuse b="0.500000" g="0.800000" r="1.000000" />
+        <colourSpecular b="0.500000" g="0.800000" r="1.000000" />
+        <lightAttenuation constant="1.0" linear="1.125000" quadratic="4.687500" range="40.0" />
+      </light>
+    </node>
+    <node name="Bowling Ball 5" >
+      <position x="0.000000" y="0.000000" z="-0.000000" />
+      <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+      <scale x="1.000000" y="1.000000" z="1.000000" />
+      <userData >
+        <property data='&lt;bpy id prop: owner="OBBowling Ball 5", name="pov", address=0x7f055dd1d3c8&gt;' name="pov" type="IDPropertyGroup" />
+        <property data='&lt;bpy id prop: owner="OBBowling Ball 5", name="ant_landscape", address=0x7f055dd1d468&gt;' name="ant_landscape" type="IDPropertyGroup" />
+      </userData>
+      <entity meshFile="Bowling_Ball_5.mesh" name="Bowling Ball 5" >
+        <userData >
+          <property data="1" name="Roundcube" type="int" />
+          <property data="0" name="change" type="int" />
+          <property data="1.0" name="radius" type="float" />
+          <property data="&lt;bpy id property array [3]&gt;" name="size" type="IDPropertyArray" />
+          <property data="8" name="arc_div" type="int" />
+          <property data="0.0" name="lin_div" type="float" />
+          <property data="CORNERS" name="div_type" type="str" />
+          <property data="0" name="odd_axis_align" type="int" />
+          <property data="0" name="no_limit" type="int" />
+        </userData>
+      </entity>
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="Dithered_3.material" />
+    </item>
+    <item type="material" >
+      <file name="Dithered_Stripes.material" />
+    </item>
+    <item type="material" >
+      <file name="Sillouette.material" />
+    </item>
+    <item type="material" >
+      <file name="Dithered_2.material" />
+    </item>
+    <item type="material" >
+      <file name="Black.material" />
+    </item>
+    <item type="material" >
+      <file name="Concrete_Brick.material" />
+    </item>
+    <item type="material" >
+      <file name="Screen_3.material" />
+    </item>
+    <item type="material" >
+      <file name="Wooden_Floor_Polished.material" />
+    </item>
+    <item type="material" >
+      <file name="Brick_Metal.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Ball_8.material" />
+    </item>
+    <item type="material" >
+      <file name="Screen_2.material" />
+    </item>
+    <item type="material" >
+      <file name="Beige_Gloss.material" />
+    </item>
+    <item type="material" >
+      <file name="White_Gloss.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Ball_4.material" />
+    </item>
+    <item type="material" >
+      <file name="Burgundy.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Ball_7.material" />
+    </item>
+    <item type="material" >
+      <file name="Wooden_Floor_Light_Polished.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Ball_6.material" />
+    </item>
+    <item type="material" >
+      <file name="Screen_1.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Ball_5.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Ball_3.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Ball_2.material" />
+    </item>
+    <item type="material" >
+      <file name="Dithered_1.material" />
+    </item>
+    <item type="material" >
+      <file name="Bowling_Ball_1.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourBackground b="0.050876" g="0.050876" r="0.050876" />
+  </environment>
+</scene>
