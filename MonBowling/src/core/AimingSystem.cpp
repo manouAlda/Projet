@@ -29,18 +29,15 @@ AimingSystem::AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera)
 }
 
 AimingSystem::~AimingSystem(){
-    // Nettoyage des overlays
     if (gameOverlay) {
         Ogre::OverlayManager::getSingleton().destroy(gameOverlay);
     }
     
-    // Nettoyage des nœuds de scène
     if (arrowNode) {
         arrowNode->detachAllObjects();
         scene->destroySceneNode(arrowNode);
     }
     
-    // Nettoyage des entités
     if (arrowEntity) {
         scene->destroyEntity(arrowEntity);
     }
@@ -57,21 +54,7 @@ void AimingSystem::initialize(){
 
 void AimingSystem::createAimingArrow(){
     arrowEntity = scene->createEntity("AimingArrow", "cone.mesh");
-    
-    // Création d'un matériau pour la flèche
-    Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create(
-        "AimingArrowMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    
-    // Obtention de la technique et du pass
-    Ogre::Technique* technique = material->getTechnique(0);
-    Ogre::Pass* pass = technique->getPass(0);
-    
-    pass->setDiffuse(Ogre::ColourValue(1.0f, 0.5f, 0.0f, 0.7f));  // Orange semi-transparent
-    pass->setSpecular(Ogre::ColourValue(0.5f, 0.5f, 0.5f));
-    pass->setShininess(30);
-    pass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-    pass->setDepthWriteEnabled(false);
-    
+
     arrowEntity->setMaterialName("AimingArrowMaterial");
     
     // Création du nœud pour la flèche
@@ -86,7 +69,6 @@ void AimingSystem::createAimingArrow(){
 }
 
 void AimingSystem::createPowerBar(){
-    // Création de l'overlay pour l'interface utilisateur
     Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
     
     if (!gameOverlay) {
@@ -97,6 +79,7 @@ void AimingSystem::createPowerBar(){
     powerBarContainer = static_cast<Ogre::OverlayContainer*>(
         overlayManager.createOverlayElement("Panel", "PowerBarContainer"));
     powerBarContainer->setMetricsMode(Ogre::GMM_PIXELS);
+
     powerBarContainer->setPosition(20, 100);
     powerBarContainer->setDimensions(30, 200);
       
@@ -105,47 +88,11 @@ void AimingSystem::createPowerBar(){
     mPowerBarBackground->setMetricsMode(Ogre::GMM_PIXELS);
     mPowerBarBackground->setPosition(0, 0);
     mPowerBarBackground->setDimensions(30, 200);
-    
-    // Création du matériau pour l'arrière-plan
-    Ogre::MaterialPtr backgroundMaterial = Ogre::MaterialManager::getSingleton().create(
-        "PowerBarBackgroundMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    
-    // Obtention de la technique et du pass
-    Ogre::Technique* backgroundTechnique = backgroundMaterial->getTechnique(0);
-    Ogre::Pass* backgroundPass = backgroundTechnique->getPass(0);
-    
-    //backgroundPass->setDiffuse(Ogre::ColourValue(1.0f, 0.0f, 0.0f));
-    //backgroundPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-    //backgroundPass->setDepthWriteEnabled(false);
 
-    mPowerBarBackground->setMaterialName("PowerBarBackgroundMaterial");
-/*
-    // Création de la barre de remplissage
-    mPowerBarFill = overlayManager.createOverlayElement("Panel", "PowerBarFill");
-    mPowerBarFill->setMetricsMode(Ogre::GMM_PIXELS);
-    mPowerBarFill->setPosition(0, 200);  // Commence en bas
-    mPowerBarFill->setDimensions(30, 0);  // Hauteur initiale à 0
-    
-    // Création du matériau pour la barre de remplissage
-    Ogre::MaterialPtr fillMaterial = Ogre::MaterialManager::getSingleton().create(
-        "PowerBarFillMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    
-    // Obtention de la technique et du pass
-    Ogre::Technique* fillTechnique = fillMaterial->getTechnique(0);
-    Ogre::Pass* fillPass = fillTechnique->getPass(0);
+    mPowerBarBackground->setMaterialName("Aiming/PowerBarBackgroundMaterial");
 
-    fillPass->setDiffuse(Ogre::ColourValue(1.0f, 0.0f, 0.0f, 0.0f));  // Rouge vif
-    fillPass->setAmbient(1.0f, 0.0f, 0.0f); // Ajouter l'ambiante aussi pour être sûr
-    fillPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-    fillPass->setDepthWriteEnabled(false);
-    // !!! Ajout : Désactiver l'éclairage explicitement pour les overlays !!!
-    fillPass->setLightingEnabled(false);
-
-    mPowerBarFill->setMaterialName("PowerBarFillMaterial");
-*/    
     // Assemblage de la barre de puissance
     powerBarContainer->addChild(mPowerBarBackground);
-    //powerBarContainer->addChild(mPowerBarFill);
     
     // Ajout à l'overlay principal
     gameOverlay->add2D(powerBarContainer);
@@ -153,9 +100,6 @@ void AimingSystem::createPowerBar(){
     // Masquer la barre de puissance initialement
     //powerBarContainer->hide();
     
-    //mPowerBarFill->setDimensions(30, 50); // Afficher une hauteur de 50 pixels
-    //mPowerBarFill->setPosition(0, 200 - 50); // Ajuster la position y
-
     // Affichage de l'overlay
     gameOverlay->setZOrder(100);
     gameOverlay->show();
@@ -177,18 +121,6 @@ void AimingSystem::createSpinEffectControl(){
     mSpinEffectControl->setMetricsMode(Ogre::GMM_PIXELS);
     mSpinEffectControl->setPosition(0, 0);
     mSpinEffectControl->setDimensions(200, 30);
-    
-    // Création du matériau pour l'arrière-plan du curseur
-    Ogre::MaterialPtr spinBackgroundMaterial = Ogre::MaterialManager::getSingleton().create(
-        "SpinEffectBackgroundMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    
-    // Obtention de la technique et du pass
-    Ogre::Technique* spinBackgroundTechnique = spinBackgroundMaterial->getTechnique(0);
-    Ogre::Pass* spinBackgroundPass = spinBackgroundTechnique->getPass(0);
-    
-    spinBackgroundPass->setDiffuse(Ogre::ColourValue(0.2f, 0.2f, 0.2f, 0.8f));
-    spinBackgroundPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-    spinBackgroundPass->setDepthWriteEnabled(false);
 
     mSpinEffectControl->setMaterialName("SpinEffectBackgroundMaterial");
     
@@ -197,18 +129,6 @@ void AimingSystem::createSpinEffectControl(){
     mSpinEffectIndicator->setMetricsMode(Ogre::GMM_PIXELS);
     mSpinEffectIndicator->setPosition(95, 0);  // Position centrale
     mSpinEffectIndicator->setDimensions(10, 30);
-    
-    // Création du matériau pour l'indicateur du curseur
-    Ogre::MaterialPtr spinIndicatorMaterial = Ogre::MaterialManager::getSingleton().create(
-        "SpinEffectIndicatorMaterial", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    
-    // Obtention de la technique et du pass
-    Ogre::Technique* spinIndicatorTechnique = spinIndicatorMaterial->getTechnique(0);
-    Ogre::Pass* spinIndicatorPass = spinIndicatorTechnique->getPass(0);
-    
-    spinIndicatorPass->setDiffuse(Ogre::ColourValue(1.0f, 0.0f, 0.0f, 0.8f));  // Rouge
-    spinIndicatorPass->setSceneBlending(Ogre::SBT_TRANSPARENT_ALPHA);
-    spinIndicatorPass->setDepthWriteEnabled(false);
 
     mSpinEffectIndicator->setMaterialName("SpinEffectIndicatorMaterial");
     
@@ -220,8 +140,7 @@ void AimingSystem::createSpinEffectControl(){
     gameOverlay->add2D(spinContainer);
 }
 
-void AimingSystem::update(float deltaTime)
-{
+void AimingSystem::update(float deltaTime){
     if (mAimingActive) {
         updateAimingArrow();
         
@@ -243,48 +162,10 @@ void AimingSystem::updateAimingArrow(){
     }
 }
 
-/*void AimingSystem::updatePowerBar(float deltaTime)
-{
-    // Mise à jour de la barre de puissance
-    if (mPowerBarActive && mPowerBarFill) {
-        // Mise à jour de la valeur de puissance
-        mPowerValue += mPowerDirection * mPowerSpeed * deltaTime;
-        
-        // Inversion de la direction si les limites sont atteintes
-        if (mPowerValue >= MAX_POWER) {
-            mPowerValue = MAX_POWER;
-            mPowerDirection = -1;
-        } else if (mPowerValue <= MIN_POWER) {
-            mPowerValue = MIN_POWER;
-            mPowerDirection = 1;
-        }
-        
-        // Mise à jour de l'affichage de la barre
-        float fillHeight = (mPowerValue / MAX_POWER) * 200.0f;
-        mPowerBarFill->setPosition(0, 200.0f - fillHeight);
-        mPowerBarFill->setDimensions(30, fillHeight);
-        
-        // Changement de couleur en fonction de la puissance
-        Ogre::MaterialPtr fillMaterial = Ogre::MaterialManager::getSingleton().getByName("PowerBarFillMaterial");
-        if (fillMaterial) {
-            // Obtention de la technique et du pass
-            Ogre::Pass* pass = fillMaterial->getTechnique(0)->getPass(0);
-            
-            // Transition de vert à rouge en fonction de la puissance
-            float ratio = mPowerValue / MAX_POWER;
-            pass->setDiffuse(Ogre::ColourValue(ratio, 1.0f - ratio, 0.0f, 0.8f));
-        }
-    }
-}*/
-
 void AimingSystem::updatePowerBar(float deltaTime){
-    // ...
     if (mPowerBarActive && mPowerBarFill) {
-        // Mise à jour de la valeur de puissance
         mPowerValue += mPowerDirection * mPowerSpeed * deltaTime;
         
-        // Inversion de la direction si les limites sont atteintes
-        // !!! PROBLÈME POTENTIEL ICI !!!
         if (mPowerValue >= MAX_POWER) { 
             mPowerValue = MAX_POWER;
             mPowerDirection = -1;
@@ -293,26 +174,21 @@ void AimingSystem::updatePowerBar(float deltaTime){
             mPowerDirection = 1;
         }
         
-        // Mise à jour de l'affichage de la barre
-        // !!! PROBLÈME POTENTIEL ICI !!!
         float fillHeight = (mPowerValue / MAX_POWER) * 200.0f; 
         mPowerBarFill->setPosition(0, 200.0f - fillHeight);
         mPowerBarFill->setDimensions(30, fillHeight);
-        
+     
         // Changement de couleur en fonction de la puissance
         Ogre::MaterialPtr fillMaterial = Ogre::MaterialManager::getSingleton().getByName("PowerBarFillMaterial");
         if (fillMaterial) {
             Ogre::Pass* pass = fillMaterial->getTechnique(0)->getPass(0);
-            // !!! PROBLÈME POTENTIEL ICI !!!
             float ratio = mPowerValue / MAX_POWER; 
             pass->setDiffuse(Ogre::ColourValue(ratio, 1.0f - ratio, 0.0f, 0.8f));
         }
     }
 }
 
-void AimingSystem::updateSpinEffectControl()
-{
-    // Mise à jour de la position de l'indicateur d'effet
+void AimingSystem::updateSpinEffectControl(){
     if (mSpinEffectIndicator) {
         // Conversion de la valeur d'effet (-1.0 à 1.0) en position (0 à 200)
         float position = ((mSpinEffect + 1.0f) / 2.0f) * 190.0f;

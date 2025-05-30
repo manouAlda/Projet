@@ -1,0 +1,89 @@
+material AimingArrowMaterial
+{
+    technique
+    {
+        pass
+        {
+            lighting off // Très important pour l'UI
+            scene_blend alpha_blend // Pour la transparence
+            depth_write off // Pour la transparence
+
+            ambient 1.0 0.5 0.0 0.7 // Couleur ambiante pour visibilité sans lumière
+            diffuse 1.0 0.5 0.0 0.7 // Couleur principale (Orange semi-transparent)
+            specular 0.5 0.5 0.5 0.7 // Reflet spéculaire (peut être omis pour l'UI)
+            emissive 0.0 0.0 0.0 // Pas d'auto-illumination
+        }
+    }
+}
+
+material Aiming/PowerBarBackgroundMaterial
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend alpha_blend
+            depth_write off
+
+            ambient 1.0 0.0 0.0 0.5 
+            diffuse 1.0 0.0 0.0 0.5
+        }
+    }
+}
+
+material PowerBarFillMaterial
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend alpha_blend
+            depth_write off
+
+            // Vert semi-transparent (couleur initiale, peut être changée en C++ via setColour)
+            // Note: Changer la couleur via C++ sur un matériau défini en script est possible
+            // mais moins direct que de modifier un matériau créé dynamiquement.
+            // Une autre approche est d'avoir plusieurs matériaux (vert, jaune, rouge) 
+            // et de changer le materialName en C++.
+            ambient 0.0 1.0 0.0 0.8
+            diffuse 0.0 1.0 0.0 0.8 
+        }
+    }
+}
+
+material SpinEffectBackgroundMaterial
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend alpha_blend
+            depth_write off
+
+            // Gris foncé semi-transparent
+            ambient 0.2 0.2 0.2 0.8
+            diffuse 0.2 0.2 0.2 0.8
+        }
+    }
+}
+
+material SpinEffectIndicatorMaterial
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            scene_blend alpha_blend
+            depth_write off
+
+            // Rouge semi-transparent
+            ambient 1.0 0.0 0.0 0.8
+            diffuse 1.0 0.0 0.0 0.8
+        }
+    }
+}
+

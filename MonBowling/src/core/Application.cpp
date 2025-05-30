@@ -5,7 +5,7 @@
 #include "../../include/core/GameManager.h"
 
 Application::Application()
-    : OgreBites::ApplicationContext("Crazy Bowling !!!"),
+    : OgreBites::ApplicationContext("Crazy Bowling !!"),
       scene(nullptr),
       mCamera(nullptr),
       mCameraNode(nullptr),
@@ -14,6 +14,56 @@ Application::Application()
 {}
 
 Application::~Application(){}
+
+void Application::checkFMOD(FMOD_RESULT result) {
+    if (result != FMOD_OK) {
+        std::cerr << "FMOD error! (" << result << ") " << FMOD_ErrorString(result) << std::endl;
+        exit(-1);
+    }
+}
+
+void Application::initAudio() {
+    checkFMOD(FMOD::System_Create(&fmodSystem));
+    checkFMOD(fmodSystem->init(512, FMOD_INIT_NORMAL, 0));
+
+    // Charger un son (WAV, MP3, etc.)
+    checkFMOD(fmodSystem->createSound("bowling-strike.wav", FMOD_DEFAULT, 0, &sound));
+}
+
+void Application::playSound() {
+    checkFMOD(fmodSystem->playSound(sound, 0, false, &channel));
+}
+
+void Application::updateAudio() {
+    fmodSystem->update();
+}
+
+void Application::cleanAudio() {
+    sound->release();
+    fmodSystem->close();
+    fmodSystem->release();
+}
+
+void Application::initFMOD() {
+    checkFMOD(FMOD::System_Create(&fmodSystem));
+    checkFMOD(fmodSystem->init(512, FMOD_INIT_NORMAL, nullptr));
+
+    // Charger le son en mode boucle
+    checkFMOD(fmodSystem->createSound("bowling-strike.wav", FMOD_LOOP_NORMAL, 0, &sound));
+    
+    // Jouer le son en boucle immédiatement
+    checkFMOD(fmodSystem->playSound(sound, nullptr, false, &channel));
+}
+
+void Application::updateFMOD() {
+    fmodSystem->update();
+}
+
+void Application::shutdownFMOD() {
+    sound->release();
+    fmodSystem->close();
+    fmodSystem->release();
+}
 
 void Application::setup(){
     // Configuration de base
@@ -33,7 +83,7 @@ void Application::setup(){
     mCameraNode = scene->getRootSceneNode()->createChildSceneNode();
     mCamera = scene->createCamera("MainCamera");
     mCameraNode->attachObject(mCamera);
-    mCameraNode->setPosition(Ogre::Vector3(0.0f, 1.0f, -11.0f));
+    mCameraNode->setPosition(Ogre::Vector3(0.0f, 2.0f, -13.0f));
     mCameraNode->lookAt(Ogre::Vector3(-3, 1, 80), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
     mCameraNode->yaw(Ogre::Degree(180));
     
@@ -48,9 +98,6 @@ void Application::setup(){
     }
     std::cout << "Overlays activés pour le viewport : " << vp->getOverlaysEnabled() << std::endl;
     mCamera->setAspectRatio(Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
-    
-    // Initialisation du contrôleur de caméra
-    mCameraController = std::make_unique<CameraController>(mCamera, scene);
 
     // Configuration de la physique AVANT la création de la scène
     setupPhysics();
@@ -99,19 +146,6 @@ void Application::createScene(){
     mBall->create(ballPosition);
 }
 
-void Application::createDynamicObjects(){
-    // Création d'objets individuels à des positions plus visibles
-    mObjectFactory->createDynamicBox(Ogre::Vector3(10, 5, 0), "Box1");
-    mObjectFactory->createDynamicBox(Ogre::Vector3(3, 7, 0), "Box2");
-    mObjectFactory->createDynamicBox(Ogre::Vector3(-3, 9, 0), "Box3");
-    
-    mObjectFactory->createDynamicSphere(Ogre::Vector3(5, 6, 0), "Sphere1");
-    mObjectFactory->createDynamicSphere(Ogre::Vector3(-5, 8, 0), "Sphere2");
-    
-    // Création d'une pile plus visible
-    mObjectFactory->createStack(5, Ogre::Vector3(10, 0, 0));
-}
-
 void Application::setupPhysics(){
     // Initialisation du gestionnaire de physique (Singleton)
     PhysicsManager::getInstance()->initialize(scene);
@@ -138,10 +172,6 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt){
         mLane->update(evt.timeSinceLastFrame);
     }
 
-    // Mise à jour du contrôleur de caméra
-    mCameraController->update(evt);
-    
-   
     // Gestion des touches pour déplacer la caméra
     const Ogre::Real moveSpeed = 200.0f;
     Ogre::Vector3 camMove = Ogre::Vector3::ZERO;
@@ -154,20 +184,20 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt){
         camMove.x -= moveSpeed * evt.timeSinceLastFrame;
     if (mKeyD)
         camMove.x += moveSpeed * evt.timeSinceLastFrame;
-/*   
-    if (mKeySpace)
-        camMove.y += moveSpeed * evt.timeSinceLastFrame;
-*/
+
     if (mKeyC)
         camMove.y -= moveSpeed * evt.timeSinceLastFrame;
     
     mCameraNode->translate(camMove, Ogre::Node::TS_LOCAL);
-    
+
+    updateFMOD();
+
     return true;
 }
 
 bool Application::keyPressed(const OgreBites::KeyboardEvent& evt){
     if (evt.keysym.sym == OgreBites::SDLK_ESCAPE){
+        shutdownFMOD();
         getRoot()->queueEndRendering();
         return true;
     }
@@ -220,9 +250,6 @@ bool Application::mousePressed(const OgreBites::MouseButtonEvent& evt) {
     if (GameManager::getInstance()->handleMousePress(evt)) {
         return true;
     }
-    
-    // Sinon, transmission au contrôleur de caméra
-    mCameraController->handleMouseClick(evt);
     return true;
 }
 

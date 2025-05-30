@@ -14,17 +14,15 @@
 #include <OgreStringConverter.h>
 #include <OgreTimer.h>
 
-// Pattern State pour les états du jeu
 enum class GameState {
-    AIMING,     // Visée en cours
-    POWER,      // Sélection de la puissance
-    ROLLING,    // Boule en mouvement
-    SCORING,    // Calcul du score
-    RESET,       // Réinitialisation
-    GAME_OVER // Fin de la partie
+    AIMING,     
+    POWER,      
+    ROLLING,    
+    SCORING,    
+    RESET,      
+    GAME_OVER 
 };
 
-// Classe principale pour la gestion du jeu (pattern Singleton)
 class GameManager {
     public:
         static GameManager* getInstance();
@@ -71,4 +69,4 @@ class GameManager {
         std::string gameStateToString(GameState state); // Ajout de la déclaration
     };
 
-#endif // GAMEMANAGER_H
+#endif 

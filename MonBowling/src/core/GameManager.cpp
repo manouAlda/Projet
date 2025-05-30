@@ -1,9 +1,8 @@
 #include "../../include/core/GameManager.h"
-#include "../../include/states/ScoreManager.h" // Include ScoreManager header
+#include "../../include/states/ScoreManager.h" 
 #include <OgreLogManager.h>
 #include <OgreStringConverter.h>
 
-// Initialisation de l'instance statique à nullptr
 GameManager* GameManager::mInstance = nullptr;
 
 GameManager* GameManager::getInstance() {
@@ -14,12 +13,6 @@ GameManager* GameManager::getInstance() {
     return mInstance;
 }
 
-// Assurez-vous que ces variables membres sont déclarées dans GameManager.h
-// int mCurrentFrame;
-// int mCurrentRollInFrame;
-// int mPinsKnockedFirstRoll;
-// const int MAX_FRAMES = 10;
-
 GameManager::GameManager()
     : mGameState(GameState::AIMING),
       mSceneMgr(nullptr),
@@ -28,16 +21,15 @@ GameManager::GameManager()
       mLane(nullptr),
       mCurrentFrame(1),
       mCurrentRollInFrame(1),
-      mPinsKnockedFirstRoll(0) // Initialisation des nouvelles variables
+      mPinsKnockedFirstRoll(0) 
 {
 }
 
-GameManager::~GameManager() {
-}
+GameManager::~GameManager() {}
 
 void GameManager::initialize(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera, 
                             BowlingBall* ball, BowlingLane* lane) {
-    // Stockage des références
+    
     mSceneMgr = sceneMgr;
     mCamera = camera;
     mBall = ball;
@@ -48,7 +40,7 @@ void GameManager::initialize(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera,
     mAimingSystem->initialize();
     
     mPinDetector = std::make_unique<PinDetector>();
-    // Important: S'assurer que PinDetector a accès aux quilles
+   
     if (mLane) {
         mPinDetector->initialize(mLane->getPins()); 
     } else {
@@ -58,17 +50,14 @@ void GameManager::initialize(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera,
     mCameraFollower = std::make_unique<CameraFollower>(camera, ball);
     mCameraFollower->initialize();
     
-    // Initialisation du gestionnaire de score
     ScoreManager::getInstance()->initialize();
     
-    // Réinitialisation complète pour un nouveau jeu
     resetGame(); 
     
     Ogre::LogManager::getSingleton().logMessage("GameManager initialisé pour un nouveau jeu.");
 }
 
 void GameManager::update(float deltaTime) {
-    // Mise à jour en fonction de l'état actuel
     switch (mGameState) {
         case GameState::AIMING:
             handleAimingState(deltaTime);
@@ -82,22 +71,15 @@ void GameManager::update(float deltaTime) {
         case GameState::SCORING:
             handleScoringState(deltaTime);
             break;
-        // case GameState::RESET: // L'ancien état RESET n'est plus utilisé
-        //    handleResetState(deltaTime);
-        //    break;
-        case GameState::GAME_OVER: // Nouvel état potentiel
-            // Gérer l'affichage de fin de partie, etc.
+        case GameState::GAME_OVER: 
             break;
     }
     
-    // Mises à jour continues des systèmes
     if (mGameState != GameState::GAME_OVER) {
         if (mAimingSystem) {
             mAimingSystem->update(deltaTime);
         }
         if (mPinDetector) {
-            // PinDetector pourrait avoir besoin d'une mise à jour continue 
-            // si la détection n'est pas instantanée
             mPinDetector->update(deltaTime); 
         }
         if (mCameraFollower) {
@@ -117,11 +99,6 @@ bool GameManager::handleMouseMove(const OgreBites::MouseMotionEvent& evt) {
 bool GameManager::handleMousePress(const OgreBites::MouseButtonEvent& evt) {
     if (evt.button == OgreBites::BUTTON_LEFT) {
         if (mGameState == GameState::AIMING && mAimingSystem) {
-            // // Optionnel: Bouton reset pendant la visée?
-            // if (evt.x >= 20 && evt.x <= 120 && evt.y >= 320 && evt.y <= 360) {
-            //     resetGame();
-            //     return true;
-            // }
             changeState(GameState::POWER);
             return true;
         } else if (mGameState == GameState::POWER && mAimingSystem) {
@@ -159,9 +136,9 @@ void GameManager::launchBall() {
     }
     
     Ogre::Vector3 direction = mAimingSystem->getAimingDirection();
-    float power = mAimingSystem->getPower(); // Utiliser la puissance calculée
+    float power = mAimingSystem->getPower(); 
     float spin = mAimingSystem->getSpinEffect();
-    // power = 30.0f; // Supprimer la valeur codée en dur
+    //power = 25.0f; 
     
     mBall->launch(direction, power, spin);
     
@@ -169,12 +146,9 @@ void GameManager::launchBall() {
         mCameraFollower->startFollowing();
     }
     
-    // Prépare la détection pour ce lancer
     if (mPinDetector) {
-        // Il faut peut-être réinitialiser l'état interne du détecteur avant chaque lancer
-        // dépend de l'implémentation de PinDetector::reset()
-        // mPinDetector->reset(); 
-        mPinDetector->startDetection(); // S'assurer que la détection est active
+        //mPinDetector->reset(); 
+        mPinDetector->startDetection(); 
     }
 
     changeState(GameState::ROLLING);
@@ -182,7 +156,6 @@ void GameManager::launchBall() {
     Ogre::LogManager::getSingleton().logMessage("Frame " + Ogre::StringConverter::toString(mCurrentFrame) + ", Lancer " + Ogre::StringConverter::toString(mCurrentRollInFrame) + ": Boule lancée.");
 }
 
-// Réinitialise complètement le jeu pour une nouvelle partie
 void GameManager::resetGame() {
     Ogre::LogManager::getSingleton().logMessage("Réinitialisation complète du jeu.");
     mCurrentFrame = 1;
@@ -190,14 +163,14 @@ void GameManager::resetGame() {
     mPinsKnockedFirstRoll = 0;
 
     if (mBall) { mBall->reset(); }
-    if (mLane) { mLane->resetPins(); } // Remet toutes les quilles
+    if (mLane) { mLane->resetPins(); } 
     if (mAimingSystem) { mAimingSystem->resetAiming(); }
-    if (mPinDetector) { mPinDetector->reset(); } // Réinitialise l'état du détecteur
+    if (mPinDetector) { mPinDetector->reset(); } 
     if (mCameraFollower) { mCameraFollower->stopFollowing(); }
     
-    ScoreManager::getInstance()->resetScore(); // Réinitialise le score
+    ScoreManager::getInstance()->resetScore(); 
     
-    changeState(GameState::AIMING); // Prêt à viser pour la première frame
+    changeState(GameState::AIMING); 
 }
 
 GameState GameManager::getGameState() const {
@@ -210,7 +183,7 @@ CameraFollower* GameManager::getCameraFollower() const {
 
 void GameManager::changeState(GameState newState) {
     GameState oldState = mGameState;
-    if (oldState == newState) return; // Éviter les transitions inutiles
+    if (oldState == newState) return; 
 
     mGameState = newState;
     Ogre::LogManager::getSingleton().logMessage("Changement d'état : " + 
@@ -218,17 +191,15 @@ void GameManager::changeState(GameState newState) {
                                                " -> " + 
                                                gameStateToString(newState));
 
-    // Actions spécifiques à l'entrée dans le nouvel état
     switch (newState) {
         case GameState::AIMING:
             if (mAimingSystem) {
                 mAimingSystem->setAimingActive(true);
-                mAimingSystem->resetAiming(); // Réinitialiser la visée pour le nouveau lancer
+                mAimingSystem->resetAiming(); 
             }
             if (mCameraFollower) {
-                 mCameraFollower->resetToStartPosition(); // Ramener la caméra à la position de départ
+                 mCameraFollower->resetToStartPosition(); 
             }
-            // S'assurer que la boule est à sa position de départ
             if (mBall) {
                 mBall->reset();
             }
@@ -242,20 +213,15 @@ void GameManager::changeState(GameState newState) {
             if (mAimingSystem) {
                 mAimingSystem->setAimingActive(false);
             }
-            // La détection est démarrée dans launchBall
             break;
         case GameState::SCORING:
-            // Le traitement se fait dans handleScoringState
             if (mCameraFollower) {
-                mCameraFollower->stopFollowing(); // Arrêter le suivi caméra
+                mCameraFollower->stopFollowing(); 
             }
             break;
         case GameState::GAME_OVER:
              Ogre::LogManager::getSingleton().logMessage("Partie terminée! Score final: " + Ogre::StringConverter::toString(ScoreManager::getInstance()->getCurrentScore()));
-             // Afficher le score final, proposer de rejouer, etc.
             break;
-        // case GameState::RESET: // N'est plus utilisé
-        //    break;
     }
 }
 
@@ -347,7 +313,6 @@ void GameManager::handleScoringState(float deltaTime) {
     }
 }
 
-// Fonction utilitaire pour convertir l'état en string (pour les logs)
 // À ajouter dans le .h ou ici si static
 std::string GameManager::gameStateToString(GameState state) {
     switch (state) {
@@ -360,11 +325,4 @@ std::string GameManager::gameStateToString(GameState state) {
         default: return "UNKNOWN";
     }
 }
-
-// Retirer l'ancienne fonction handleResetState si elle existe encore
-/*
-void GameManager::handleResetState(float deltaTime) {
-    // Cette logique est maintenant intégrée dans handleScoringState
-}
-*/
 

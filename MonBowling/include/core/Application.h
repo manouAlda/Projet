@@ -15,10 +15,13 @@
 #include <iostream>
 #include <OgreTimer.h>
 
+#include <fmod.hpp>
+#include <fmod_errors.h>
+#include <OgreWindowEventUtilities.h>
+
 #include "../objects/BowlingBall.h"
 #include "../objects/BowlingLane.h"
 #include "../objects/ObjectFactory.h"
-#include "../managers/CameraController.h"
 #include "GameManager.h"
 
 class Application : public OgreBites::ApplicationContext, public OgreBites::InputListener {
@@ -30,9 +33,6 @@ class Application : public OgreBites::ApplicationContext, public OgreBites::Inpu
         Ogre::Camera* mCamera;
         Ogre::SceneNode* mCameraNode;
         Ogre::OverlaySystem* overlaySystem;
-        
-        // Contrôleur de caméra
-        std::unique_ptr<CameraController> mCameraController;
         
         // Factory d'objets
         std::unique_ptr<ObjectFactory> mObjectFactory;
@@ -48,6 +48,10 @@ class Application : public OgreBites::ApplicationContext, public OgreBites::Inpu
 
         Ogre::Timer mCascadeTimer;
 
+        FMOD::System* fmodSystem = nullptr;
+        FMOD::Sound* sound = nullptr;
+        FMOD::Channel* channel = nullptr;
+
     public:
         Application();
         virtual ~Application();
@@ -57,9 +61,6 @@ class Application : public OgreBites::ApplicationContext, public OgreBites::Inpu
         
         // Création de la scène
         void createScene();
-        
-        // Création d'objets dynamiques
-        void createDynamicObjects();
         
         // Configuration de la physique
         void setupPhysics();
@@ -75,6 +76,16 @@ class Application : public OgreBites::ApplicationContext, public OgreBites::Inpu
         virtual bool mousePressed(const OgreBites::MouseButtonEvent& evt) override;
         virtual bool mouseMoved(const OgreBites::MouseMotionEvent& evt) override;
         virtual bool mouseReleased(const OgreBites::MouseButtonEvent& evt) override;
+
+        void checkFMOD(FMOD_RESULT result);
+        void initAudio();
+        void playSound();
+        void updateAudio();
+        void cleanAudio();
+        void initFMOD();
+        void updateFMOD();
+        void shutdownFMOD();
+        
 
 };
 
