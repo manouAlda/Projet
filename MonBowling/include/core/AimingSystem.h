@@ -78,7 +78,7 @@ class AimingSystem {
         
         // Gestion des événements souris
         void handleMouseMove(const OgreBites::MouseMotionEvent& evt);
-        void handleMouseClick(const OgreBites::MouseButtonEvent& evt);
+        //void handleMouseClick(const OgreBites::MouseButtonEvent& evt);
         
         // Gestion de la visée
         void setAimingDirection(const Ogre::Vector3& direction);
@@ -105,8 +105,6 @@ class AimingSystem {
         Ogre::SceneNode* getArrowNode() const;
         Ogre::OverlayElement* getPowerBarElement() const;
         Ogre::OverlayElement* getSpinEffectElement() const;
-        Ogre::OverlayElement* getCancelButtonElement() const;
-
 };
 
 #endif // AIMINGSYSTEM_H

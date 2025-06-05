@@ -21,12 +21,12 @@ void BowlingPin::create(const Ogre::Vector3& position, int pinIndex) {
     std::string entityName = "BowlingPinEntity_" + std::to_string(pinIndex);
 
     mPinNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(nodeName);
-    mPinEntity = mSceneMgr->createEntity(entityName, "pin.mesh"); 
+    mPinEntity = mSceneMgr->createEntity(entityName, "BezierCurve.001.mesh"); 
     mPinNode->attachObject(mPinEntity);
     mPinNode->setPosition(position);
     
-    float scale = 1.0f;  
-    mPinNode->setScale(scale, scale, scale);
+    float scale = 0.1f;  
+    //mPinNode->setScale(scale, scale, scale);
     
     mPinBody = PhysicsManager::getInstance()->getDynamicsWorld()->addRigidBody(
         1.5f, mPinEntity, Ogre::Bullet::CT_HULL);  

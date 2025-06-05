@@ -138,7 +138,7 @@ void GameManager::launchBall() {
     Ogre::Vector3 direction = mAimingSystem->getAimingDirection();
     float power = mAimingSystem->getPower(); 
     float spin = mAimingSystem->getSpinEffect();
-    //power = 25.0f; 
+    power = 15.0f; 
     
     mBall->launch(direction, power, spin);
     
@@ -313,7 +313,6 @@ void GameManager::handleScoringState(float deltaTime) {
     }
 }
 
-// À ajouter dans le .h ou ici si static
 std::string GameManager::gameStateToString(GameState state) {
     switch (state) {
         case GameState::AIMING: return "AIMING";

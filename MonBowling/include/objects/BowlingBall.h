@@ -18,7 +18,7 @@ class BowlingBall {
         // Propriétés de la boule
         float mRadius;
         float mMass;
-        float scale= 0.4f;
+        float scale= 0.015f;
         Ogre::ColourValue mColor;
         
         // État de la boule
@@ -43,7 +43,6 @@ class BowlingBall {
         Ogre::Vector3 getVelocity() const;
         
         // Modificateurs
-        void setColor(const Ogre::ColourValue& color);
         void setMass(float mass);
         void setFriction(float friction);
         void setRestitution(float restitution);

@@ -1,6 +1,5 @@
 #include "../../include/core/Application.h"
 #include "../../include/managers/PhysicsManager.h" 
-#include "../../include/objects/ObjectFactory.h"
 #include "../../include/objects/BowlingLane.h"
 #include "../../include/core/GameManager.h"
 
@@ -14,56 +13,6 @@ Application::Application()
 {}
 
 Application::~Application(){}
-
-void Application::checkFMOD(FMOD_RESULT result) {
-    if (result != FMOD_OK) {
-        std::cerr << "FMOD error! (" << result << ") " << FMOD_ErrorString(result) << std::endl;
-        exit(-1);
-    }
-}
-
-void Application::initAudio() {
-    checkFMOD(FMOD::System_Create(&fmodSystem));
-    checkFMOD(fmodSystem->init(512, FMOD_INIT_NORMAL, 0));
-
-    // Charger un son (WAV, MP3, etc.)
-    checkFMOD(fmodSystem->createSound("bowling-strike.wav", FMOD_DEFAULT, 0, &sound));
-}
-
-void Application::playSound() {
-    checkFMOD(fmodSystem->playSound(sound, 0, false, &channel));
-}
-
-void Application::updateAudio() {
-    fmodSystem->update();
-}
-
-void Application::cleanAudio() {
-    sound->release();
-    fmodSystem->close();
-    fmodSystem->release();
-}
-
-void Application::initFMOD() {
-    checkFMOD(FMOD::System_Create(&fmodSystem));
-    checkFMOD(fmodSystem->init(512, FMOD_INIT_NORMAL, nullptr));
-
-    // Charger le son en mode boucle
-    checkFMOD(fmodSystem->createSound("bowling-strike.wav", FMOD_LOOP_NORMAL, 0, &sound));
-    
-    // Jouer le son en boucle immédiatement
-    checkFMOD(fmodSystem->playSound(sound, nullptr, false, &channel));
-}
-
-void Application::updateFMOD() {
-    fmodSystem->update();
-}
-
-void Application::shutdownFMOD() {
-    sound->release();
-    fmodSystem->close();
-    fmodSystem->release();
-}
 
 void Application::setup(){
     // Configuration de base
@@ -83,8 +32,8 @@ void Application::setup(){
     mCameraNode = scene->getRootSceneNode()->createChildSceneNode();
     mCamera = scene->createCamera("MainCamera");
     mCameraNode->attachObject(mCamera);
-    mCameraNode->setPosition(Ogre::Vector3(0.0f, 2.0f, -13.0f));
-    mCameraNode->lookAt(Ogre::Vector3(-3, 1, 80), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
+    mCameraNode->setPosition(Ogre::Vector3(0.0f, 3.0f, -18.0f));
+    mCameraNode->lookAt(Ogre::Vector3(-3.0f, 1.5f, 10.0f), Ogre::Node::TS_WORLD, Ogre::Vector3::UNIT_Z);
     mCameraNode->yaw(Ogre::Degree(180));
     
     mCamera->setNearClipDistance(1);
@@ -136,13 +85,13 @@ void Application::createScene(){
     
     // Création de la piste de bowling
     mLane = std::make_unique<BowlingLane>(scene);
-    mLane->create(Ogre::Vector3(0.0f, 0.5f, -7.5f));
+    mLane->create(Ogre::Vector3(0.0f, 0.4f, 0.0f));
 
     // Création de la boule de bowling
     mBall = std::make_unique<BowlingBall>(scene, "ball.mesh");
     
     // Position initiale de la boule (au début de la piste, légèrement surélevée)
-    Ogre::Vector3 ballPosition(0.0f, 0.25f, -7.5f); 
+    Ogre::Vector3 ballPosition(0.0f, 0.4f, -8.0f); 
     mBall->create(ballPosition);
 }
 
@@ -190,14 +139,18 @@ bool Application::frameRenderingQueued(const Ogre::FrameEvent& evt){
     
     mCameraNode->translate(camMove, Ogre::Node::TS_LOCAL);
 
-    updateFMOD();
+    // Afficher la position de la camera
+    Ogre::Vector3 camPos = mCameraNode->getPosition();
+    Ogre::LogManager::getSingleton().logMessage("Position de la caméra : " + 
+        Ogre::StringConverter::toString(camPos.x) + ", " + 
+        Ogre::StringConverter::toString(camPos.y) + ", " + 
+        Ogre::StringConverter::toString(camPos.z));
 
     return true;
 }
 
 bool Application::keyPressed(const OgreBites::KeyboardEvent& evt){
     if (evt.keysym.sym == OgreBites::SDLK_ESCAPE){
-        shutdownFMOD();
         getRoot()->queueEndRendering();
         return true;
     }

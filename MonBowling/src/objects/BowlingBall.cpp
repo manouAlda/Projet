@@ -30,7 +30,7 @@ void BowlingBall::create(const Ogre::Vector3& position) {
     mBallNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("BowlingBallNode");
     mBallNode->setPosition(position);
     
-    mBallEntity = mSceneMgr->createEntity("BowlingBallEntity", "ball.mesh");
+    mBallEntity = mSceneMgr->createEntity("BowlingBallEntity", "BowlingBall.mesh");
     mBallNode->attachObject(mBallEntity);
     
     mBallNode->setScale(scale, scale, scale);
@@ -141,20 +141,6 @@ Ogre::Vector3 BowlingBall::getVelocity() const {
         return Ogre::Vector3(velocity.x(), velocity.y(), velocity.z());
     }
     return Ogre::Vector3::ZERO;
-}
-
-void BowlingBall::setColor(const Ogre::ColourValue& color) {
-    mColor = color;
-    
-    // Mise à jour du matériau si l'entité existe déjà
-    if (mBallEntity) {
-        Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().getByName("BowlingBallMaterial");
-        if (!material) {
-            Ogre::Technique* technique = material->getTechnique(0);
-            Ogre::Pass* pass = technique->getPass(0);
-            pass->setDiffuse(mColor);
-        }
-    }
 }
 
 void BowlingBall::setMass(float mass) {

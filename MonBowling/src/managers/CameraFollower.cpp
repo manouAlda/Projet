@@ -34,9 +34,6 @@ void CameraFollower::update(float deltaTime) {
     
     if (mFollowing) {
         Ogre::Vector3 ballPosition = mBall->getPosition();
-        
-        // Calcul de la position cible de la caméra avec hauteur fixe
-        // Conserver uniquement le x et z de la boule, avec un y fixe à 10
         mTargetPosition = Ogre::Vector3(
             ballPosition.x,                
             0.5f,                         
@@ -109,16 +106,15 @@ void CameraFollower::setInitialPosition(const Ogre::Vector3& position) {
 void CameraFollower::resetToStartPosition() {
     if (mCameraNode) {
         // Position et orientation de départ
-        Ogre::Vector3 startPosition = Ogre::Vector3(0.0f, 1.0f, -11.0f);
+        Ogre::Vector3 startPosition = Ogre::Vector3(0.0f, 3.0f, -16.5f);
         //Ogre::Vector3 startPosition = Ogre::Vector3(15, 5, -85);
-        // Ogre::Quaternion startOrientation = Ogre::Quaternion(Ogre::Degree(-10), Ogre::Vector3::UNIT_X); // Regarde légèrement vers le bas
+        //Ogre::Quaternion startOrientation = Ogre::Quaternion(Ogre::Degree(-10), Ogre::Vector3::UNIT_X); // Regarde légèrement vers le bas
 
         // Définir la position et l'orientation via le nœud de scène
         mCameraNode->setPosition(startPosition);
         // mCameraNode->setOrientation(startOrientation);
 
-        mFollowing = false; // Réinitialiser l'état de suivi
-
+        mFollowing = false; 
         Ogre::LogManager::getSingleton().logMessage("CameraFollower: Caméra réinitialisée à la position de départ:"+Ogre::StringConverter::toString(startPosition));
     } else {
         Ogre::LogManager::getSingleton().logMessage("ERREUR: CameraFollower - La caméra n'est attachée à aucun SceneNode.");

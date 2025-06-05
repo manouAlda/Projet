@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- exporter: blender2ogre 0.9.0 -->
+<!-- export_time: Sat, 31 May 2025 17:05:30 +0000 -->
+<!-- blender_version: 3.6.21 (release; Linux) -->
+<scene author="linda" formatVersion="1.1" >
+  <nodes >
+    <node name="sky" >
+      <position x="0.000000" y="0.000000" z="-0.000000" />
+      <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
+      <scale x="1.000000" y="1.000000" z="1.000000" />
+      <entity meshFile="sky.mesh" name="sky" >
+        <userData />
+      </entity>
+    </node>
+  </nodes>
+  <externals >
+    <item type="material" >
+      <file name="BackSign02.material" />
+    </item>
+    <item type="material" >
+      <file name="BackSign03.material" />
+    </item>
+    <item type="material" >
+      <file name="BallRack_inside.material" />
+    </item>
+    <item type="material" >
+      <file name="BackSign01.material" />
+    </item>
+    <item type="material" >
+      <file name="BallRack.material" />
+    </item>
+    <item type="material" >
+      <file name="Floor01.material" />
+    </item>
+    <item type="material" >
+      <file name="PitFront.material" />
+    </item>
+    <item type="material" >
+      <file name="RailBlack.material" />
+    </item>
+    <item type="material" >
+      <file name="Wall01.material" />
+    </item>
+    <item type="material" >
+      <file name="in_gutter.material" />
+    </item>
+    <item type="material" >
+      <file name="BackSign04.material" />
+    </item>
+    <item type="material" >
+      <file name="doorFrames.material" />
+    </item>
+    <item type="material" >
+      <file name="Exit.material" />
+    </item>
+    <item type="material" >
+      <file name="LightBulb.material" />
+    </item>
+    <item type="material" >
+      <file name="Rail.material" />
+    </item>
+    <item type="material" >
+      <file name="TV_sides.material" />
+    </item>
+    <item type="material" >
+      <file name="Door.material" />
+    </item>
+    <item type="material" >
+      <file name="Gutter_lid.material" />
+    </item>
+    <item type="material" >
+      <file name="LaneApproach.material" />
+    </item>
+    <item type="material" >
+      <file name="Default.material" />
+    </item>
+    <item type="material" >
+      <file name="Brick.material" />
+    </item>
+    <item type="material" >
+      <file name="Light.material" />
+    </item>
+    <item type="material" >
+      <file name="pit.material" />
+    </item>
+    <item type="material" >
+      <file name="TV_screen.material" />
+    </item>
+    <item type="material" >
+      <file name="Lane_arrows.material" />
+    </item>
+    <item type="material" >
+      <file name="GUTTER.material" />
+    </item>
+    <item type="material" >
+      <file name="Ceiling.material" />
+    </item>
+    <item type="material" >
+      <file name="Framework.material" />
+    </item>
+    <item type="material" >
+      <file name="LaneApproachDots.material" />
+    </item>
+    <item type="material" >
+      <file name="Poster01.material" />
+    </item>
+    <item type="material" >
+      <file name="Supports.material" />
+    </item>
+    <item type="material" >
+      <file name="Wallpic01.material" />
+    </item>
+    <item type="material" >
+      <file name="Lane.material" />
+    </item>
+  </externals>
+  <environment >
+    <colourBackground b="0.050876" g="0.050876" r="0.050876" />
+  </environment>
+</scene>

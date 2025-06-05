@@ -45,3 +45,8 @@ set_target_properties(BowlingGame PROPERTIES INSTALL_RPATH "${FMOD_ROOT}/lib/${F
 message(STATUS "Source directory: ${CMAKE_SOURCE_DIR}")
 # Afficher ou est le ${CMAKE_BINARY_DIR}
 message(STATUS "Binary directory: ${CMAKE_BINARY_DIR}")
+#Affficher les librairis Ogre
+message(STATUS "OGRE librairie: ${OGRE_LIBRARIES}")
+
+set(OGRE_VERSION "X.Y.Z")
+

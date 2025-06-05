@@ -230,7 +230,7 @@ void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt){
     }
 }
 
-void AimingSystem::handleMouseClick(const OgreBites::MouseButtonEvent& evt){
+/*void AimingSystem::handleMouseClick(const OgreBites::MouseButtonEvent& evt){
     if (mAimingActive) {
         // Gestion du clic de souris
         if (evt.button == OgreBites::BUTTON_LEFT) {
@@ -257,6 +257,7 @@ void AimingSystem::handleMouseClick(const OgreBites::MouseButtonEvent& evt){
         }
     }
 }
+*/
 
 void AimingSystem::setAimingDirection(const Ogre::Vector3& direction)
 {

@@ -65,8 +65,6 @@ void BowlingLane::createLane() {
     
     // Positionnement de la piste
     mLaneNode->setPosition(0.0f, 0.0f, 0.0f); 
-
-    // Ajout d'une mise à l'échelle pour agrandir le modèle
     mLaneNode->setScale(10.0f, 10.0f, 10.0f);
     
     // Ajout de la piste au monde physique comme objet statique
@@ -79,17 +77,16 @@ void BowlingLane::createLane() {
 }
 
 void BowlingLane::setupPins() {
-    // Calculer la position des quilles directement par rapport à mBallStartPosition
-    float pinZOffset = 17.5f; 
-    float pinXOffset = 0.0f; // Pas de décalage sur l'axe X
+    float pinZOffset = 10.0f; 
+    float pinXOffset = 0.0f; 
     Ogre::Vector3 pinBasePosition = Ogre::Vector3(
         mBallStartPosition.x + pinXOffset,    
-        0.0f,                   
+        -1.0f,                   
         mBallStartPosition.z + pinZOffset  
     );
     
     // Espacement entre les quilles
-    float spacing = 0.01f;
+    float spacing = 0.05f;
     
     // Position des quilles en formation triangulaire standard
     // Rangée 1 (la plus éloignée de la boule, une seule quille)

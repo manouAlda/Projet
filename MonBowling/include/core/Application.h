@@ -17,11 +17,9 @@
 
 #include <fmod.hpp>
 #include <fmod_errors.h>
-#include <OgreWindowEventUtilities.h>
 
 #include "../objects/BowlingBall.h"
 #include "../objects/BowlingLane.h"
-#include "../objects/ObjectFactory.h"
 #include "GameManager.h"
 
 class Application : public OgreBites::ApplicationContext, public OgreBites::InputListener {
@@ -34,9 +32,6 @@ class Application : public OgreBites::ApplicationContext, public OgreBites::Inpu
         Ogre::SceneNode* mCameraNode;
         Ogre::OverlaySystem* overlaySystem;
         
-        // Factory d'objets
-        std::unique_ptr<ObjectFactory> mObjectFactory;
-        
         // Piste de bowling
         std::unique_ptr<BowlingLane> mLane;
         
@@ -47,10 +42,6 @@ class Application : public OgreBites::ApplicationContext, public OgreBites::Inpu
         bool mKeyW, mKeyA, mKeyS, mKeyD, mKeySpace, mKeyC;
 
         Ogre::Timer mCascadeTimer;
-
-        FMOD::System* fmodSystem = nullptr;
-        FMOD::Sound* sound = nullptr;
-        FMOD::Channel* channel = nullptr;
 
     public:
         Application();
@@ -77,14 +68,14 @@ class Application : public OgreBites::ApplicationContext, public OgreBites::Inpu
         virtual bool mouseMoved(const OgreBites::MouseMotionEvent& evt) override;
         virtual bool mouseReleased(const OgreBites::MouseButtonEvent& evt) override;
 
-        void checkFMOD(FMOD_RESULT result);
-        void initAudio();
-        void playSound();
-        void updateAudio();
-        void cleanAudio();
-        void initFMOD();
-        void updateFMOD();
-        void shutdownFMOD();
+        // void checkFMOD(FMOD_RESULT result);
+        // void initAudio();
+        // void playSound();
+        // void updateAudio();
+        // void cleanAudio();
+        // void initFMOD();
+        // void updateFMOD();
+        // void shutdownFMOD();
         
 
 };
