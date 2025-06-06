@@ -1,11 +1,11 @@
 #include "../../include/objects/BowlingLane.h"
 
 BowlingLane::BowlingLane(Ogre::SceneManager* sceneMgr)
-    : mSceneMgr(sceneMgr),
-      mLaneNode(nullptr),
-      mLaneEntity(nullptr){
+    : sceneMgr(sceneMgr),
+      laneNode(nullptr),
+      laneEntity(nullptr){
     // Initialisation des quilles avec une taille standard de 10
-    mPins.resize(10);
+    pins.resize(10);
 }
 
 BowlingLane::~BowlingLane() {}
@@ -41,11 +41,11 @@ void createGround(Ogre::SceneManager* sceneMgr) {
     sceneMgr->setSkyBox(true, "Ciel", 5000);
 }
 
-void BowlingLane::create(const Ogre::Vector3& ballStartPosition) {
+void BowlingLane::create(const Ogre::Vector3& ballStart) {
     // On sauvegarde la position de départ de la boule pour positionner correctement la piste
-    mBallStartPosition = ballStartPosition;
+    ballStartPosition = ballStart;
     
-    createGround(mSceneMgr);
+    createGround(sceneMgr);
 
     // Création de la piste
     createLane();
@@ -56,33 +56,33 @@ void BowlingLane::create(const Ogre::Vector3& ballStartPosition) {
 
 void BowlingLane::createLane() {
     // Création du nœud pour la piste
-    mLaneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("BowlingLaneNode");
+    laneNode = sceneMgr->getRootSceneNode()->createChildSceneNode("BowlingLaneNode");
     
-    mLaneEntity = mSceneMgr->createEntity("LaneEntity", "polygon8.mesh");
-    mLaneNode->attachObject(mLaneEntity);
-    //mLaneNode->yaw(Ogre::Radian(Ogre::Degree(90)));  // lane2.mesh
-    mLaneNode->yaw(Ogre::Degree(180));   /// Garry (polygon8.mesh)
+    laneEntity = sceneMgr->createEntity("LaneEntity", "polygon8.mesh");
+    laneNode->attachObject(laneEntity);
+    //laneNode->yaw(Ogre::Radian(Ogre::Degree(90)));  // lane2.mesh
+    laneNode->yaw(Ogre::Degree(180));   /// Garry (polygon8.mesh)
     
     // Positionnement de la piste
-    mLaneNode->setPosition(0.0f, 0.0f, 0.0f); 
-    mLaneNode->setScale(10.0f, 10.0f, 10.0f);
+    laneNode->setPosition(0.0f, 0.0f, 0.0f); 
+    laneNode->setScale(10.0f, 10.0f, 10.0f);
     
     // Ajout de la piste au monde physique comme objet statique
     btRigidBody* laneBody = PhysicsManager::getInstance()->getDynamicsWorld()->addRigidBody(
-        0.0f, mLaneEntity, Ogre::Bullet::CT_TRIMESH);
+        0.0f, laneEntity, Ogre::Bullet::CT_TRIMESH);
     
     if (laneBody) { laneBody->setFriction(0.3f); }
 
-    Ogre::LogManager::getSingleton().logMessage("Piste à : " + Ogre::StringConverter::toString(mLaneNode->getPosition()));
+    Ogre::LogManager::getSingleton().logMessage("Piste à : " + Ogre::StringConverter::toString(laneNode->getPosition()));
 }
 
 void BowlingLane::setupPins() {
-    float pinZOffset = 10.0f; 
+    float pinZOffset = 9.0f; 
     float pinXOffset = 0.0f; 
     Ogre::Vector3 pinBasePosition = Ogre::Vector3(
-        mBallStartPosition.x + pinXOffset,    
-        -1.0f,                   
-        mBallStartPosition.z + pinZOffset  
+        ballStartPosition.x + pinXOffset,    
+        0.0f,                   
+        ballStartPosition.z + pinZOffset  
     );
     
     // Espacement entre les quilles
@@ -110,22 +110,22 @@ void BowlingLane::setupPins() {
     
     // Création des quilles
     for (int i = 0; i < 10; ++i) {
-        mPins[i] = std::make_unique<BowlingPin>(mSceneMgr);
-        mPins[i]->create(pinPositions[i], i+1);
+        pins[i] = std::make_unique<BowlingPin>(sceneMgr);
+        pins[i]->create(pinPositions[i], i+1);
         Ogre::LogManager::getSingleton().logMessage("Quille " + Ogre::StringConverter::toString(i+1) + 
                                                     " à : " + Ogre::StringConverter::toString(pinPositions[i]));
     }
     
-    mPinsInitialized = true;
+    pinsInitialized = true;
 }
 
 const std::vector<std::unique_ptr<BowlingPin>>& BowlingLane::getPins() const {
-    return mPins;
+    return pins;
 }
 
 void BowlingLane::update(float deltaTime) {
-    if (mPinsInitialized) {
-        for (auto& pin : mPins) {
+    if (pinsInitialized) {
+        for (auto& pin : pins) {
             if (pin) {
                 pin->update(deltaTime);
             }
@@ -134,8 +134,8 @@ void BowlingLane::update(float deltaTime) {
 }
 
 void BowlingLane::resetPins() {
-    if (mPinsInitialized) {
-        for (auto& pin : mPins) {
+    if (pinsInitialized) {
+        for (auto& pin : pins) {
             if (pin) {
                 pin->reset();
             }
@@ -146,8 +146,8 @@ void BowlingLane::resetPins() {
 int BowlingLane::countKnockedDownPins() const {
     int knockedDownCount = 0;
     
-    if (mPinsInitialized) {
-        for (const auto& pin : mPins) {
+    if (pinsInitialized) {
+        for (const auto& pin : pins) {
             if (pin && pin->isKnockedDown()) {
                 knockedDownCount++;
             }

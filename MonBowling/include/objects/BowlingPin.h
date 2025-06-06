@@ -7,11 +7,11 @@
 class BowlingPin {
 
     private:
-        Ogre::SceneManager* mSceneMgr;
-        Ogre::SceneNode* mPinNode;
-        Ogre::Entity* mPinEntity;
-        btRigidBody* mPinBody;
-        Ogre::Vector3 mInitialPosition;
+        Ogre::SceneManager* sceneMgr;
+        Ogre::SceneNode* pinNode;
+        Ogre::Entity* pinEntity;
+        btRigidBody* pinBody;
+        Ogre::Vector3 initialPosition;
         
     public:
         BowlingPin(Ogre::SceneManager* sceneMgr);
@@ -27,4 +27,4 @@ class BowlingPin {
         
 };
 
-#endif // BOWLING_PIN_H
+#endif 

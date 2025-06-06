@@ -6,24 +6,28 @@
 
 class BowlingBall {
     private:
-        Ogre::SceneManager* mSceneMgr;
+        Ogre::SceneManager* sceneMgr;
         
         // Nœud et entité
-        Ogre::SceneNode* mBallNode;
-        Ogre::Entity* mBallEntity;
+        Ogre::SceneNode* ballNode;
+        Ogre::Entity* ballEntity;
         
         // Corps rigide pour la physique
-        btRigidBody* mBallBody;
+        btRigidBody* ballBody;
         
         // Propriétés de la boule
-        float mRadius;
-        float mMass;
+        float radius;
+        float mass;
         float scale= 0.015f;
-        Ogre::ColourValue mColor;
         
         // État de la boule
-        bool mIsRolling;
-        Ogre::Vector3 mInitialPosition;
+        bool rolling;
+        Ogre::Vector3 initialPosition;
+
+        // Constante pour la limite Y
+        const float STOP_Y_LIMIT = 12.0f;
+        // Constante pour le seuil de vitesse d'arrêt
+        const float STOP_VELOCITY_THRESHOLD = 0.05f; 
         
     public:
         BowlingBall(Ogre::SceneManager* sceneMgr, const Ogre::String& meshName = "ball.mesh");
@@ -36,11 +40,12 @@ class BowlingBall {
         void update(float deltaTime);
         
         // Accesseurs
-        Ogre::SceneNode* getBallNode() const { return mBallNode; }
-        btRigidBody* getBallBody() const { return mBallBody; }
-        bool isRolling() const { return mIsRolling; }
+        Ogre::SceneNode* getBallNode() const { return ballNode; }
+        btRigidBody* getBallBody() const { return ballBody; }
+        bool isRolling() const { return rolling; }
         Ogre::Vector3 getPosition() const;
         Ogre::Vector3 getVelocity() const;
+        float getRadius() const;
         
         // Modificateurs
         void setMass(float mass);

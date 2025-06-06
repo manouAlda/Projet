@@ -1,122 +1,193 @@
 #include "../../include/managers/CameraFollower.h"
+#include <OgreMath.h>
 
 CameraFollower::CameraFollower(Ogre::Camera* camera, BowlingBall* ball)
-    : mCamera(camera),
-      mCameraNode(nullptr),
-      mBall(ball),
-      mFollowing(false),
-      mInitialPosition(Ogre::Vector3::ZERO),
-      mTargetPosition(Ogre::Vector3::ZERO),
-      mLookAtTarget(Ogre::Vector3::ZERO),
-      mTransitionSpeed(5.0f),
-      mOffset(Ogre::Vector3(0.0f, 2.0f, 1.5f)),  
-      mReturningToInitial(false),
-      mReturnProgress(0.0f) {
-    
-    // Récupération du nœud de la caméra
-    if (mCamera) {
-        mCameraNode = mCamera->getParentSceneNode();
+    : camera(camera),
+      cameraNode(nullptr),
+      ball(ball),
+      following(false),
+      initialPosition(0.0f, 3.0f, -16.5f), 
+      initialOrientation(Ogre::Quaternion::IDENTITY), 
+      pinsLookAt(0.0f, 0.5f, 10.0f), 
+      targetPosition(Ogre::Vector3::ZERO),
+      lookAtTarget(Ogre::Vector3::ZERO),
+      transitionSpeed(4.0f), // Vitesse de suivi
+      offset(0.0f, 1.5f, 3.0f), // Décalage caméra/boule pendant le suivi
+      postRollState(PostRollState::NONE),
+      postRollTimer(0.0f),
+      returnProgress(0.0f),
+      returnStartPosition(Ogre::Vector3::ZERO),
+      returnStartOrientation(Ogre::Quaternion::IDENTITY)
+{
+    if (camera) {
+        cameraNode = camera->getParentSceneNode();
+        if (cameraNode) {
+            cameraNode->setPosition(initialPosition);
+            cameraNode->lookAt(Ogre::Vector3(0, 0.5, 0), Ogre::Node::TS_WORLD);
+            initialOrientation = cameraNode->getOrientation();
+            Ogre::LogManager::getSingleton().logMessage("CameraFollower: Orientation initiale définie.");
+        }
     }
 }
 
 CameraFollower::~CameraFollower() {}
 
 void CameraFollower::initialize() {
-    if (mCameraNode) {
-        mInitialPosition = mCameraNode->getPosition();
-    }
+    resetToStartPosition(); 
+    Ogre::LogManager::getSingleton().logMessage("CameraFollower initialisé.");
 }
 
 void CameraFollower::update(float deltaTime) {
-    if (!mCamera || !mCameraNode || !mBall) {
+    if (!camera || !cameraNode || !ball) {
         return;
     }
-    
-    if (mFollowing) {
-        Ogre::Vector3 ballPosition = mBall->getPosition();
-        mTargetPosition = Ogre::Vector3(
-            ballPosition.x,                
-            0.5f,                         
-            ballPosition.z - mOffset.z     
-        );
-        
-        // Point que la caméra regarde (un quille)
-        const float LOOKAT_CHANGE_THRESHOLD_Z = 5.0f;
-        if (ballPosition.z > LOOKAT_CHANGE_THRESHOLD_Z) {
-            mLookAtTarget = ballPosition; 
-        } else {
-            mLookAtTarget = Ogre::Vector3(-3, 2, 80);
-        }
-        
-        // Interpolation fluide vers la position cible
-        Ogre::Vector3 currentPos = mCameraNode->getPosition();
-        Ogre::Vector3 newPos = currentPos + (mTargetPosition - currentPos) * mTransitionSpeed * deltaTime;
-        mCameraNode->setPosition(newPos);
-        
-        mCameraNode->lookAt(mLookAtTarget, Ogre::Node::TS_WORLD);
-        
-        // Vérification si la boule s'est arrêtée
-        if (!mBall->isRolling() && !mReturningToInitial) {
-            mReturningToInitial = true;
-            mReturnProgress = 0.0f;
-        }
 
-        if (mReturningToInitial) {
-            mReturnProgress += deltaTime * 0.5f;  // Vitesse de retour plus lente
+    if (following) {
+        Ogre::Vector3 ballPosition = ball->getPosition();
+        // Position cible légèrement derrière et au-dessus de la boule
+        targetPosition = ballPosition + cameraNode->getOrientation() * offset;
+        targetPosition.y = std::max(targetPosition.y, 0.5f);
+
+        lookAtTarget = ballPosition + ball->getVelocity() * 0.1f; 
+
+        // Interpolation fluide vers la position cible
+        Ogre::Vector3 currentPos = cameraNode->getPosition();
+        Ogre::Vector3 newPos = currentPos + (targetPosition - currentPos) * (transitionSpeed * deltaTime);
+        cameraNode->setPosition(newPos);
+        cameraNode->lookAt(lookAtTarget, Ogre::Node::TS_WORLD);
+
+        // Vérification si la boule s'est arrêtée
+        if (!ball->isRolling()) {
+            Ogre::LogManager::getSingleton().logMessage("CameraFollower: Boule arrêtée. Début séquence post-lancer.");
+            following = false;
+            postRollState = PostRollState::FOCUS_BALL;
+            postRollTimer = 0.0f;
+            lookAtTarget = ball->getPosition(); 
+        }
+    }
+    else if (postRollState != PostRollState::NONE) {
+        postRollTimer += deltaTime;
+
+        switch (postRollState) {
+            case PostRollState::FOCUS_BALL:
+                cameraNode->lookAt(lookAtTarget, Ogre::Node::TS_WORLD);
+                if (postRollTimer >= FOCUS_BALL_DURATION) {
+                    Ogre::LogManager::getSingleton().logMessage("CameraFollower: Fin focus boule, début focus quilles.");
+                    postRollState = PostRollState::FOCUS_PINS;
+                    postRollTimer = 0.0f; // Réinitialiser le timer pour la nouvelle phase
+                }
+                break;
+
+            case PostRollState::FOCUS_PINS:
+                { 
+                    Ogre::Quaternion targetOrientation;
+                    // Crée une orientation temporaire qui regarde vers les quilles depuis la position actuelle
+                    Ogre::Vector3 directionToPins = pinsLookAt - cameraNode->getPosition();
+                    targetOrientation.FromAxes(cameraNode->getOrientation().xAxis(), 
+                                               directionToPins.getRotationTo(Ogre::Vector3::NEGATIVE_UNIT_Z).yAxis(), 
+                                               directionToPins.normalisedCopy());
+                    
+                    // Slerp pour une rotation fluide
+                    Ogre::Quaternion currentOrientation = cameraNode->getOrientation();
+                    Ogre::Quaternion newOrientation = Ogre::Quaternion::Slerp(postRollTimer / 1.0f, // Transition sur 1 seconde
+                                                                              currentOrientation, targetOrientation, true);
+                    cameraNode->setOrientation(newOrientation);
+                }
+                
+                if (postRollTimer >= FOCUS_PINS_DURATION) {
+                    Ogre::LogManager::getSingleton().logMessage("CameraFollower: Fin focus quilles, début retour.");
+                    postRollState = PostRollState::RETURNING;
+                    postRollTimer = 0.0f; // Réinitialiser le timer (même si on utilise returnProgress)
+                    returnProgress = 0.0f;
+                    returnStartPosition = cameraNode->getPosition();
+                    returnStartOrientation = cameraNode->getOrientation();
+                }
+                break;
+
+            case PostRollState::RETURNING:
+                returnProgress += deltaTime * RETURN_SPEED;
+                returnProgress = std::min(returnProgress, 1.0f); // Clamp à 1.0
+
+                // Interpolation linéaire pour la position
+                cameraNode->setPosition(returnStartPosition + (initialPosition - returnStartPosition) * returnProgress);
+                // Interpolation sphérique (Slerp) pour l'orientation
+                cameraNode->setOrientation(Ogre::Quaternion::Slerp(returnProgress, returnStartOrientation, initialOrientation, true));
+
+                if (returnProgress >= 1.0f) {
+                    Ogre::LogManager::getSingleton().logMessage("CameraFollower: Retour à la position initiale terminé.");
+                    postRollState = PostRollState::NONE;
+                    cameraNode->setPosition(initialPosition);
+                    cameraNode->setOrientation(initialOrientation);
+                }
+                break;
             
-            if (mReturnProgress >= 1.0f) {
-                mCameraNode->setPosition(mInitialPosition);
-                
-                mFollowing = false;
-                mReturningToInitial = false;
-                
-                Ogre::LogManager::getSingleton().logMessage("Caméra revenue à la position initiale");
-            } else {
-                Ogre::Vector3 currentPos = mCameraNode->getPosition();
-                Ogre::Vector3 newPos = currentPos + (mInitialPosition - currentPos) * mReturnProgress;
-                mCameraNode->setPosition(newPos);
-            }
+            case PostRollState::NONE: 
+                break;
         }
     }
 }
 
 void CameraFollower::startFollowing() {
-    mFollowing = true;
-    mReturningToInitial = false;
-    mReturnProgress = 0.0f;
-    
-    Ogre::LogManager::getSingleton().logMessage("Caméra commence à suivre la boule");
+    if (!ball || ball->isRolling()) { 
+        following = true;
+        postRollState = PostRollState::NONE; // Arrête toute séquence post-lancer en cours
+        postRollTimer = 0.0f;
+        returnProgress = 0.0f;
+        Ogre::LogManager::getSingleton().logMessage("CameraFollower: Commence à suivre la boule.");
+    } else {
+        Ogre::LogManager::getSingleton().logMessage("CameraFollower: Tentative de suivi mais la boule ne roule pas.");
+    }
 }
 
 void CameraFollower::stopFollowing() {
-    mReturningToInitial = true;
-    mReturnProgress = 0.0f;
-    
-    Ogre::LogManager::getSingleton().logMessage("Caméra arrête de suivre la boule");
+     if (following) {
+         Ogre::LogManager::getSingleton().logMessage("CameraFollower: Arrêt manuel du suivi (stopFollowing appelé).");
+         following = false;
+         // Démarre la séquence post-lancer si elle n'est pas déjà active
+         if (postRollState == PostRollState::NONE) {
+             postRollState = PostRollState::FOCUS_BALL;
+             postRollTimer = 0.0f;
+             lookAtTarget = ball ? ball->getPosition() : Ogre::Vector3::ZERO;
+             Ogre::LogManager::getSingleton().logMessage("CameraFollower: Début séquence post-lancer (via stopFollowing).");
+         }
+     }
 }
 
 bool CameraFollower::isFollowing() const {
-    return mFollowing;
+    return following;
+}
+
+// Indique si la caméra est dans une des phases post-lancer (Focus ou Retour)
+bool CameraFollower::isSequenceActive() const {
+    return postRollState != PostRollState::NONE;
 }
 
 void CameraFollower::setInitialPosition(const Ogre::Vector3& position) {
-    mInitialPosition = position;
+    initialPosition = position;
+    if (cameraNode && postRollState == PostRollState::NONE && !following) {
+        cameraNode->setPosition(initialPosition);
+        cameraNode->lookAt(Ogre::Vector3(0, 0.5, 0), Ogre::Node::TS_WORLD);
+        initialOrientation = cameraNode->getOrientation();
+    }
+}
+
+void CameraFollower::setInitialOrientation(const Ogre::Quaternion& orientation) {
+    initialOrientation = orientation;
+    if (cameraNode && postRollState == PostRollState::NONE && !following) {
+        cameraNode->setOrientation(initialOrientation);
+    }
 }
 
 void CameraFollower::resetToStartPosition() {
-    if (mCameraNode) {
-        // Position et orientation de départ
-        Ogre::Vector3 startPosition = Ogre::Vector3(0.0f, 3.0f, -16.5f);
-        //Ogre::Vector3 startPosition = Ogre::Vector3(15, 5, -85);
-        //Ogre::Quaternion startOrientation = Ogre::Quaternion(Ogre::Degree(-10), Ogre::Vector3::UNIT_X); // Regarde légèrement vers le bas
-
-        // Définir la position et l'orientation via le nœud de scène
-        mCameraNode->setPosition(startPosition);
-        // mCameraNode->setOrientation(startOrientation);
-
-        mFollowing = false; 
-        Ogre::LogManager::getSingleton().logMessage("CameraFollower: Caméra réinitialisée à la position de départ:"+Ogre::StringConverter::toString(startPosition));
+    if (cameraNode) {
+        cameraNode->setPosition(initialPosition);
+        cameraNode->setOrientation(initialOrientation);
+        following = false;
+        postRollState = PostRollState::NONE;
+        postRollTimer = 0.0f;
+        returnProgress = 0.0f;
+        Ogre::LogManager::getSingleton().logMessage("CameraFollower: Caméra réinitialisée à la position/orientation de départ.");
     } else {
-        Ogre::LogManager::getSingleton().logMessage("ERREUR: CameraFollower - La caméra n'est attachée à aucun SceneNode.");
+        Ogre::LogManager::getSingleton().logMessage("ERREUR: CameraFollower - La caméra n'est attachée à aucun SceneNode lors du reset.");
     }
 }

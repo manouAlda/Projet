@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- exporter: blender2ogre 0.9.0 -->
-<!-- export_time: Wed, 04 Jun 2025 22:16:28 +0000 -->
+<!-- export_time: Thu, 05 Jun 2025 23:11:50 +0000 -->
 <!-- blender_version: 3.6.21 (release; Linux) -->
 <scene author="linda" formatVersion="1.1" >
   <nodes >
@@ -9,7 +9,7 @@
       <rotation qw="0.737943" qx="0.672917" qy="-0.037847" qz="0.034512" />
       <scale x="1.000000" y="1.000000" z="1.000000" />
       <userData >
-        <property data='&lt;bpy id prop: owner="OBCamera", name="ant_landscape", address=0x7f2807a32f68&gt;' name="ant_landscape" type="IDPropertyGroup" />
+        <property data='&lt;bpy id prop: owner="OBCamera", name="ant_landscape", address=0x7fb500456048&gt;' name="ant_landscape" type="IDPropertyGroup" />
       </userData>
       <camera fov="0.356186" name="Camera" projectionType="perspective" >
         <clipping far="100.000000" near="0.100000" />
@@ -53,7 +53,7 @@
       <rotation qw="1.000000" qx="0.000000" qy="0.000000" qz="-0.000000" />
       <scale x="1.000000" y="1.000000" z="1.000000" />
       <userData >
-        <property data='&lt;bpy id prop: owner="OBbowling pin", name="ant_landscape", address=0x7f2808184408&gt;' name="ant_landscape" type="IDPropertyGroup" />
+        <property data='&lt;bpy id prop: owner="OBbowling pin", name="ant_landscape", address=0x7fb50bae21e8&gt;' name="ant_landscape" type="IDPropertyGroup" />
       </userData>
       <entity meshFile="BezierCurve.001.mesh" name="bowling pin" >
         <userData />

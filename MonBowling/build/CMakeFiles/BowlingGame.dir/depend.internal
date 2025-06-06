@@ -171,6 +171,7 @@ CMakeFiles/BowlingGame.dir/src/core/AimingSystem.cpp.o
  /usr/local/include/OGRE/Overlay/OgreOverlayElement.h
  /usr/local/include/OGRE/Overlay/OgreOverlayManager.h
  /usr/local/include/OGRE/Overlay/OgreOverlayPrerequisites.h
+ /usr/local/include/OGRE/Overlay/OgrePanelOverlayElement.h
  /usr/local/include/OGRE/Overlay/OgreTextAreaOverlayElement.h
  /usr/local/include/OGRE/Threading/OgreThreadDefines.h
  /usr/local/include/OGRE/Threading/OgreThreadDefinesBoost.h
@@ -196,6 +197,7 @@ CMakeFiles/BowlingGame.dir/src/core/Application.cpp.o
  /home/linda/L3/git/projet/MonBowling/include/core/AimingSystem.h
  /home/linda/L3/git/projet/MonBowling/include/core/Application.h
  /home/linda/L3/git/projet/MonBowling/include/core/GameManager.h
+ /home/linda/L3/git/projet/MonBowling/include/managers/AudioManager.h
  /home/linda/L3/git/projet/MonBowling/include/managers/CameraFollower.h
  /home/linda/L3/git/projet/MonBowling/include/managers/PhysicsManager.h
  /home/linda/L3/git/projet/MonBowling/include/objects/BowlingBall.h
@@ -381,6 +383,7 @@ CMakeFiles/BowlingGame.dir/src/core/Application.cpp.o
  /usr/local/include/OGRE/Overlay/OgreOverlayPrerequisites.h
  /usr/local/include/OGRE/Overlay/OgreOverlayProfileSessionListener.h
  /usr/local/include/OGRE/Overlay/OgreOverlaySystem.h
+ /usr/local/include/OGRE/Overlay/OgrePanelOverlayElement.h
  /usr/local/include/OGRE/Overlay/OgreTextAreaOverlayElement.h
  /usr/local/include/OGRE/RTShaderSystem/OgreRTShaderConfig.h
  /usr/local/include/OGRE/RTShaderSystem/OgreRTShaderExports.h
@@ -512,8 +515,17 @@ CMakeFiles/BowlingGame.dir/src/core/GameManager.cpp.o
  ../include/objects/BowlingBall.h
  ../include/objects/BowlingLane.h
  ../include/objects/BowlingPin.h
+ ../media/sounds/api/core/inc/fmod.h
+ ../media/sounds/api/core/inc/fmod.hpp
+ ../media/sounds/api/core/inc/fmod_codec.h
+ ../media/sounds/api/core/inc/fmod_common.h
+ ../media/sounds/api/core/inc/fmod_dsp.h
+ ../media/sounds/api/core/inc/fmod_dsp_effects.h
+ ../media/sounds/api/core/inc/fmod_errors.h
+ ../media/sounds/api/core/inc/fmod_output.h
  /home/linda/L3/git/projet/MonBowling/include/core/AimingSystem.h
  /home/linda/L3/git/projet/MonBowling/include/core/GameManager.h
+ /home/linda/L3/git/projet/MonBowling/include/managers/AudioManager.h
  /home/linda/L3/git/projet/MonBowling/include/managers/CameraFollower.h
  /home/linda/L3/git/projet/MonBowling/include/states/ScoreManager.h
  /home/linda/L3/git/projet/MonBowling/include/utils/PinDetector.h
@@ -687,6 +699,7 @@ CMakeFiles/BowlingGame.dir/src/core/GameManager.cpp.o
  /usr/local/include/OGRE/Overlay/OgreOverlayElement.h
  /usr/local/include/OGRE/Overlay/OgreOverlayManager.h
  /usr/local/include/OGRE/Overlay/OgreOverlayPrerequisites.h
+ /usr/local/include/OGRE/Overlay/OgrePanelOverlayElement.h
  /usr/local/include/OGRE/Overlay/OgreTextAreaOverlayElement.h
  /usr/local/include/OGRE/Threading/OgreThreadDefines.h
  /usr/local/include/OGRE/Threading/OgreThreadDefinesBoost.h
@@ -801,16 +814,10 @@ CMakeFiles/BowlingGame.dir/src/core/GameState.cpp.o
 CMakeFiles/BowlingGame.dir/src/core/GameStateMachine.cpp.o
  /home/linda/L3/git/projet/MonBowling/src/core/GameStateMachine.cpp
 CMakeFiles/BowlingGame.dir/src/main.cpp.o
- ../include/core/AimingSystem.h
  ../include/core/Application.h
- ../include/core/GameManager.h
- ../include/managers/CameraFollower.h
+ ../include/managers/AudioManager.h
  ../include/managers/PhysicsManager.h
  ../include/objects/BowlingBall.h
- ../include/objects/BowlingLane.h
- ../include/objects/BowlingPin.h
- ../include/states/ScoreManager.h
- ../include/utils/PinDetector.h
  ../media/sounds/api/core/inc/fmod.h
  ../media/sounds/api/core/inc/fmod.hpp
  ../media/sounds/api/core/inc/fmod_codec.h
@@ -989,7 +996,6 @@ CMakeFiles/BowlingGame.dir/src/main.cpp.o
  /usr/local/include/OGRE/OgreVertexIndexData.h
  /usr/local/include/OGRE/OgreViewport.h
  /usr/local/include/OGRE/OgreWorkQueue.h
- /usr/local/include/OGRE/Overlay/OgreFont.h
  /usr/local/include/OGRE/Overlay/OgreOverlay.h
  /usr/local/include/OGRE/Overlay/OgreOverlayContainer.h
  /usr/local/include/OGRE/Overlay/OgreOverlayElement.h
@@ -997,7 +1003,6 @@ CMakeFiles/BowlingGame.dir/src/main.cpp.o
  /usr/local/include/OGRE/Overlay/OgreOverlayPrerequisites.h
  /usr/local/include/OGRE/Overlay/OgreOverlayProfileSessionListener.h
  /usr/local/include/OGRE/Overlay/OgreOverlaySystem.h
- /usr/local/include/OGRE/Overlay/OgreTextAreaOverlayElement.h
  /usr/local/include/OGRE/RTShaderSystem/OgreRTShaderConfig.h
  /usr/local/include/OGRE/RTShaderSystem/OgreRTShaderExports.h
  /usr/local/include/OGRE/RTShaderSystem/OgreRTShaderSystem.h

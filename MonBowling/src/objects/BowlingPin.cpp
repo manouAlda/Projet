@@ -1,101 +1,101 @@
 #include "../../include/objects/BowlingPin.h"
 
 BowlingPin::BowlingPin(Ogre::SceneManager* sceneMgr)
-    : mSceneMgr(sceneMgr), 
-      mPinNode(nullptr), 
-      mPinEntity(nullptr), 
-      mPinBody(nullptr), 
-      mInitialPosition(Ogre::Vector3::ZERO) {}
+    : sceneMgr(sceneMgr), 
+      pinNode(nullptr), 
+      pinEntity(nullptr), 
+      pinBody(nullptr), 
+      initialPosition(Ogre::Vector3::ZERO) {}
 
 BowlingPin::~BowlingPin() {
-    if (mPinBody) {
-        PhysicsManager::getInstance()->getDynamicsWorld()->getBtWorld()->removeRigidBody(mPinBody);
+    if (pinBody) {
+        PhysicsManager::getInstance()->getDynamicsWorld()->getBtWorld()->removeRigidBody(pinBody);
     }
 }
 
 void BowlingPin::create(const Ogre::Vector3& position, int pinIndex) {
     // Sauvegarde de la position initiale
-    mInitialPosition = position;
+    initialPosition = position;
     
     std::string nodeName = "BowlingPinNode_" + std::to_string(pinIndex);
     std::string entityName = "BowlingPinEntity_" + std::to_string(pinIndex);
 
-    mPinNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(nodeName);
-    mPinEntity = mSceneMgr->createEntity(entityName, "BezierCurve.001.mesh"); 
-    mPinNode->attachObject(mPinEntity);
-    mPinNode->setPosition(position);
+    pinNode = sceneMgr->getRootSceneNode()->createChildSceneNode(nodeName);
+    pinEntity = sceneMgr->createEntity(entityName, "pin.mesh"); 
+    pinNode->attachObject(pinEntity);
+    pinNode->setPosition(position);
     
     float scale = 0.1f;  
-    //mPinNode->setScale(scale, scale, scale);
+    //pinNode->setScale(scale, scale, scale);
     
-    mPinBody = PhysicsManager::getInstance()->getDynamicsWorld()->addRigidBody(
-        1.5f, mPinEntity, Ogre::Bullet::CT_HULL);  
+    pinBody = PhysicsManager::getInstance()->getDynamicsWorld()->addRigidBody(
+        1.5f, pinEntity, Ogre::Bullet::CT_HULL);  
     
     // Propriétés physiques essentielles
-    if (mPinBody) {
+    if (pinBody) {
         btVector3 inertia;
-        btCollisionShape* shape = mPinBody->getCollisionShape();
+        btCollisionShape* shape = pinBody->getCollisionShape();
         shape->calculateLocalInertia(1.5f, inertia);
-        mPinBody->setMassProps(1.5f, inertia);  // Masse réaliste
+        pinBody->setMassProps(1.5f, inertia);  // Masse réaliste
         
-        mPinBody->setFriction(0.6f);             // Friction pour ne pas glisser
-        mPinBody->setRollingFriction(0.1f);      // Friction de roulement
-        mPinBody->setSpinningFriction(0.1f);     // Friction de rotation
-        mPinBody->setRestitution(0.3f);          // Rebond modéré
-        mPinBody->setActivationState(ACTIVE_TAG); // Activation physique
+        pinBody->setFriction(0.6f);             // Friction pour ne pas glisser
+        pinBody->setRollingFriction(0.1f);      // Friction de roulement
+        pinBody->setSpinningFriction(0.1f);     // Friction de rotation
+        pinBody->setRestitution(0.3f);          // Rebond modéré
+        pinBody->setActivationState(ACTIVE_TAG); // Activation physique
         
         // Désactiver la désactivation automatique pour éviter que les quilles ne "s'endorment"
-        mPinBody->setDeactivationTime(30.0f);     // Temps plus long avant désactivation
+        pinBody->setDeactivationTime(30.0f);     // Temps plus long avant désactivation
     }
 }
 
 void BowlingPin::reset() {
-    if (mPinNode && mPinBody) {
+    if (pinNode && pinBody) {
         // Réinitialiser à la position d'origine sauvegardée
-        mPinNode->setPosition(mInitialPosition);
+        pinNode->setPosition(initialPosition);
         
         // Réinitialiser la vitesse et la rotation
-        mPinBody->setLinearVelocity(btVector3(0.0f, 0.0f, 0.0f));
-        mPinBody->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+        pinBody->setLinearVelocity(btVector3(0.0f, 0.0f, 0.0f));
+        pinBody->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
         
         // Réinitialiser la rotation du nœud
-        mPinNode->setOrientation(Ogre::Quaternion::IDENTITY);
+        pinNode->setOrientation(Ogre::Quaternion::IDENTITY);
         
         // S'assurer que le corps physique est réactivé
-        mPinBody->activate(true);
+        pinBody->activate(true);
     }
 }
 
 void BowlingPin::update(float deltaTime) {
-    if (mPinBody && mPinNode) {
+    if (pinBody && pinNode) {
         // Mise à jour de la position du nœud Ogre à partir de la position du corps rigide Bullet
         btTransform transform;
-        mPinBody->getMotionState()->getWorldTransform(transform);
+        pinBody->getMotionState()->getWorldTransform(transform);
         
         btVector3 position = transform.getOrigin();
-        mPinNode->setPosition(position.x(), position.y(), position.z());
+        pinNode->setPosition(position.x(), position.y(), position.z());
         
         // Mise à jour de la rotation du nœud Ogre à partir de la rotation du corps rigide Bullet
         btQuaternion rotation = transform.getRotation();
-        mPinNode->setOrientation(rotation.w(), rotation.x(), rotation.y(), rotation.z());
+        pinNode->setOrientation(rotation.w(), rotation.x(), rotation.y(), rotation.z());
     }
 }
 
 bool BowlingPin::isKnockedDown() const {
-    if (mPinNode) {
+    if (pinNode) {
         // Une quille est considérée comme renversée si elle est inclinée de plus de 45 degrés
-        Ogre::Vector3 upVector = mPinNode->getOrientation() * Ogre::Vector3::UNIT_Y;
+        Ogre::Vector3 upVector = pinNode->getOrientation() * Ogre::Vector3::UNIT_Y;
         float dotProduct = upVector.dotProduct(Ogre::Vector3::UNIT_Y);
-        Ogre::LogManager::getSingleton().logMessage("Pin " + mPinNode->getName() + " dotProduct: " + Ogre::StringConverter::toString(dotProduct));
+        Ogre::LogManager::getSingleton().logMessage("Pin " + pinNode->getName() + " dotProduct: " + Ogre::StringConverter::toString(dotProduct));
         return dotProduct < 0.7071f;  // cos(45°) ≈ 0.7071
     }
     return false;
 }
 
 btRigidBody* BowlingPin::getPinBody() const {
-    return mPinBody;
+    return pinBody;
 }
 
 Ogre::SceneNode* BowlingPin::getPinNode() const {
-    return mPinNode;
+    return pinNode;
 }

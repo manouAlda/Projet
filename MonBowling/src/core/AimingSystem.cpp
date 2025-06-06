@@ -1,9 +1,10 @@
+// Fichier : AimingSystem.cpp
 #include "../../include/core/AimingSystem.h"
 #include <OgreMaterialManager.h>
-#include <OgreHardwarePixelBuffer.h>
-#include <OgreResourceGroupManager.h>
-#include <OgreStringConverter.h>
-#include <algorithm>
+#include <OgreTechnique.h>
+#include <OgrePass.h>
+#include <OgreColourValue.h>
+#include <algorithm> // Pour std::max et std::min
 
 AimingSystem::AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera)
     : scene(sceneMgr),
@@ -14,349 +15,352 @@ AimingSystem::AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera)
       powerBarContainer(nullptr),
       mPowerBarBackground(nullptr),
       mPowerBarFill(nullptr),
+      mSpinContainer(nullptr),
       mSpinEffectControl(nullptr),
       mSpinEffectIndicator(nullptr),
-      mScoreContainer(nullptr),
-      mScoreDisplay(nullptr),
       mAimingActive(false),
-      mAimingDirection(Ogre::Vector3(0, 0, -1)),
-      mPowerBarActive(false),
-      mPowerValue(0.0f),
-      mPowerDirection(1),
-      mPowerSpeed(50.0f),
+      mPowerInputActive(false),
+      mAimingDirection(0, 0, 1), // Direction initiale vers les quilles
+      mPowerValue(MIN_POWER),
       mSpinEffect(0.0f)
 {
 }
 
 AimingSystem::~AimingSystem(){
+    // La destruction de l'overlay et des éléments est gérée par Ogre
+    // si l'overlay est détruit.
     if (gameOverlay) {
         Ogre::OverlayManager::getSingleton().destroy(gameOverlay);
+        gameOverlay = nullptr; // Bonne pratique
     }
-    
+
+    // Nettoyage des éléments de scène
     if (arrowNode) {
         arrowNode->detachAllObjects();
         scene->destroySceneNode(arrowNode);
+        arrowNode = nullptr;
     }
-    
     if (arrowEntity) {
         scene->destroyEntity(arrowEntity);
+        arrowEntity = nullptr;
     }
 }
 
 void AimingSystem::initialize(){
     createAimingArrow();
-    createPowerBar();
-    createSpinEffectControl();
-    
-    // Activation du système de visée
-    setAimingActive(true);
+    createOverlays(); // Crée tous les overlays nécessaires
+
+    // Initialisation de l'état
+    resetAiming(); // Assure que tout est à l'état initial
+    setAimingActive(true); // Commence en mode visée
+    Ogre::LogManager::getSingleton().logMessage("AimingSystem initialisé.");
 }
 
 void AimingSystem::createAimingArrow(){
-    arrowEntity = scene->createEntity("AimingArrow", "cone.mesh");
+    try {
+        arrowEntity = scene->createEntity("AimingArrow", "cone.mesh");
+        // Assigner un matériau visible, s'assurer qu'il existe
+        arrowEntity->setMaterialName("BaseWhite"); // Utiliser un matériau simple pour tester
 
-    arrowEntity->setMaterialName("AimingArrowMaterial");
-    
-    // Création du nœud pour la flèche
-    arrowNode = scene->getRootSceneNode()->createChildSceneNode("AimingArrowNode");
-    arrowNode->attachObject(arrowEntity);
-    
-    // Orientation et mise à l'échelle de la flèche
-    arrowNode->setScale(0.05f, 0.2f, 0.05f);
-    arrowNode->pitch(Ogre::Degree(-90));  // Orienter la flèche vers l'avant
-    
-    arrowNode->setPosition(0.0f, 0.05f, -7.5f); 
+        arrowNode = scene->getRootSceneNode()->createChildSceneNode("AimingArrowNode");
+        arrowNode->attachObject(arrowEntity);
+
+        // Ajuster l'échelle et l'orientation
+        arrowNode->setScale(0.05f, 0.2f, 0.05f);
+        arrowNode->setOrientation(Ogre::Quaternion(Ogre::Degree(90), Ogre::Vector3::UNIT_X)); // Pointe vers Z négatif
+
+        // Position initiale (devant la position de départ de la boule)
+        arrowNode->setPosition(0.0f, 0.1f, -8.5f); // Ajuster si nécessaire
+        arrowNode->setVisible(false); // Invisible au début
+    } catch (Ogre::Exception& e) {
+        Ogre::LogManager::getSingleton().logError("AimingSystem::createAimingArrow - Erreur: " + Ogre::String(e.getFullDescription().c_str()));
+        if(arrowNode) scene->destroySceneNode(arrowNode);
+        if(arrowEntity) scene->destroyEntity(arrowEntity);
+        arrowNode = nullptr;
+        arrowEntity = nullptr;
+    }
 }
 
-void AimingSystem::createPowerBar(){
+void AimingSystem::createOverlays(){
     Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
-    
-    if (!gameOverlay) {
-        gameOverlay = overlayManager.create("GameOverlay");
-    }
-    
-    // Création du conteneur pour la barre de puissance
+    gameOverlay = overlayManager.create("GameOverlay");
+    gameOverlay->setZOrder(500); // Mettre au premier plan
+
+    // --- Barre de Puissance --- 
     powerBarContainer = static_cast<Ogre::OverlayContainer*>(
         overlayManager.createOverlayElement("Panel", "PowerBarContainer"));
     powerBarContainer->setMetricsMode(Ogre::GMM_PIXELS);
-
-    powerBarContainer->setPosition(20, 100);
+    powerBarContainer->setPosition(20, 50); // Position ajustée
     powerBarContainer->setDimensions(30, 200);
-      
-    // Création de l'arrière-plan de la barre de puissance
+
     mPowerBarBackground = overlayManager.createOverlayElement("Panel", "PowerBarBackground");
     mPowerBarBackground->setMetricsMode(Ogre::GMM_PIXELS);
     mPowerBarBackground->setPosition(0, 0);
     mPowerBarBackground->setDimensions(30, 200);
-
-    mPowerBarBackground->setMaterialName("Aiming/PowerBarBackgroundMaterial");
-
-    // Assemblage de la barre de puissance
+    mPowerBarBackground->setMaterialName("BaseWhite"); // Matériau simple gris/blanc
+    // Pour un fond plus distinct : mPowerBarBackground->setColour(Ogre::ColourValue(0.3, 0.3, 0.3, 0.7));
     powerBarContainer->addChild(mPowerBarBackground);
-    
-    // Ajout à l'overlay principal
-    gameOverlay->add2D(powerBarContainer);
-    
-    // Masquer la barre de puissance initialement
-    //powerBarContainer->hide();
-    
-    // Affichage de l'overlay
-    gameOverlay->setZOrder(100);
-    gameOverlay->show();
-}
 
-void AimingSystem::createSpinEffectControl(){
-    // Création du conteneur pour le contrôle d'effet
-    Ogre::OverlayManager& overlayManager = Ogre::OverlayManager::getSingleton();
-    
-    // Création du conteneur pour le curseur d'effet
-    Ogre::OverlayContainer* spinContainer = static_cast<Ogre::OverlayContainer*>(
+    // !! Création de l'élément de remplissage !!
+    mPowerBarFill = overlayManager.createOverlayElement("Panel", "PowerBarFill");
+    mPowerBarFill->setMetricsMode(Ogre::GMM_PIXELS);
+    mPowerBarFill->setPosition(0, 200); // Commence en bas
+    mPowerBarFill->setDimensions(30, 0); // Hauteur initiale nulle
+    mPowerBarFill->setMaterialName("BaseWhite"); // Matériau simple, la couleur sera changée
+    powerBarContainer->addChild(mPowerBarFill); // Ajouter au conteneur
+
+    gameOverlay->add2D(powerBarContainer);
+    powerBarContainer->hide(); // Caché initialement
+
+    // --- Contrôle de Spin --- 
+    mSpinContainer = static_cast<Ogre::OverlayContainer*>(
         overlayManager.createOverlayElement("Panel", "SpinEffectContainer"));
-    spinContainer->setMetricsMode(Ogre::GMM_PIXELS);
-    spinContainer->setPosition(70, 100);
-    spinContainer->setDimensions(200, 30);
-    
-    // Création de l'arrière-plan du curseur d'effet
+    mSpinContainer->setMetricsMode(Ogre::GMM_PIXELS);
+    mSpinContainer->setPosition(70, 50); // À côté de la barre de puissance
+    mSpinContainer->setDimensions(200, 30);
+
     mSpinEffectControl = overlayManager.createOverlayElement("Panel", "SpinEffectControl");
     mSpinEffectControl->setMetricsMode(Ogre::GMM_PIXELS);
     mSpinEffectControl->setPosition(0, 0);
     mSpinEffectControl->setDimensions(200, 30);
+    mSpinEffectControl->setMaterialName("BaseWhite");
+    // Pour un fond plus distinct : 
+    mSpinEffectControl->setColour(Ogre::ColourValue(0.3, 0.3, 0.3, 0.7));
+    mSpinContainer->addChild(mSpinEffectControl);
 
-    mSpinEffectControl->setMaterialName("SpinEffectBackgroundMaterial");
-    
-    // Création de l'indicateur du curseur d'effet
+    // !! Création de l'indicateur de spin !!
     mSpinEffectIndicator = overlayManager.createOverlayElement("Panel", "SpinEffectIndicator");
     mSpinEffectIndicator->setMetricsMode(Ogre::GMM_PIXELS);
-    mSpinEffectIndicator->setPosition(95, 0);  // Position centrale
-    mSpinEffectIndicator->setDimensions(10, 30);
+    mSpinEffectIndicator->setDimensions(10, 30); // Largeur de l'indicateur
+    mSpinEffectIndicator->setMaterialName("BaseWhite"); // Matériau simple
+    mSpinEffectIndicator->setColour(Ogre::ColourValue::Red); // Couleur visible
+    mSpinContainer->addChild(mSpinEffectIndicator); // Ajouter au conteneur
 
-    mSpinEffectIndicator->setMaterialName("SpinEffectIndicatorMaterial");
-    
-    // Assemblage du curseur d'effet
-    spinContainer->addChild(mSpinEffectControl);
-    spinContainer->addChild(mSpinEffectIndicator);
-    
-    // Ajout à l'overlay principal
-    gameOverlay->add2D(spinContainer);
+    gameOverlay->add2D(mSpinContainer);
+    mSpinContainer->hide(); // Caché initialement
+
+    // Afficher l'overlay global
+    gameOverlay->show();
+
+    // Mettre à jour l'affichage initial (barres vides)
+    updatePowerBarDisplay();
+    updateSpinIndicatorDisplay();
 }
 
 void AimingSystem::update(float deltaTime){
+    // Met à jour la flèche si la visée est active
     if (mAimingActive) {
         updateAimingArrow();
-        
-        if (mPowerBarActive) {
-            updatePowerBar(deltaTime);
-        }
-        
-        updateSpinEffectControl();
     }
+    // Note: La mise à jour des overlays se fait maintenant directement
+    // dans adjustPower/adjustSpin pour la réactivité.
 }
 
 void AimingSystem::updateAimingArrow(){
-    if (arrowNode) {
-        Ogre::Vector3 direction = mAimingDirection.normalisedCopy();
-        
-        // Calcul de la rotation pour orienter la flèche
-        Ogre::Quaternion rotation = Ogre::Vector3::UNIT_Z.getRotationTo(direction);
+    if (arrowNode && arrowNode->getAttachedObject(0)) { // Vérifier si l'entité est attachée
+        // Rotation pour pointer dans la direction mAimingDirection
+        // La flèche (cone.mesh) pointe naturellement vers Y+ local.
+        // On veut qu'elle pointe vers mAimingDirection.
+        Ogre::Vector3 src = Ogre::Vector3::UNIT_Y;
+        Ogre::Quaternion rotation = src.getRotationTo(mAimingDirection);
         arrowNode->setOrientation(rotation);
+    } else if (arrowNode) {
+         // Si l'entité n'est pas là, on ne fait rien ou on log une erreur
+         // Ogre::LogManager::getSingleton().logMessage("AimingSystem::updateAimingArrow - Arrow entity not attached.");
     }
 }
 
-void AimingSystem::updatePowerBar(float deltaTime){
-    if (mPowerBarActive && mPowerBarFill) {
-        mPowerValue += mPowerDirection * mPowerSpeed * deltaTime;
-        
-        if (mPowerValue >= MAX_POWER) { 
-            mPowerValue = MAX_POWER;
-            mPowerDirection = -1;
-        } else if (mPowerValue <= MIN_POWER) { 
-            mPowerValue = MIN_POWER;
-            mPowerDirection = 1;
+void AimingSystem::updatePowerBarDisplay() {
+    if (mPowerBarFill) {
+        float fillHeight = (mPowerValue / MAX_POWER) * 200.0f; // 200 est la hauteur du conteneur
+        fillHeight = std::max(0.0f, std::min(fillHeight, 200.0f)); // Clamp
+
+        mPowerBarFill->setPosition(0, 200.0f - fillHeight); // Position Y (depuis le haut)
+        mPowerBarFill->setDimensions(30, fillHeight); // Largeur fixe, hauteur variable
+
+        // Définir la couleur jaune
+        Ogre::ColourValue Yellow(1.0f, 1.0f, 0.0f, 1.0f);
+
+        // Changement de couleur en fonction de la puissance (vert -> jaune -> rouge)
+        float ratio = mPowerValue / MAX_POWER;
+        Ogre::ColourValue color;
+        if (ratio < 0.5f) {
+            color = Ogre::ColourValue(
+                Ogre::Math::lerp(Ogre::ColourValue::Green.r, Yellow.r, ratio * 2.0f),
+                Ogre::Math::lerp(Ogre::ColourValue::Green.g, Yellow.g, ratio * 2.0f),
+                Ogre::Math::lerp(Ogre::ColourValue::Green.b, Yellow.b, ratio * 2.0f),
+                Ogre::Math::lerp(Ogre::ColourValue::Green.a, Yellow.a, ratio * 2.0f)
+            );
+        } else {
+            color = Ogre::ColourValue(
+                Ogre::Math::lerp(Yellow.r, Ogre::ColourValue::Red.r, (ratio - 0.5f) * 2.0f),
+                Ogre::Math::lerp(Yellow.g, Ogre::ColourValue::Red.g, (ratio - 0.5f) * 2.0f),
+                Ogre::Math::lerp(Yellow.b, Ogre::ColourValue::Red.b, (ratio - 0.5f) * 2.0f),
+                Ogre::Math::lerp(Yellow.a, Ogre::ColourValue::Red.a, (ratio - 0.5f) * 2.0f)
+            );
         }
-        
-        float fillHeight = (mPowerValue / MAX_POWER) * 200.0f; 
-        mPowerBarFill->setPosition(0, 200.0f - fillHeight);
-        mPowerBarFill->setDimensions(30, fillHeight);
-     
-        // Changement de couleur en fonction de la puissance
-        Ogre::MaterialPtr fillMaterial = Ogre::MaterialManager::getSingleton().getByName("PowerBarFillMaterial");
-        if (fillMaterial) {
-            Ogre::Pass* pass = fillMaterial->getTechnique(0)->getPass(0);
-            float ratio = mPowerValue / MAX_POWER; 
-            pass->setDiffuse(Ogre::ColourValue(ratio, 1.0f - ratio, 0.0f, 0.8f));
-        }
+        mPowerBarFill->setColour(color);
+        Ogre::LogManager::getSingleton().logMessage("Power Bar Updated: Value=" + Ogre::StringConverter::toString(mPowerValue) + " Height=" + Ogre::StringConverter::toString(fillHeight));
     }
 }
 
-void AimingSystem::updateSpinEffectControl(){
+void AimingSystem::updateSpinIndicatorDisplay(){
     if (mSpinEffectIndicator) {
-        // Conversion de la valeur d'effet (-1.0 à 1.0) en position (0 à 200)
-        float position = ((mSpinEffect + 1.0f) / 2.0f) * 190.0f;
-        mSpinEffectIndicator->setPosition(position, 0);
+        // Largeur totale du contrôle de spin = 200, largeur indicateur = 10
+        float controlWidth = 200.0f;
+        float indicatorWidth = 10.0f;
+        float travelRange = controlWidth - indicatorWidth; // Espace de déplacement
+
+        // Convertir spin (-1 à 1) en position X (0 à travelRange)
+        float positionX = ((mSpinEffect - MIN_SPIN) / (MAX_SPIN - MIN_SPIN)) * travelRange;
+        positionX = std::max(0.0f, std::min(positionX, travelRange)); // Clamp
+
+        mSpinEffectIndicator->setPosition(positionX, 0);
+        // Ogre::LogManager::getSingleton().logMessage("Spin Indicator Updated: Value=" + Ogre::StringConverter::toString(mSpinEffect) + " PosX=" + Ogre::StringConverter::toString(positionX));
     }
 }
 
-void AimingSystem::handleMouseMove(const OgreBites::MouseMotionEvent& evt){
-    if (mAimingActive) {
-        // Gestion du mouvement de la souris pour la visée
-        // Conversion des coordonnées de la souris en rayon dans l'espace 3D
-        Ogre::Ray mouseRay = camera->getCameraToViewportRay(
-            evt.x / (float)camera->getViewport()->getActualWidth(),
-            evt.y / (float)camera->getViewport()->getActualHeight());
-        
-        // Intersection avec le plan du sol (y = 0)
-        Ogre::Plane groundPlane(Ogre::Vector3::UNIT_Y, 0);
-        std::pair<bool, Ogre::Real> intersection = mouseRay.intersects(groundPlane);
-        
-        if (intersection.first) {
-            // Point d'intersection avec le sol
-            Ogre::Vector3 hitPoint = mouseRay.getPoint(intersection.second);
-            
-            // Calcul de la direction de visée (depuis la position de la boule vers le point d'intersection)
-            Ogre::Vector3 ballPosition(0.0f, 0.25f, -7.5f);  // À ajuster selon la position réelle de la boule
-            Ogre::Vector3 direction = (hitPoint - ballPosition).normalisedCopy();
-            
-            // Mise à jour de la direction de visée
-            setAimingDirection(direction);
-        }
-        
-        // Gestion du curseur d'effet
-        // Vérification si la souris est sur le curseur d'effet
-        if (evt.x >= 70 && evt.x <= 270 && evt.y >= 100 && evt.y <= 130) {
-            // Conversion de la position de la souris en valeur d'effet (-1.0 à 1.0)
-            float effect = ((evt.x - 70) / 200.0f) * 2.0f - 1.0f;
-            setSpinEffect(effect);
-        }
+// --- Gestion des entrées --- 
+
+void AimingSystem::handleKeyPress(const OgreBites::KeyboardEvent& evt) {
+    if (!mPowerInputActive) return; // N'accepte les entrées que dans la phase POWER
+
+    float powerDelta = 0.0f;
+    float spinDelta = 0.0f;
+
+    switch (evt.keysym.sym) {
+        case OgreBites::SDLK_UP:
+        case 'z': // AZERTY
+        case 'w': // QWERTY
+            powerDelta = POWER_INCREMENT * 0.1f; // Ajuster le multiplicateur pour la sensibilité
+            Ogre::LogManager::getSingleton().logMessage("AimingSystem: Power increased by " + Ogre::StringConverter::toString(powerDelta));
+            break;
+        case OgreBites::SDLK_DOWN:
+        case 's':
+            powerDelta = -POWER_INCREMENT * 0.1f;
+            Ogre::LogManager::getSingleton().logMessage("AimingSystem: Power decreased by " + Ogre::StringConverter::toString(powerDelta));
+            break;
+        case OgreBites::SDLK_LEFT:
+        case 'q': // AZERTY
+        case 'a': // QWERTY
+            spinDelta = -SPIN_INCREMENT * 0.1f;
+            Ogre::LogManager::getSingleton().logMessage("AimingSystem: Spin decreased by " + Ogre::StringConverter::toString(spinDelta));
+            break;
+        case OgreBites::SDLK_RIGHT:
+        case 'd':
+            spinDelta = SPIN_INCREMENT * 0.1f;
+            Ogre::LogManager::getSingleton().logMessage("AimingSystem: Spin increased by " + Ogre::StringConverter::toString(spinDelta));
+            break;
+        default:
+            return; // Ne fait rien pour les autres touches
+    }
+
+    if (powerDelta != 0.0f) {
+        adjustPower(powerDelta);
+    }
+    if (spinDelta != 0.0f) {
+        adjustSpin(spinDelta);
     }
 }
 
-/*void AimingSystem::handleMouseClick(const OgreBites::MouseButtonEvent& evt){
-    if (mAimingActive) {
-        // Gestion du clic de souris
-        if (evt.button == OgreBites::BUTTON_LEFT) {
-            // Vérification si le clic est sur le bouton d'annulation
-            if (evt.x >= 20 && evt.x <= 120 && evt.y >= 320 && evt.y <= 360) {
-                // Annulation du lancer
-                resetAiming();
-            }
-            // Vérification si le clic est sur la barre de puissance
-            else if (evt.x >= 20 && evt.x <= 50 && evt.y >= 100 && evt.y <= 300) {
-                // Arrêt de la barre de puissance
-                if (mPowerBarActive) {
-                    stopPowerBar();
-                } else {
-                    startPowerBar();
-                }
-            }
-            // Vérification si le clic est sur le curseur d'effet
-            else if (evt.x >= 70 && evt.x <= 270 && evt.y >= 100 && evt.y <= 130) {
-                // Mise à jour de l'effet
-                float effect = ((evt.x - 70) / 200.0f) * 2.0f - 1.0f;
-                setSpinEffect(effect);
-            }
-        }
-    }
-}
-*/
+void AimingSystem::handleKeyRelease(const OgreBites::KeyboardEvent& evt) {
+    if (!mPowerInputActive) return;
 
-void AimingSystem::setAimingDirection(const Ogre::Vector3& direction)
-{
-    mAimingDirection = direction.normalisedCopy();
-}
-
-Ogre::Vector3 AimingSystem::getAimingDirection() const
-{
-    return mAimingDirection;
-}
-
-void AimingSystem::startPowerBar(){
-    mPowerBarActive = true;
-    mPowerValue = MIN_POWER;
-    mPowerDirection = 1;
-    
-    // Affichage de la barre de puissance
-    if (powerBarContainer) {
-        powerBarContainer->show();
+    // Déclencher le lancer SEULEMENT si on relâche la touche HAUT
+    if (evt.keysym.sym == OgreBites::SDLK_UP || evt.keysym.sym == 'z' || evt.keysym.sym == 'w') {
+        // Le GameManager devrait être notifié ici pour changer d'état et lancer la boule
+        // On désactive l'input ici pour éviter des lancements multiples
+        mPowerInputActive = false;
+        Ogre::LogManager::getSingleton().logMessage("AimingSystem: Power key released. Ready to launch.");
+        // GameManager::getInstance()->requestLaunch(); // Exemple d'appel (à implémenter dans GameManager)
     }
 }
 
-void AimingSystem::stopPowerBar()
-{
-    mPowerBarActive = false;
-    
-    // La valeur de puissance est conservée pour le lancer
-}
-
-float AimingSystem::getPower() const
-{
-    return mPowerValue;
-}
-
-bool AimingSystem::isPowerBarActive() const
-{
-    return mPowerBarActive;
-}
-
-void AimingSystem::setSpinEffect(float effect)
-{
-    // Limitation de l'effet entre -1.0 et 1.0
-    mSpinEffect = std::max(-1.0f, std::min(1.0f, effect));
-}
-
-float AimingSystem::getSpinEffect() const
-{
-    return mSpinEffect;
-}
-
-void AimingSystem::resetAiming(){
-    // Réinitialisation de la visée
-    mAimingDirection = Ogre::Vector3(0, 0, -1);
-    
-    // Réinitialisation de la puissance
-    mPowerBarActive = false;
-    mPowerValue = MIN_POWER;
-    
-    // Masquage de la barre de puissance
-    if (powerBarContainer) {
-        powerBarContainer->hide();
-    }
-    
-    // Réinitialisation de l'effet
-    mSpinEffect = 0.0f;
-    
-    // Mise à jour des éléments visuels
-    updateAimingArrow();
-    updateSpinEffectControl();
-}
-
-bool AimingSystem::isAimingActive() const
-{
-    return mAimingActive;
-}
+// --- Contrôle de l'état --- 
 
 void AimingSystem::setAimingActive(bool active){
     mAimingActive = active;
-    
-    // Affichage ou masquage des éléments visuels
     if (arrowNode) {
-        if (active) {
-            arrowNode->setVisible(true);
-        } else {
-            arrowNode->setVisible(false);
-        }
+        arrowNode->setVisible(active);
     }
+    // Ne pas affecter mPowerInputActive ici
+    Ogre::LogManager::getSingleton().logMessage("AimingSystem: Aiming Active = " + Ogre::StringConverter::toString(active));
 }
 
-Ogre::SceneNode* AimingSystem::getArrowNode() const{
-    return arrowNode;
+bool AimingSystem::isAimingActive() const {
+    return mAimingActive;
 }
 
-Ogre::OverlayElement* AimingSystem::getPowerBarElement() const
-{
-    return mPowerBarFill;
+// Appelé par GameManager quand on entre dans l'état POWER
+void AimingSystem::startPowerPhase() {
+    mPowerInputActive = true;
+    // Afficher les overlays de puissance et spin
+    if (powerBarContainer) powerBarContainer->show();
+    if (mSpinContainer) mSpinContainer->show();
+    // Réinitialiser les valeurs au début de la phase POWER
+    mPowerValue = MIN_POWER;
+    mSpinEffect = 0.0f;
+    updatePowerBarDisplay();
+    updateSpinIndicatorDisplay();
+    Ogre::LogManager::getSingleton().logMessage("AimingSystem: Power Phase Started.");
 }
 
-Ogre::OverlayElement* AimingSystem::getSpinEffectElement() const
-{
-    return mSpinEffectIndicator;
+void AimingSystem::resetAiming(){
+    mAimingActive = false; // Désactiver la visée par défaut au reset
+    mPowerInputActive = false;
+
+    mAimingDirection = Ogre::Vector3(0, 0, 1); // Direction par défaut
+    mPowerValue = MIN_POWER;
+    mSpinEffect = 0.0f;
+
+    // Cacher les éléments visuels
+    if (arrowNode) arrowNode->setVisible(false);
+    if (powerBarContainer) powerBarContainer->hide();
+    if (mSpinContainer) mSpinContainer->hide();
+
+    // Mettre à jour l'affichage (même si caché, pour la cohérence)
+    updatePowerBarDisplay();
+    updateSpinIndicatorDisplay();
+    Ogre::LogManager::getSingleton().logMessage("AimingSystem: Reset.");
 }
+
+// --- Getters pour le lancement --- 
+
+Ogre::Vector3 AimingSystem::getAimingDirection() const {
+    // Pourrait être ajusté par la souris si réactivé
+    return mAimingDirection;
+}
+
+float AimingSystem::getPower() const {
+    // Retourne la puissance finale déterminée par le joueur
+    // !! IMPORTANT: Convertir la valeur 0-100 en une force/vitesse pour la physique !!
+    // Exemple simple : return mPowerValue * 0.2f; // Ajuster ce facteur
+    return 5.0f + (mPowerValue / MAX_POWER) * 15.0f; // Donne une vitesse entre 5 et 20
+}
+
+float AimingSystem::getSpinEffect() const {
+    // Retourne la valeur de spin (-1 à 1)
+    // !! IMPORTANT: Convertir cette valeur en une vélocité angulaire pour la physique !!
+    // Exemple simple : return mSpinEffect * 5.0f; // Ajuster ce facteur
+    return mSpinEffect * 8.0f; // Donne une vitesse angulaire entre -8 et 8 rad/s
+}
+
+// --- Méthodes d'ajustement --- 
+
+void AimingSystem::adjustPower(float delta) {
+    if (!mPowerInputActive) return;
+    mPowerValue += delta;
+    // Clamp la valeur
+    mPowerValue = std::max(MIN_POWER, std::min(MAX_POWER, mPowerValue));
+    updatePowerBarDisplay(); // Mettre à jour l'affichage immédiatement
+}
+
+void AimingSystem::adjustSpin(float delta) {
+    if (!mPowerInputActive) return;
+    mSpinEffect += delta;
+    // Clamp la valeur
+    mSpinEffect = std::max(MIN_SPIN, std::min(MAX_SPIN, mSpinEffect));
+    updateSpinIndicatorDisplay(); // Mettre à jour l'affichage immédiatement
+}
+
+

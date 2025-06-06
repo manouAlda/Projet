@@ -9,16 +9,16 @@
 
 class BowlingLane {
     private:    
-        Ogre::SceneManager* mSceneMgr;
-        Ogre::Vector3 mBallStartPosition;
+        Ogre::SceneManager* sceneMgr;
+        Ogre::Vector3 ballStartPosition;
         
         // Éléments de la piste
-        Ogre::SceneNode* mLaneNode;
-        Ogre::Entity* mLaneEntity;
+        Ogre::SceneNode* laneNode;
+        Ogre::Entity* laneEntity;
         
         // Les quilles
-        std::vector<std::unique_ptr<BowlingPin>> mPins;
-        bool mPinsInitialized;
+        std::vector<std::unique_ptr<BowlingPin>> pins;
+        bool pinsInitialized;
 
         void createLane();
         void setupPins();

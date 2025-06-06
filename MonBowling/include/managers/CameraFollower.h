@@ -12,35 +12,45 @@
 class CameraFollower {
     private:
         // Référence à la caméra
-        Ogre::Camera* mCamera;
-        
-        // Référence au nœud de la caméra
-        Ogre::SceneNode* mCameraNode;
-        
-        // Référence à la boule
-        BowlingBall* mBall;
-        
-        // État du suivi
-        bool mFollowing;
+        Ogre::Camera* camera;
+        Ogre::SceneNode* cameraNode;
+        BowlingBall* ball;
+        bool following;
         
         // Position et orientation initiales de la caméra
-        Ogre::Vector3 mInitialPosition;
-        
+        Ogre::Vector3 initialPosition;
         // Position cible de la caméra
-        Ogre::Vector3 mTargetPosition;
-        
+        Ogre::Vector3 targetPosition;
         // Point cible que la caméra regarde
-        Ogre::Vector3 mLookAtTarget;
-        
+        Ogre::Vector3 lookAtTarget;
         // Vitesse de transition
-        float mTransitionSpeed;
+        float transitionSpeed;
         
+        Ogre::Quaternion initialOrientation; 
+        Ogre::Vector3 pinsLookAt;      
+        float postRollTimer;                 
+        Ogre::Vector3 returnStartPosition;   
+        Ogre::Quaternion returnStartOrientation; 
+
+        // Enumération pour les états post-lancer
+        enum class PostRollState {
+            NONE,
+            FOCUS_BALL,
+            FOCUS_PINS,
+            RETURNING
+        };
+        PostRollState postRollState; 
+            
         // Décalage de la caméra par rapport à la boule
-        Ogre::Vector3 mOffset;
+        Ogre::Vector3 offset;
         
         // Retour à la position initiale
-        bool mReturningToInitial;
-        float mReturnProgress;
+        bool returningToInitial;
+        float returnProgress;
+
+        const float FOCUS_BALL_DURATION = 3.0f;
+        const float FOCUS_PINS_DURATION = 5.0f;
+        const float RETURN_SPEED = 0.75f; 
 
     public:
         CameraFollower(Ogre::Camera* camera, BowlingBall* ball);
@@ -65,6 +75,9 @@ class CameraFollower {
         void setInitialPosition(const Ogre::Vector3& position);
 
         void resetToStartPosition();
+
+        bool isSequenceActive() const; // Indique si une séquence post-lancer est active
+        void setInitialOrientation(const Ogre::Quaternion& orientation); 
 };
 
 #endif 
