@@ -61,7 +61,7 @@ void BowlingLane::createLane() {
     laneEntity = sceneMgr->createEntity("LaneEntity", "polygon8.mesh");
     laneNode->attachObject(laneEntity);
     //laneNode->yaw(Ogre::Radian(Ogre::Degree(90)));  // lane2.mesh
-    laneNode->yaw(Ogre::Degree(180));   /// Garry (polygon8.mesh)
+    //laneNode->yaw(Ogre::Degree(180));   /// Garry (polygon8.mesh)
     
     // Positionnement de la piste
     laneNode->setPosition(0.0f, 0.0f, 0.0f); 
@@ -71,49 +71,52 @@ void BowlingLane::createLane() {
     btRigidBody* laneBody = PhysicsManager::getInstance()->getDynamicsWorld()->addRigidBody(
         0.0f, laneEntity, Ogre::Bullet::CT_TRIMESH);
     
-    if (laneBody) { laneBody->setFriction(0.3f); }
+    //if (laneBody) { laneBody->setFriction(0.3f); }
+    laneBody->setFriction(0.8f);        // Friction élevée pour que le spin fonctionne
+    laneBody->setRollingFriction(0.1f);  // Friction de roulement modérée
 
     Ogre::LogManager::getSingleton().logMessage("Piste à : " + Ogre::StringConverter::toString(laneNode->getPosition()));
 }
 
 void BowlingLane::setupPins() {
-    float pinZOffset = 9.0f; 
-    float pinXOffset = 0.0f; 
+    float pinZOffset = 10.0f;
+    float pinXOffset = 0.0f;
     Ogre::Vector3 pinBasePosition = Ogre::Vector3(
-        ballStartPosition.x + pinXOffset,    
-        0.0f,                   
-        ballStartPosition.z + pinZOffset  
+        ballStartPosition.x + pinXOffset,
+        0.0f,
+        ballStartPosition.z - pinZOffset
     );
     
     // Espacement entre les quilles
     float spacing = 0.05f;
     
-    // Position des quilles en formation triangulaire standard
-    // Rangée 1 (la plus éloignée de la boule, une seule quille)
+    // Position des quilles en formation triangulaire normale
     Ogre::Vector3 pinPositions[10];
-    pinPositions[0] = pinBasePosition;
     
-    // Rangée 2 (deux quilles, plus près de la boule)
-    pinPositions[1] = pinBasePosition + Ogre::Vector3(-spacing, 0, spacing);
-    pinPositions[2] = pinBasePosition + Ogre::Vector3(spacing, 0, spacing);
+    // Rangée 1 (la plus proche de la boule, une seule quille)
+    pinPositions[9] = pinBasePosition;
+    
+    // Rangée 2 (deux quilles)
+    pinPositions[7] = pinBasePosition - Ogre::Vector3(-spacing, 0, spacing);
+    pinPositions[8] = pinBasePosition - Ogre::Vector3(spacing, 0, spacing);
     
     // Rangée 3 (trois quilles)
-    pinPositions[3] = pinBasePosition + Ogre::Vector3(-2*spacing, 0, 2*spacing);
-    pinPositions[4] = pinBasePosition + Ogre::Vector3(0, 0, 2*spacing);
-    pinPositions[5] = pinBasePosition + Ogre::Vector3(2*spacing, 0, 2*spacing);
+    pinPositions[4] = pinBasePosition - Ogre::Vector3(-2*spacing, 0, 2*spacing);
+    pinPositions[5] = pinBasePosition - Ogre::Vector3(0, 0, 2*spacing);
+    pinPositions[6] = pinBasePosition - Ogre::Vector3(2*spacing, 0, 2*spacing);
     
-    // Rangée 4 (quatre quilles, la plus proche de la boule)
-    pinPositions[6] = pinBasePosition + Ogre::Vector3(-3*spacing, 0, 3*spacing);
-    pinPositions[7] = pinBasePosition + Ogre::Vector3(-spacing, 0, 3*spacing);
-    pinPositions[8] = pinBasePosition + Ogre::Vector3(spacing, 0, 3*spacing);
-    pinPositions[9] = pinBasePosition + Ogre::Vector3(3*spacing, 0, 3*spacing);
+    // Rangée 4 (la plus éloignée de la boule, 4 quilles)
+    pinPositions[0] = pinBasePosition - Ogre::Vector3(-3*spacing, 0, 3*spacing);
+    pinPositions[1] = pinBasePosition - Ogre::Vector3(-spacing, 0, 3*spacing);
+    pinPositions[2] = pinBasePosition - Ogre::Vector3(spacing, 0, 3*spacing);
+    pinPositions[3] = pinBasePosition - Ogre::Vector3(3*spacing, 0, 3*spacing);
     
     // Création des quilles
     for (int i = 0; i < 10; ++i) {
         pins[i] = std::make_unique<BowlingPin>(sceneMgr);
         pins[i]->create(pinPositions[i], i+1);
-        Ogre::LogManager::getSingleton().logMessage("Quille " + Ogre::StringConverter::toString(i+1) + 
-                                                    " à : " + Ogre::StringConverter::toString(pinPositions[i]));
+        Ogre::LogManager::getSingleton().logMessage("Quille " + Ogre::StringConverter::toString(i+1) +
+                                                     " à : " + Ogre::StringConverter::toString(pinPositions[i]));
     }
     
     pinsInitialized = true;

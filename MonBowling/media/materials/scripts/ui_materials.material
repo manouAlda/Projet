@@ -1,0 +1,79 @@
+'''
+material UI/OverlayBackground
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_check off
+            scene_blend alpha_blend
+
+            texture_unit
+            {
+                colour_op_ex source1 src_manual src_current 0.3 0.3 0.3 // Base color (grey)
+                alpha_op_ex source1 src_manual src_current 0.7 // Base alpha (semi-transparent)
+            }
+        }
+    }
+}
+
+material UI/PowerBarFill
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_check off
+            scene_blend alpha_blend
+            // Color will be set dynamically via setColour()
+            // Use a white base color here so setColour works as expected
+            texture_unit
+            {
+                colour_op_ex source1 src_manual src_current 1.0 1.0 1.0
+                alpha_op_ex source1 src_manual src_current 1.0
+            }
+        }
+    }
+}
+
+material UI/SpinControlBackground
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_check off
+            scene_blend alpha_blend
+
+            texture_unit
+            {
+                colour_op_ex source1 src_manual src_current 0.3 0.3 0.3 // Base color (grey)
+                alpha_op_ex source1 src_manual src_current 0.7 // Base alpha (semi-transparent)
+            }
+        }
+    }
+}
+
+material UI/SpinIndicator
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_check off
+            scene_blend alpha_blend
+            // Color will be set dynamically via setColour()
+            // Use a white base color here so setColour works as expected
+            texture_unit
+            {
+                colour_op_ex source1 src_manual src_current 1.0 1.0 1.0
+                alpha_op_ex source1 src_manual src_current 1.0
+            }
+        }
+    }
+}
+'''

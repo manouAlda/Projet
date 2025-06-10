@@ -44,57 +44,31 @@ void PinDetector::startDetection() {
 }
 
 void PinDetector::update(float deltaTime) {
-    if (!mDetectionActive || mDetectionComplete || !mPins) {
-        return;
-    }
-    
-    // Vérification du délai de cascade
-    if (mCascadeTimer.getMilliseconds() >= CASCADE_DELAY) {
-        // Comptage des quilles tombées
-        mKnockedDownPinCount = 0;
-        
-        for (size_t i = 0; i < mPins->size(); ++i) {
-            const auto& pin = (*mPins)[i];
-            
-            if (pin && pin->isKnockedDown()) {
-                mKnockedDownPinCount++;
-                
-                // Mise à jour de l'état précédent
+    if (!mDetectionActive || !mPins) return;
+
+    int currentKnockedDown = 0;
+    for (size_t i = 0; i < mPins->size(); ++i) {
+        const auto& pin = (*mPins)[i];
+        if (pin && pin->isKnockedDown()) {
+            currentKnockedDown++;
+            if (!mPreviousPinStates[i]) {
                 mPreviousPinStates[i] = true;
+                Ogre::LogManager::getSingleton().logMessage("Quille " + Ogre::StringConverter::toString(i+1) + " tombée");
             }
         }
-        
-        // Fin de la détection
+    }
+    mKnockedDownPinCount = currentKnockedDown; // Mettre à jour en temps réel
+
+    if (mCascadeTimer.getMilliseconds() >= CASCADE_DELAY) {
         mDetectionComplete = true;
         mDetectionActive = false;
-        
         Ogre::LogManager::getSingleton().logMessage("Détection des quilles terminée. Nombre de quilles tombées : " + 
                                                    Ogre::StringConverter::toString(mKnockedDownPinCount));
-    } else {
-        // Pendant le délai de cascade, on peut suivre les quilles qui tombent pour le débogage
-        int currentKnockedDown = 0;
-        
-        for (size_t i = 0; i < mPins->size(); ++i) {
-            const auto& pin = (*mPins)[i];
-            
-            if (pin && pin->isKnockedDown()) {
-                currentKnockedDown++;
-                
-                // Détection d'une nouvelle quille tombée
-                if (!mPreviousPinStates[i]) {
-                    mPreviousPinStates[i] = true;
-                    Ogre::LogManager::getSingleton().logMessage("Quille " + Ogre::StringConverter::toString(i+1) + " tombée");
-                }
-            }
-        }
-        
-        // Log pour le débogage
-        if (mCascadeTimer.getMilliseconds() % 500 < 20) {  // Log toutes les 500ms environ
-            Ogre::LogManager::getSingleton().logMessage("Détection en cours... Temps écoulé : " + 
-                                                       Ogre::StringConverter::toString(mCascadeTimer.getMilliseconds()) + 
-                                                       " ms, Quilles tombées : " + 
-                                                       Ogre::StringConverter::toString(currentKnockedDown));
-        }
+    } else if (mCascadeTimer.getMilliseconds() % 500 < 20) {
+        Ogre::LogManager::getSingleton().logMessage("Détection en cours... Temps écoulé : " + 
+                                                   Ogre::StringConverter::toString(mCascadeTimer.getMilliseconds()) + 
+                                                   " ms, Quilles tombées : " + 
+                                                   Ogre::StringConverter::toString(currentKnockedDown));
     }
 }
 

@@ -36,6 +36,7 @@ class CameraFollower {
         enum class PostRollState {
             NONE,
             FOCUS_BALL,
+            TRANSITION_TO_PINS,
             FOCUS_PINS,
             RETURNING
         };
@@ -47,10 +48,15 @@ class CameraFollower {
         // Retour à la position initiale
         bool returningToInitial;
         float returnProgress;
+        Ogre::Vector3 transitionStart;
+        Ogre::Vector3 transitionEnd;
 
-        const float FOCUS_BALL_DURATION = 3.0f;
-        const float FOCUS_PINS_DURATION = 5.0f;
-        const float RETURN_SPEED = 0.75f; 
+        const float FOCUS_BALL_DURATION = 0.25f;
+        const float TRANSITION_DURATION = 1.0f;
+        const float FOCUS_PINS_DURATION = 2.0f;
+        const float RETURN_SPEED = 1.5f; 
+        const float PINS_Z_THRESHOLD = -10.0f;
+        const float STOP_DISTANCE = 3.0f;
 
     public:
         CameraFollower(Ogre::Camera* camera, BowlingBall* ball);
@@ -76,7 +82,7 @@ class CameraFollower {
 
         void resetToStartPosition();
 
-        bool isSequenceActive() const; // Indique si une séquence post-lancer est active
+        bool isSequenceActive() const; 
         void setInitialOrientation(const Ogre::Quaternion& orientation); 
 };
 

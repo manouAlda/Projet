@@ -135,9 +135,22 @@ CMakeFiles/BowlingGame.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BowlingGame.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/linda/L3/git/projet/MonBowling/src/main.cpp -o CMakeFiles/BowlingGame.dir/src/main.cpp.s
 
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../src/managers/AudioManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/managers/AudioManager.cpp
+
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/linda/L3/git/projet/MonBowling/src/managers/AudioManager.cpp > CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.i
+
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/linda/L3/git/projet/MonBowling/src/managers/AudioManager.cpp -o CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.s
+
 CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o: ../src/managers/CameraController.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/managers/CameraController.cpp
 
 CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.i: cmake_force
@@ -150,7 +163,7 @@ CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: ../src/managers/CameraFollower.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/managers/CameraFollower.cpp
 
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.i: cmake_force
@@ -163,7 +176,7 @@ CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o: ../src/managers/PhysicsManager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/managers/PhysicsManager.cpp
 
 CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.i: cmake_force
@@ -176,7 +189,7 @@ CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/managers/ResourceManager.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/managers/ResourceManager.cpp.o: ../src/managers/ResourceManager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/BowlingGame.dir/src/managers/ResourceManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/BowlingGame.dir/src/managers/ResourceManager.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/managers/ResourceManager.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/managers/ResourceManager.cpp
 
 CMakeFiles/BowlingGame.dir/src/managers/ResourceManager.cpp.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/BowlingGame.dir/src/managers/ResourceManager.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: ../src/objects/BowlingBall.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/objects/BowlingBall.cpp
 
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.i: cmake_force
@@ -202,7 +215,7 @@ CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/objects/BowlingLane.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/objects/BowlingLane.cpp.o: ../src/objects/BowlingLane.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/BowlingLane.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/BowlingLane.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/objects/BowlingLane.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/objects/BowlingLane.cpp
 
 CMakeFiles/BowlingGame.dir/src/objects/BowlingLane.cpp.i: cmake_force
@@ -215,7 +228,7 @@ CMakeFiles/BowlingGame.dir/src/objects/BowlingLane.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/objects/BowlingObject.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/objects/BowlingObject.cpp.o: ../src/objects/BowlingObject.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/BowlingObject.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/BowlingObject.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/objects/BowlingObject.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/objects/BowlingObject.cpp
 
 CMakeFiles/BowlingGame.dir/src/objects/BowlingObject.cpp.i: cmake_force
@@ -228,7 +241,7 @@ CMakeFiles/BowlingGame.dir/src/objects/BowlingObject.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/objects/BowlingPin.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/objects/BowlingPin.cpp.o: ../src/objects/BowlingPin.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/BowlingPin.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/BowlingPin.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/objects/BowlingPin.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/objects/BowlingPin.cpp
 
 CMakeFiles/BowlingGame.dir/src/objects/BowlingPin.cpp.i: cmake_force
@@ -241,7 +254,7 @@ CMakeFiles/BowlingGame.dir/src/objects/BowlingPin.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/objects/ObjectFactory.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/objects/ObjectFactory.cpp.o: ../src/objects/ObjectFactory.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/ObjectFactory.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/BowlingGame.dir/src/objects/ObjectFactory.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/objects/ObjectFactory.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/objects/ObjectFactory.cpp
 
 CMakeFiles/BowlingGame.dir/src/objects/ObjectFactory.cpp.i: cmake_force
@@ -254,7 +267,7 @@ CMakeFiles/BowlingGame.dir/src/objects/ObjectFactory.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o: ../src/states/ScoreManager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/states/ScoreManager.cpp
 
 CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.i: cmake_force
@@ -267,7 +280,7 @@ CMakeFiles/BowlingGame.dir/src/states/ScoreManager.cpp.s: cmake_force
 
 CMakeFiles/BowlingGame.dir/src/utils/PinDetector.cpp.o: CMakeFiles/BowlingGame.dir/flags.make
 CMakeFiles/BowlingGame.dir/src/utils/PinDetector.cpp.o: ../src/utils/PinDetector.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/BowlingGame.dir/src/utils/PinDetector.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/BowlingGame.dir/src/utils/PinDetector.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/BowlingGame.dir/src/utils/PinDetector.cpp.o -c /home/linda/L3/git/projet/MonBowling/src/utils/PinDetector.cpp
 
 CMakeFiles/BowlingGame.dir/src/utils/PinDetector.cpp.i: cmake_force
@@ -286,6 +299,7 @@ BowlingGame_OBJECTS = \
 "CMakeFiles/BowlingGame.dir/src/core/GameState.cpp.o" \
 "CMakeFiles/BowlingGame.dir/src/core/GameStateMachine.cpp.o" \
 "CMakeFiles/BowlingGame.dir/src/main.cpp.o" \
+"CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o" \
 "CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o" \
 "CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o" \
 "CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o" \
@@ -307,6 +321,7 @@ BowlingGame: CMakeFiles/BowlingGame.dir/src/core/GameManager.cpp.o
 BowlingGame: CMakeFiles/BowlingGame.dir/src/core/GameState.cpp.o
 BowlingGame: CMakeFiles/BowlingGame.dir/src/core/GameStateMachine.cpp.o
 BowlingGame: CMakeFiles/BowlingGame.dir/src/main.cpp.o
+BowlingGame: CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o
 BowlingGame: CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o
 BowlingGame: CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o
 BowlingGame: CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o
@@ -335,7 +350,7 @@ BowlingGame: /usr/local/lib/libOgrePaging.so.14.3
 BowlingGame: /usr/local/lib/libOgreRTShaderSystem.so.14.3
 BowlingGame: /usr/local/lib/libOgreMain.so.14.3
 BowlingGame: CMakeFiles/BowlingGame.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable BowlingGame"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/linda/L3/git/projet/MonBowling/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable BowlingGame"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/BowlingGame.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

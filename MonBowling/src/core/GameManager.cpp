@@ -1,7 +1,6 @@
-// Fichier : GameManager.cpp
 #include "../../include/core/GameManager.h"
-#include "../../include/managers/AudioManager.h" // Ajout AudioManager
-#include "../../include/states/ScoreManager.h" // Assurez-vous que le chemin est correct
+#include "../../include/managers/AudioManager.h" 
+#include "../../include/states/ScoreManager.h" 
 #include <OgreLogManager.h>
 #include <OgreStringConverter.h>
 
@@ -9,61 +8,58 @@
 const int MAX_FRAMES = 10;
 
 // Initialisation du Singleton
-GameManager* GameManager::mInstance = nullptr;
+GameManager* GameManager::instance = nullptr;
 
 GameManager* GameManager::getInstance() {
-    if (mInstance == nullptr) {
-        mInstance = new GameManager();
+    if (instance == nullptr) {
+        instance = new GameManager();
     }
-    return mInstance;
+    return instance;
 }
 
 GameManager::GameManager()
-    : mGameState(GameState::AIMING),
-      mSceneMgr(nullptr),
-      mCamera(nullptr),
-      mBall(nullptr),
-      mLane(nullptr),
-      mCurrentFrame(1),
-      mCurrentRollInFrame(1),
-      mPinsKnockedFirstRoll(0)
+    : gameState(GameState::AIMING),
+      sceneMgr(nullptr),
+      camera(nullptr),
+      ball(nullptr),
+      lane(nullptr),
+      currentFrame(1),
+      currentRollInFrame(1),
+      pinsKnockedFirstRoll(0)
 {
 }
 
-GameManager::~GameManager() {
+GameManager::~GameManager() {}
     // Les unique_ptr gèrent leur propre mémoire
-}
 
 void GameManager::initialize(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera,
                             BowlingBall* ball, BowlingLane* lane) {
 
-    mSceneMgr = sceneMgr;
-    mCamera = camera;
-    mBall = ball;
-    mLane = lane;
+    this->sceneMgr = sceneMgr; // Correct : assigne le paramètre au membre sceneMgr
+    this->camera = camera;     // Correct : assigne le paramètre au membre camera
+    this->ball = ball;         // Correct : assigne le paramètre au membre ball
+    this->lane = lane;         // Correct : assigne le paramètre au membre lane
 
-    // Initialisation des systèmes
-    mAimingSystem = std::make_unique<AimingSystem>(sceneMgr, camera);
-    mAimingSystem->initialize();
+    // Initialisation des systèmes qui dépendent de ces pointeurs
+    aimingSystem = std::make_unique<AimingSystem>(this->sceneMgr, this->camera);
+    aimingSystem->initialize();
 
-    mPinDetector = std::make_unique<PinDetector>();
-    if (mLane) {
-        mPinDetector->initialize(mLane->getPins());
+    pinDetector = std::make_unique<PinDetector>();
+    if (this->lane) { // Utiliser this->lane pour la vérification
+        pinDetector->initialize(this->lane->getPins());
     } else {
          Ogre::LogManager::getSingleton().logError("ERREUR: BowlingLane non initialisé avant PinDetector");
     }
 
-    mCameraFollower = std::make_unique<CameraFollower>(camera, ball);
-    mCameraFollower->initialize();
+    cameraFollower = std::make_unique<CameraFollower>(this->camera, this->ball);
+    cameraFollower->initialize();
 
-    ScoreManager::getInstance()->initialize();
-
-    // Charger les sons
+    ScoreManager::getInstance()->initialize();  // Charger les sons
     AudioManager* audioMgr = AudioManager::getInstance();
-    if (!audioMgr->loadSound("bowling_roll.mp3", "roll", true)) { // Charger en boucle
+    if (!audioMgr->loadSound("bowling-roll/bowling_roll.ogg", "roll", true)) { // Charger en boucle
         Ogre::LogManager::getSingleton().logWarning("Impossible de charger le son de roulement.");
     }
-    if (!audioMgr->loadSound("bowling_collision.mp3", "collision", false)) { // Pas en boucle
+    if (!audioMgr->loadSound("bowling-strike/strike1.wav", "collision", false)) { // Pas en boucle
         Ogre::LogManager::getSingleton().logWarning("Impossible de charger le son de collision.");
     }
 
@@ -74,20 +70,24 @@ void GameManager::initialize(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera,
 
 void GameManager::update(float deltaTime) {
     // Mise à jour des systèmes principaux
-    if (mAimingSystem) {
-        mAimingSystem->update(deltaTime);
+    if (ball) { 
+        ball->update(deltaTime);
     }
-    if (mPinDetector) {
-        mPinDetector->update(deltaTime);
+    if (lane) { 
+        lane->update(deltaTime);
     }
-    if (mCameraFollower) {
-        mCameraFollower->update(deltaTime);
+    if (aimingSystem) {
+        aimingSystem->update(deltaTime);
     }
-    // La mise à jour de la boule est gérée par PhysicsManager/BowlingBall::update
-    // La mise à jour de FMOD est dans Application::frameRenderingQueued
+    if (pinDetector) {
+        pinDetector->update(deltaTime);
+    }
+    if (cameraFollower) {
+        cameraFollower->update(deltaTime);
+    }
 
     // Logique des états de jeu
-    switch (mGameState) {
+    switch (gameState) {
         case GameState::AIMING:
             handleAimingState(deltaTime);
             break;
@@ -109,9 +109,9 @@ void GameManager::update(float deltaTime) {
     // Idéalement, ceci serait géré par PhysicsManager ou PinDetector
     // qui appellerait directement AudioManager::getInstance()->playSound("collision");
     // En attendant, on peut le simuler ici si PinDetector expose une info
-    if (mGameState == GameState::ROLLING && mPinDetector /*&& mPinDetector->hasDetectedCollisionThisFrame()*/) { // Méthode hypothétique
+    if (gameState == GameState::ROLLING && pinDetector /*&& pinDetector->hasDetectedCollisionThisFrame()*/) { // Méthode hypothétique
          AudioManager::getInstance()->playSound("collision");
-         Ogre::LogManager::getSingleton().logMessage("GameManager: Son de collision déclenché (simulation).");
+         //Ogre::LogManager::getSingleton().logMessage("GameManager: Son de collision déclenché (simulation).");
     }
 }
 
@@ -119,8 +119,8 @@ void GameManager::update(float deltaTime) {
 
 bool GameManager::handleMouseMove(const OgreBites::MouseMotionEvent& evt) {
     // La visée par souris n'est plus utilisée par défaut
-    // if (mGameState == GameState::AIMING && mAimingSystem) {
-    //     return mAimingSystem->handleMouseMove(evt);
+    // if (gameState == GameState::AIMING && aimingSystem) {
+    //     return aimingSystem->handleMouseMove(evt);
     // }
     return false;
 }
@@ -128,10 +128,10 @@ bool GameManager::handleMouseMove(const OgreBites::MouseMotionEvent& evt) {
 bool GameManager::handleMousePress(const OgreBites::MouseButtonEvent& evt) {
     // Le clic souris n'est plus utilisé pour passer à POWER ou lancer
     // if (evt.button == OgreBites::BUTTON_LEFT) {
-    //     if (mGameState == GameState::AIMING && mAimingSystem) {
+    //     if (gameState == GameState::AIMING && aimingSystem) {
     //         changeState(GameState::POWER);
     //         return true;
-    //     } else if (mGameState == GameState::POWER && mAimingSystem) {
+    //     } else if (gameState == GameState::POWER && aimingSystem) {
     //         // Le lancement se fait au relâchement de la touche UP maintenant
     //         // launchBall();
     //         return true;
@@ -152,14 +152,14 @@ bool GameManager::handleKeyPress(const OgreBites::KeyboardEvent& evt) {
     }
 
     // Touche Espace pour passer de AIMING à POWER
-    if (mGameState == GameState::AIMING && evt.keysym.sym == OgreBites::SDLK_SPACE) {
+    if (gameState == GameState::AIMING && evt.keysym.sym == OgreBites::SDLK_SPACE) {
         changeState(GameState::POWER);
         return true;
     }
 
     // Transmettre les autres touches à AimingSystem si on est en état POWER
-    if (mGameState == GameState::POWER && mAimingSystem) {
-        mAimingSystem->handleKeyPress(evt);
+    if (gameState == GameState::POWER && aimingSystem) {
+        aimingSystem->handleKeyPress(evt);
         // Note: handleKeyPress ne retourne pas de bool ici, on suppose qu'il gère l'événement
         return true; // Indique que l'événement a été potentiellement géré
     }
@@ -170,12 +170,12 @@ bool GameManager::handleKeyPress(const OgreBites::KeyboardEvent& evt) {
 // Nouvelle fonction pour gérer le relâchement de touche
 bool GameManager::handleKeyRelease(const OgreBites::KeyboardEvent& evt) {
     // Si on est en état POWER et qu'on relâche HAUT (ou Z/W)
-    if (mGameState == GameState::POWER &&
+    if (gameState == GameState::POWER &&
         (evt.keysym.sym == OgreBites::SDLK_UP || evt.keysym.sym == 'z' || evt.keysym.sym == 'w'))
     {
-        if (mAimingSystem) {
+        if (aimingSystem) {
             // Indiquer à AimingSystem de gérer le relâchement (il mettra mPowerInputActive à false)
-            mAimingSystem->handleKeyRelease(evt);
+            aimingSystem->handleKeyRelease(evt);
             // Lancer la boule
             launchBall();
             return true;
@@ -187,10 +187,10 @@ bool GameManager::handleKeyRelease(const OgreBites::KeyboardEvent& evt) {
 // --- Logique des états --- 
 
 void GameManager::changeState(GameState newState) {
-    GameState oldState = mGameState;
+    GameState oldState = gameState;
     if (oldState == newState) return;
 
-    mGameState = newState;
+    gameState = newState;
     Ogre::LogManager::getSingleton().logMessage("Changement d'état : " +
                                                gameStateToString(oldState) +
                                                " -> " +
@@ -201,45 +201,50 @@ void GameManager::changeState(GameState newState) {
         case GameState::AIMING:
             // Arrêter le son de roulement s'il jouait encore
             AudioManager::getInstance()->stopSound("roll");
-            if (mAimingSystem) {
-                mAimingSystem->setAimingActive(true);
-                mAimingSystem->resetAiming(); // Réinitialise puissance/spin et cache overlays
+            if (aimingSystem) {
+                aimingSystem->setAimingActive(true);
+                aimingSystem->resetAiming(); // Réinitialise puissance/spin et cache overlays
             }
-            if (mCameraFollower) {
-                 mCameraFollower->resetToStartPosition();
+            
+            if (cameraFollower) {
+                if(!cameraFollower->isSequenceActive()) {
+                   cameraFollower->resetToStartPosition();
+                }
             }
-            if (mBall) {
-                mBall->reset();
+
+            if (ball) {
+                ball->reset();
             }
+            
             // Réinitialiser les quilles seulement si on commence une nouvelle frame (pas entre 2 lancers)
-            if (mCurrentRollInFrame == 1 && mLane) {
-                 mLane->resetPins();
+            if (currentRollInFrame == 1 && lane) {
+                 lane->resetPins();
             }
-            if (mPinDetector) {
-                mPinDetector->reset(); // Réinitialiser le détecteur pour la nouvelle visée
+            if (pinDetector) {
+                pinDetector->reset(); // Réinitialiser le détecteur pour la nouvelle visée
             }
             break;
 
         case GameState::POWER:
-            if (mAimingSystem) {
-                mAimingSystem->setAimingActive(false); // Désactiver la flèche de visée
-                mAimingSystem->startPowerPhase(); // Activer l'input puissance/spin et afficher overlays
+            if (aimingSystem) {
+                aimingSystem->setAimingActive(false); // Désactiver la flèche de visée
+                aimingSystem->startPowerPhase(); // Activer l'input puissance/spin et afficher overlays
             }
             break;
 
         case GameState::ROLLING:
             // Le son de roulement est joué dans launchBall()
-            if (mAimingSystem) {
+            if (aimingSystem) {
                 // Cacher les overlays de puissance/spin (déjà fait dans resetAiming lors du passage à AIMING)
                 // Mais on peut le faire ici aussi par sécurité si on vient d'un autre état
-                mAimingSystem->resetAiming(); // Assure que les overlays sont cachés
-                mAimingSystem->setAimingActive(false);
+                aimingSystem->resetAiming(); // Assure que les overlays sont cachés
+                aimingSystem->setAimingActive(false);
             }
-            if (mCameraFollower) {
-                mCameraFollower->startFollowing();
+            if (cameraFollower) {
+                cameraFollower->startFollowing();
             }
-            if (mPinDetector) {
-                mPinDetector->startDetection(); // Commencer à détecter les quilles tombées
+            if (pinDetector) {
+                pinDetector->startDetection(); // Commencer à détecter les quilles tombées
             }
             break;
 
@@ -247,10 +252,10 @@ void GameManager::changeState(GameState newState) {
             // Arrêter le son de roulement
             AudioManager::getInstance()->stopSound("roll");
             // La séquence caméra post-lancer est gérée dans CameraFollower::update
-            // quand mBall->isRolling() devient false.
+            // quand ball->isRolling() devient false.
             // On pourrait forcer l'arrêt du suivi ici si nécessaire :
-            // if (mCameraFollower) {
-            //     mCameraFollower->stopFollowing();
+            // if (cameraFollower) {
+            //     cameraFollower->stopFollowing();
             // }
             break;
 
@@ -274,7 +279,7 @@ void GameManager::handlePowerState(float deltaTime) {
 
 void GameManager::handleRollingState(float deltaTime) {
     // Vérification si la boule a fini de rouler
-    if (mBall && !mBall->isRolling()) {
+    if (ball && !ball->isRolling()) {
         Ogre::LogManager::getSingleton().logMessage("Boule arrêtée. Passage à SCORING.");
         changeState(GameState::SCORING);
     }
@@ -288,10 +293,10 @@ void GameManager::handleScoringState(float deltaTime) {
     // Pour l'instant, calcul immédiat.
 
     // S'assurer que le détecteur a fini son travail (si asynchrone)
-    if (mPinDetector /*&& mPinDetector->isDetectionComplete()*/) { // Supposons détection immédiate
+    if (pinDetector /*&& pinDetector->isDetectionComplete()*/) { // Supposons détection immédiate
 
-        int totalPinsDownSinceReset = mPinDetector->getKnockedDownPinCount();
-        int pinsThisRoll = totalPinsDownSinceReset - mPinsKnockedFirstRoll;
+        int totalPinsDownSinceReset = pinDetector->getKnockedDownPinCount();
+        int pinsThisRoll = (currentRollInFrame == 1) ? totalPinsDownSinceReset : (totalPinsDownSinceReset - pinsKnockedFirstRoll);
 
         // Jouer le son de collision si des quilles sont tombées
         // Note: Idéalement, ce son serait joué au moment de l'impact.
@@ -299,8 +304,8 @@ void GameManager::handleScoringState(float deltaTime) {
         //     AudioManager::getInstance()->playSound("collision");
         // }
 
-        Ogre::LogManager::getSingleton().logMessage("SCORING: Frame " + Ogre::StringConverter::toString(mCurrentFrame) +
-                                                   ", Lancer " + Ogre::StringConverter::toString(mCurrentRollInFrame) +
+        Ogre::LogManager::getSingleton().logMessage("SCORING: Frame " + Ogre::StringConverter::toString(currentFrame) +
+                                                   ", Lancer " + Ogre::StringConverter::toString(currentRollInFrame) +
                                                    ". Quilles ce lancer: " + Ogre::StringConverter::toString(pinsThisRoll));
 
         // Enregistrer le lancer
@@ -308,28 +313,29 @@ void GameManager::handleScoringState(float deltaTime) {
 
         // --- Logique de progression des frames --- 
         bool frameOver = false;
-        bool strike = (mCurrentRollInFrame == 1 && pinsThisRoll == 10);
-        bool spare = (mCurrentRollInFrame == 2 && (pinsThisRoll + mPinsKnockedFirstRoll == 10));
+        bool strike = (currentRollInFrame == 1 && pinsThisRoll == 10);
+        bool spare = (currentRollInFrame == 2 && (pinsThisRoll + pinsKnockedFirstRoll == 10));
 
         // Cas spécial : 10ème frame
-        if (mCurrentFrame == MAX_FRAMES) {
-            if (mCurrentRollInFrame == 1) {
+        if (currentFrame == MAX_FRAMES) {
+            if (currentRollInFrame == 1) {
                 if (strike) { // Strike au 1er lancer de la 10e
-                    mPinsKnockedFirstRoll = 10;
-                    mCurrentRollInFrame = 2; // Passe au 2e lancer
-                    if(mLane) mLane->resetPins(); // Reset pour le 2e lancer
+                    //pinsKnockedFirstRoll = 10;
+                    pinsKnockedFirstRoll = totalPinsDownSinceReset;
+                    currentRollInFrame = 2; // Passe au 2e lancer
+                    if(lane) lane->resetPins(); // Reset pour le 2e lancer
                     changeState(GameState::AIMING);
                 } else { // Frame ouverte au 1er lancer de la 10e
-                    mPinsKnockedFirstRoll = pinsThisRoll;
-                    mCurrentRollInFrame = 2; // Passe au 2e lancer
+                    pinsKnockedFirstRoll = pinsThisRoll;
+                    currentRollInFrame = 2; // Passe au 2e lancer
                     // Pas de reset des quilles
                     changeState(GameState::AIMING);
                 }
-            } else if (mCurrentRollInFrame == 2) {
+            } else if (currentRollInFrame == 2) {
                 if (strike || spare) { // Strike ou Spare au 2e lancer -> 3e lancer
-                    mPinsKnockedFirstRoll += pinsThisRoll; // Cumul pour le 3e
-                    mCurrentRollInFrame = 3; // Passe au 3e lancer
-                    if(mLane) mLane->resetPins(); // Reset pour le 3e lancer
+                    pinsKnockedFirstRoll += pinsThisRoll; // Cumul pour le 3e
+                    currentRollInFrame = 3; // Passe au 3e lancer
+                    if(lane) lane->resetPins(); // Reset pour le 3e lancer
                     changeState(GameState::AIMING);
                 } else { // Frame ouverte après 2 lancers -> Fin de partie
                     frameOver = true;
@@ -343,7 +349,7 @@ void GameManager::handleScoringState(float deltaTime) {
             if (strike) { // Strike
                 Ogre::LogManager::getSingleton().logMessage("Strike!");
                 frameOver = true;
-            } else if (mCurrentRollInFrame == 2) { // Après le 2ème lancer
+            } else if (currentRollInFrame == 2) { // Après le 2ème lancer
                 if (spare) {
                     Ogre::LogManager::getSingleton().logMessage("Spare!");
                 } else {
@@ -351,8 +357,8 @@ void GameManager::handleScoringState(float deltaTime) {
                 }
                 frameOver = true;
             } else { // Après le 1er lancer (pas de strike)
-                mPinsKnockedFirstRoll = pinsThisRoll;
-                mCurrentRollInFrame = 2;
+                pinsKnockedFirstRoll = pinsThisRoll;
+                currentRollInFrame = 2;
                 // Pas de reset des quilles
                 changeState(GameState::AIMING);
             }
@@ -360,12 +366,12 @@ void GameManager::handleScoringState(float deltaTime) {
 
         // Si la frame est terminée (ou la partie)
         if (frameOver) {
-            if (mCurrentFrame >= MAX_FRAMES) {
+            if (currentFrame >= MAX_FRAMES) {
                 changeState(GameState::GAME_OVER);
             } else {
-                mCurrentFrame++;
-                mCurrentRollInFrame = 1;
-                mPinsKnockedFirstRoll = 0;
+                currentFrame++;
+                currentRollInFrame = 1;
+                pinsKnockedFirstRoll = 0;
                 // Le reset des quilles se fait à l'entrée de AIMING
                 changeState(GameState::AIMING);
             }
@@ -378,50 +384,46 @@ void GameManager::handleScoringState(float deltaTime) {
 }
 
 // --- Autres méthodes --- 
-
 void GameManager::launchBall() {
-    if (mGameState != GameState::POWER || !mAimingSystem || !mBall) {
+    if (gameState != GameState::POWER || !aimingSystem || !ball) {
         Ogre::LogManager::getSingleton().logWarning("Tentative de lancement dans un état invalide ou systèmes non prêts.");
         return;
     }
 
-    Ogre::Vector3 direction = mAimingSystem->getAimingDirection();
-    float power = mAimingSystem->getPower(); // Converti en vitesse dans AimingSystem
-    float spin = mAimingSystem->getSpinEffect(); // Converti en vitesse angulaire dans AimingSystem
+    Ogre::Vector3 direction = aimingSystem->getAimingDirection().normalisedCopy(); // Normalisation
+    float power = aimingSystem->getPower();
+    float spin = aimingSystem->getSpinEffect();
 
     Ogre::LogManager::getSingleton().logMessage("Lancement: Dir=" + Ogre::StringConverter::toString(direction) +
                                                ", Power=" + Ogre::StringConverter::toString(power) +
                                                ", Spin=" + Ogre::StringConverter::toString(spin));
 
-    mBall->launch(direction, power, spin);
+    ball->launch(direction, power, spin);
 
-    // Jouer le son de roulement
     AudioManager::getInstance()->playSound("roll");
-
-    // Passer à l'état ROLLING (qui gère la caméra, etc.)
     changeState(GameState::ROLLING);
 
-    Ogre::LogManager::getSingleton().logMessage("Frame " + Ogre::StringConverter::toString(mCurrentFrame) +
-                                               ", Lancer " + Ogre::StringConverter::toString(mCurrentRollInFrame) +
+    Ogre::LogManager::getSingleton().logMessage("Frame " + Ogre::StringConverter::toString(currentFrame) +
+                                               ", Lancer " + Ogre::StringConverter::toString(currentRollInFrame) +
                                                ": Boule lancée.");
 }
 
 void GameManager::resetGame() {
     Ogre::LogManager::getSingleton().logMessage("Réinitialisation complète du jeu.");
-    mCurrentFrame = 1;
-    mCurrentRollInFrame = 1;
-    mPinsKnockedFirstRoll = 0;
+    currentFrame = 1;
+    currentRollInFrame = 1;
+    pinsKnockedFirstRoll = 0;
 
     // Arrêter les sons
     AudioManager::getInstance()->stopSound("roll");
     AudioManager::getInstance()->stopSound("collision"); // Au cas où
 
     // Réinitialiser les systèmes
-    if (mBall) { mBall->reset(); }
-    if (mLane) { mLane->resetPins(); } // S'assurer que les quilles sont debout
-    if (mAimingSystem) { mAimingSystem->resetAiming(); }
-    if (mPinDetector) { mPinDetector->reset(); }
-    if (mCameraFollower) { mCameraFollower->resetToStartPosition(); } // Utiliser resetToStartPosition
+    if (ball) { ball->reset(); }
+    if (lane) { lane->resetPins(); } // S'assurer que les quilles sont debout
+    if (aimingSystem) { aimingSystem->resetAiming(); }
+    if (pinDetector) { pinDetector->reset(); }
+    if (cameraFollower) { cameraFollower->resetToStartPosition(); } // Utiliser resetToStartPosition
 
     ScoreManager::getInstance()->resetScore();
 
@@ -430,11 +432,11 @@ void GameManager::resetGame() {
 }
 
 GameState GameManager::getGameState() const {
-    return mGameState;
+    return gameState;
 }
 
 CameraFollower* GameManager::getCameraFollower() const {
-    return mCameraFollower.get();
+    return cameraFollower.get();
 }
 
 std::string GameManager::gameStateToString(GameState state) {

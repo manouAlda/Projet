@@ -6,20 +6,16 @@
 
 #IncludeRegexTransform: 
 
-../include/core/Application.h
-OgreApplicationContext.h
--
+../include/core/AimingSystem.h
 OgreSceneManager.h
 -
 OgreCamera.h
 -
-OgreRoot.h
+Ogre.h
 -
-OgreRTShaderSystem.h
+OgreEntity.h
 -
-OgreInput.h
--
-OgreFrameListener.h
+OgreQuaternion.h
 -
 OgreOverlay.h
 -
@@ -27,35 +23,13 @@ OgreOverlayManager.h
 -
 OgreOverlayContainer.h
 -
-OgreOverlaySystem.h
+OgreTextAreaOverlayElement.h
 -
-iostream
+OgrePanelOverlayElement.h
 -
-OgreTimer.h
--
-memory
--
-../../include/objects/BowlingBall.h
-../include/objects/BowlingBall.h
-../../include/managers/AudioManager.h
-../include/managers/AudioManager.h
-fmod.hpp
--
-fmod_errors.h
--
-
-../include/managers/AudioManager.h
-fmod.hpp
--
-fmod_errors.h
--
-string
--
-map
+OgreInput.h
 -
 OgreLogManager.h
--
-OgreStringConverter.h
 -
 
 ../include/managers/PhysicsManager.h
@@ -73,6 +47,8 @@ OgreBullet.h
 -
 ../managers/PhysicsManager.h
 ../include/managers/PhysicsManager.h
+../core/AimingSystem.h
+../include/core/AimingSystem.h
 
 ../include/objects/BowlingLane.h
 Ogre.h
@@ -181,6 +157,8 @@ memory
 -
 ../../include/objects/BowlingBall.h
 /home/linda/L3/git/projet/MonBowling/include/objects/BowlingBall.h
+../../include/objects/BowlingLane.h
+/home/linda/L3/git/projet/MonBowling/include/objects/BowlingLane.h
 ../../include/managers/AudioManager.h
 /home/linda/L3/git/projet/MonBowling/include/managers/AudioManager.h
 fmod.hpp
@@ -253,6 +231,8 @@ OgreBullet.h
 -
 ../managers/PhysicsManager.h
 /home/linda/L3/git/projet/MonBowling/include/managers/PhysicsManager.h
+../core/AimingSystem.h
+/home/linda/L3/git/projet/MonBowling/include/core/AimingSystem.h
 
 /home/linda/L3/git/projet/MonBowling/include/objects/BowlingLane.h
 Ogre.h
@@ -320,11 +300,33 @@ OgreLogManager.h
 ../../include/managers/AudioManager.h
 /home/linda/L3/git/projet/MonBowling/include/managers/AudioManager.h
 
-/home/linda/L3/git/projet/MonBowling/src/main.cpp
-core/Application.h
-/home/linda/L3/git/projet/MonBowling/src/core/Application.h
-iostream
+/home/linda/L3/git/projet/MonBowling/src/core/GameManager.cpp
+../../include/core/GameManager.h
+/home/linda/L3/git/projet/MonBowling/include/core/GameManager.h
+../../include/managers/AudioManager.h
+/home/linda/L3/git/projet/MonBowling/include/managers/AudioManager.h
+../../include/states/ScoreManager.h
+/home/linda/L3/git/projet/MonBowling/include/states/ScoreManager.h
+OgreLogManager.h
 -
+OgreStringConverter.h
+-
+
+/home/linda/L3/git/projet/MonBowling/src/states/ScoreManager.cpp
+../../include/states/ScoreManager.h
+/home/linda/L3/git/projet/MonBowling/include/states/ScoreManager.h
+OgreStringConverter.h
+-
+vector
+-
+numeric
+-
+OgreLogManager.h
+-
+
+/home/linda/L3/git/projet/MonBowling/src/utils/PinDetector.cpp
+../../include/utils/PinDetector.h
+/home/linda/L3/git/projet/MonBowling/include/utils/PinDetector.h
 
 /usr/local/include/OGRE/Bites/OgreApplicationContext.h
 OgreBitesPrerequisites.h

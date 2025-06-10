@@ -3,7 +3,7 @@
 #include <Ogre.h>
 #include <OgreBullet.h>
 #include "../managers/PhysicsManager.h"
-
+#include "../core/AimingSystem.h"
 class BowlingBall {
     private:
         Ogre::SceneManager* sceneMgr;
@@ -25,7 +25,7 @@ class BowlingBall {
         Ogre::Vector3 initialPosition;
 
         // Constante pour la limite Y
-        const float STOP_Y_LIMIT = 12.0f;
+        const float STOP_Z_LIMIT = -17.0f;
         // Constante pour le seuil de vitesse d'arrêt
         const float STOP_VELOCITY_THRESHOLD = 0.05f; 
         
@@ -38,6 +38,7 @@ class BowlingBall {
         void reset();
         void launch(const Ogre::Vector3& direction, float power, float spin = 0.0f);
         void update(float deltaTime);
+        void updateSpin(float deltaTime);
         
         // Accesseurs
         Ogre::SceneNode* getBallNode() const { return ballNode; }
@@ -46,6 +47,7 @@ class BowlingBall {
         Ogre::Vector3 getPosition() const;
         Ogre::Vector3 getVelocity() const;
         float getRadius() const;
+        SpinInfo getCurrentSpinInfo() const;
         
         // Modificateurs
         void setMass(float mass);

@@ -20,9 +20,12 @@ AimingSystem::AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera)
       mSpinEffectIndicator(nullptr),
       mAimingActive(false),
       mPowerInputActive(false),
-      mAimingDirection(0, 0, 1), // Direction initiale vers les quilles
+      mAimingDirection(0, 0, -1), 
       mPowerValue(MIN_POWER),
-      mSpinEffect(0.0f)
+      mSpinEffect(0.0f),
+      mMaxSpinRate(2.0f),      // vitesse de changement
+      mSpinSensitivity(0.05f), // Sensibilité du contrôle de spin
+      mShowSpinPreview(true)   // Option pour afficher un preview de la trajectoire
 {
 }
 
@@ -48,11 +51,11 @@ AimingSystem::~AimingSystem(){
 
 void AimingSystem::initialize(){
     createAimingArrow();
-    createOverlays(); // Crée tous les overlays nécessaires
+    createOverlays(); 
 
     // Initialisation de l'état
-    resetAiming(); // Assure que tout est à l'état initial
-    setAimingActive(true); // Commence en mode visée
+    resetAiming();
+    setAimingActive(true);
     Ogre::LogManager::getSingleton().logMessage("AimingSystem initialisé.");
 }
 
@@ -67,10 +70,10 @@ void AimingSystem::createAimingArrow(){
 
         // Ajuster l'échelle et l'orientation
         arrowNode->setScale(0.05f, 0.2f, 0.05f);
-        arrowNode->setOrientation(Ogre::Quaternion(Ogre::Degree(90), Ogre::Vector3::UNIT_X)); // Pointe vers Z négatif
+        arrowNode->setOrientation(Ogre::Quaternion(Ogre::Degree(-90), Ogre::Vector3::UNIT_X)); 
 
         // Position initiale (devant la position de départ de la boule)
-        arrowNode->setPosition(0.0f, 0.1f, -8.5f); // Ajuster si nécessaire
+        arrowNode->setPosition(0.0f, 0.1f, -7.0f);
         arrowNode->setVisible(false); // Invisible au début
     } catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logError("AimingSystem::createAimingArrow - Erreur: " + Ogre::String(e.getFullDescription().c_str()));
@@ -97,7 +100,7 @@ void AimingSystem::createOverlays(){
     mPowerBarBackground->setMetricsMode(Ogre::GMM_PIXELS);
     mPowerBarBackground->setPosition(0, 0);
     mPowerBarBackground->setDimensions(30, 200);
-    mPowerBarBackground->setMaterialName("BaseWhite"); // Matériau simple gris/blanc
+    mPowerBarBackground->setMaterialName("UI/OverlayBackground"); // Matériau simple gris/blanc
     // Pour un fond plus distinct : mPowerBarBackground->setColour(Ogre::ColourValue(0.3, 0.3, 0.3, 0.7));
     powerBarContainer->addChild(mPowerBarBackground);
 
@@ -106,7 +109,7 @@ void AimingSystem::createOverlays(){
     mPowerBarFill->setMetricsMode(Ogre::GMM_PIXELS);
     mPowerBarFill->setPosition(0, 200); // Commence en bas
     mPowerBarFill->setDimensions(30, 0); // Hauteur initiale nulle
-    mPowerBarFill->setMaterialName("BaseWhite"); // Matériau simple, la couleur sera changée
+    mPowerBarFill->setMaterialName("UI/PowerBarFill"); // Matériau simple, la couleur sera changée
     powerBarContainer->addChild(mPowerBarFill); // Ajouter au conteneur
 
     gameOverlay->add2D(powerBarContainer);
@@ -123,7 +126,7 @@ void AimingSystem::createOverlays(){
     mSpinEffectControl->setMetricsMode(Ogre::GMM_PIXELS);
     mSpinEffectControl->setPosition(0, 0);
     mSpinEffectControl->setDimensions(200, 30);
-    mSpinEffectControl->setMaterialName("BaseWhite");
+    mSpinEffectControl->setMaterialName("UI/SpinControlBackground");
     // Pour un fond plus distinct : 
     mSpinEffectControl->setColour(Ogre::ColourValue(0.3, 0.3, 0.3, 0.7));
     mSpinContainer->addChild(mSpinEffectControl);
@@ -132,7 +135,7 @@ void AimingSystem::createOverlays(){
     mSpinEffectIndicator = overlayManager.createOverlayElement("Panel", "SpinEffectIndicator");
     mSpinEffectIndicator->setMetricsMode(Ogre::GMM_PIXELS);
     mSpinEffectIndicator->setDimensions(10, 30); // Largeur de l'indicateur
-    mSpinEffectIndicator->setMaterialName("BaseWhite"); // Matériau simple
+    mSpinEffectIndicator->setMaterialName("UI/SpinIndicator"); // Matériau simple
     mSpinEffectIndicator->setColour(Ogre::ColourValue::Red); // Couleur visible
     mSpinContainer->addChild(mSpinEffectIndicator); // Ajouter au conteneur
 
@@ -152,8 +155,13 @@ void AimingSystem::update(float deltaTime){
     if (mAimingActive) {
         updateAimingArrow();
     }
-    // Note: La mise à jour des overlays se fait maintenant directement
-    // dans adjustPower/adjustSpin pour la réactivité.
+    if (mPowerInputActive) {
+        updatePowerBarDisplay();
+        updateSpinIndicatorDisplay();
+        if (mShowSpinPreview) {
+            updateTrajectoryPreview();
+        }
+    }
 }
 
 void AimingSystem::updateAimingArrow(){
@@ -204,62 +212,105 @@ void AimingSystem::updatePowerBarDisplay() {
     }
 }
 
-void AimingSystem::updateSpinIndicatorDisplay(){
+void AimingSystem::updateSpinIndicatorDisplay() {
     if (mSpinEffectIndicator) {
-        // Largeur totale du contrôle de spin = 200, largeur indicateur = 10
         float controlWidth = 200.0f;
         float indicatorWidth = 10.0f;
-        float travelRange = controlWidth - indicatorWidth; // Espace de déplacement
+        float travelRange = controlWidth - indicatorWidth;
 
-        // Convertir spin (-1 à 1) en position X (0 à travelRange)
+        // Position basée sur la valeur de spin
         float positionX = ((mSpinEffect - MIN_SPIN) / (MAX_SPIN - MIN_SPIN)) * travelRange;
-        positionX = std::max(0.0f, std::min(positionX, travelRange)); // Clamp
+        positionX = std::max(0.0f, std::min(positionX, travelRange));
 
         mSpinEffectIndicator->setPosition(positionX, 0);
-        // Ogre::LogManager::getSingleton().logMessage("Spin Indicator Updated: Value=" + Ogre::StringConverter::toString(mSpinEffect) + " PosX=" + Ogre::StringConverter::toString(positionX));
+        
+        // AMÉLIORATION: Changer la couleur selon l'intensité du spin
+        float spinIntensity = std::abs(mSpinEffect) / MAX_SPIN;
+        Ogre::ColourValue color;
+        
+        if (mSpinEffect > 0) {
+            // Spin positif = nuances de rouge/orange
+            color = Ogre::ColourValue(1.0f, 1.0f - spinIntensity * 0.5f, 0.0f, 1.0f);
+        } else if (mSpinEffect < 0) {
+            // Spin négatif = nuances de bleu
+            color = Ogre::ColourValue(0.0f, spinIntensity * 0.5f, 1.0f, 1.0f);
+        } else {
+            // Pas de spin = blanc
+            color = Ogre::ColourValue::White;
+        }
+        
+        mSpinEffectIndicator->setColour(color);
+        
+        // Effet de pulsation pour indiquer l'intensité
+        float pulseScale = 1.0f + spinIntensity * 0.3f;
+        mSpinEffectIndicator->setDimensions(indicatorWidth * pulseScale, 30);
     }
+}
+
+void AimingSystem::updateTrajectoryPreview() {
+    // Cette méthode créerait une ligne pointillée montrant la trajectoire prévue
+    // en tenant compte du spin (optionnel, pour une expérience utilisateur avancée)
+    
+    if (!mShowSpinPreview || !arrowNode) return;
+    
+    // Calculer la courbure approximative basée sur le spin
+    float curvature = mSpinEffect * 0.2f; // Facteur de courbure
+    
+    // Créer ou mettre à jour une ligne de trajectoire courbée
+    // (Implémentation dépendante de votre système de rendu)
+    Ogre::LogManager::getSingleton().logMessage(
+        "Trajectory preview: Spin=" + Ogre::StringConverter::toString(mSpinEffect) + 
+        " Curvature=" + Ogre::StringConverter::toString(curvature));
 }
 
 // --- Gestion des entrées --- 
 
 void AimingSystem::handleKeyPress(const OgreBites::KeyboardEvent& evt) {
-    if (!mPowerInputActive) return; // N'accepte les entrées que dans la phase POWER
+    if (!mPowerInputActive) return;
 
     float powerDelta = 0.0f;
     float spinDelta = 0.0f;
 
+    // Facteur de vitesse basé sur le temps (pour un contrôle plus fluide)
+    float speedFactor = 1.0f; // À multiplier par deltaTime dans update()
+
     switch (evt.keysym.sym) {
         case OgreBites::SDLK_UP:
-        case 'z': // AZERTY
-        case 'w': // QWERTY
-            powerDelta = POWER_INCREMENT * 0.1f; // Ajuster le multiplicateur pour la sensibilité
-            Ogre::LogManager::getSingleton().logMessage("AimingSystem: Power increased by " + Ogre::StringConverter::toString(powerDelta));
+        case 'z': 
+        case 'w': 
+            powerDelta = POWER_INCREMENT * 0.15f;
             break;
         case OgreBites::SDLK_DOWN:
         case 's':
-            powerDelta = -POWER_INCREMENT * 0.1f;
-            Ogre::LogManager::getSingleton().logMessage("AimingSystem: Power decreased by " + Ogre::StringConverter::toString(powerDelta));
+            powerDelta = -POWER_INCREMENT * 0.15f;
             break;
         case OgreBites::SDLK_LEFT:
-        case 'q': // AZERTY
-        case 'a': // QWERTY
-            spinDelta = -SPIN_INCREMENT * 0.1f;
-            Ogre::LogManager::getSingleton().logMessage("AimingSystem: Spin decreased by " + Ogre::StringConverter::toString(spinDelta));
+        case 'q': 
+        case 'a':
+            spinDelta = -SPIN_INCREMENT * mSpinSensitivity;
             break;
         case OgreBites::SDLK_RIGHT:
         case 'd':
-            spinDelta = SPIN_INCREMENT * 0.1f;
-            Ogre::LogManager::getSingleton().logMessage("AimingSystem: Spin increased by " + Ogre::StringConverter::toString(spinDelta));
+            spinDelta = SPIN_INCREMENT * mSpinSensitivity;
             break;
+        // NOUVELLES TOUCHES pour un meilleur contrôle
+        case 'e': // Spin rapide à droite
+            spinDelta = SPIN_INCREMENT * 0.2f;
+            break;
+        case 'x': // Reset du spin à zéro
+            mSpinEffect = 0.0f;
+            updateSpinIndicatorDisplay();
+            Ogre::LogManager::getSingleton().logMessage("AimingSystem: Spin reset to zero");
+            return;
         default:
-            return; // Ne fait rien pour les autres touches
+            return; 
     }
 
     if (powerDelta != 0.0f) {
         adjustPower(powerDelta);
     }
     if (spinDelta != 0.0f) {
-        adjustSpin(spinDelta);
+        adjustSpinSmooth(spinDelta);
     }
 }
 
@@ -309,7 +360,7 @@ void AimingSystem::resetAiming(){
     mAimingActive = false; // Désactiver la visée par défaut au reset
     mPowerInputActive = false;
 
-    mAimingDirection = Ogre::Vector3(0, 0, 1); // Direction par défaut
+    mAimingDirection = Ogre::Vector3(0, 0, -1);
     mPowerValue = MIN_POWER;
     mSpinEffect = 0.0f;
 
@@ -324,10 +375,18 @@ void AimingSystem::resetAiming(){
     Ogre::LogManager::getSingleton().logMessage("AimingSystem: Reset.");
 }
 
+SpinDebugInfo AimingSystem::getSpinDebugInfo() const {
+    SpinDebugInfo info;
+    info.rawSpinValue = mSpinEffect;
+    info.normalizedSpin = mSpinEffect / MAX_SPIN;
+    info.finalAngularVelocity = getSpinEffect();
+    info.isSpinActive = std::abs(mSpinEffect) > 0.01f;
+    return info;
+}
+
 // --- Getters pour le lancement --- 
 
 Ogre::Vector3 AimingSystem::getAimingDirection() const {
-    // Pourrait être ajusté par la souris si réactivé
     return mAimingDirection;
 }
 
@@ -335,14 +394,20 @@ float AimingSystem::getPower() const {
     // Retourne la puissance finale déterminée par le joueur
     // !! IMPORTANT: Convertir la valeur 0-100 en une force/vitesse pour la physique !!
     // Exemple simple : return mPowerValue * 0.2f; // Ajuster ce facteur
-    return 5.0f + (mPowerValue / MAX_POWER) * 15.0f; // Donne une vitesse entre 5 et 20
+    //return 5.0f + (mPowerValue / MAX_POWER) * 15.0f; // Donne une vitesse entre 5 et 20
+    return 10.0f + (mPowerValue / MAX_POWER) * 30.0f;
 }
 
 float AimingSystem::getSpinEffect() const {
-    // Retourne la valeur de spin (-1 à 1)
-    // !! IMPORTANT: Convertir cette valeur en une vélocité angulaire pour la physique !!
-    // Exemple simple : return mSpinEffect * 5.0f; // Ajuster ce facteur
-    return mSpinEffect * 8.0f; // Donne une vitesse angulaire entre -8 et 8 rad/s
+    // Mapping non-linéaire pour un contrôle plus intuitif
+    float normalizedSpin = mSpinEffect / MAX_SPIN; // -1 à 1
+    
+    // Application d'une courbe pour que les petites valeurs soient plus sensibles
+    float curve = std::pow(std::abs(normalizedSpin), 0.7f);
+    if (normalizedSpin < 0) curve = -curve;
+    
+    // Conversion en vitesse angulaire réaliste (rad/s)
+    return curve * 12.0f; // Max ~12 rad/s, ce qui est réaliste pour une boule de bowling
 }
 
 // --- Méthodes d'ajustement --- 
@@ -352,7 +417,7 @@ void AimingSystem::adjustPower(float delta) {
     mPowerValue += delta;
     // Clamp la valeur
     mPowerValue = std::max(MIN_POWER, std::min(MAX_POWER, mPowerValue));
-    updatePowerBarDisplay(); // Mettre à jour l'affichage immédiatement
+    updatePowerBarDisplay(); 
 }
 
 void AimingSystem::adjustSpin(float delta) {
@@ -360,7 +425,25 @@ void AimingSystem::adjustSpin(float delta) {
     mSpinEffect += delta;
     // Clamp la valeur
     mSpinEffect = std::max(MIN_SPIN, std::min(MAX_SPIN, mSpinEffect));
-    updateSpinIndicatorDisplay(); // Mettre à jour l'affichage immédiatement
+    updateSpinIndicatorDisplay(); 
 }
 
+void AimingSystem::adjustSpinSmooth(float delta) {
+    if (!mPowerInputActive) return;
+    
+    // Application progressive du spin
+    float targetSpin = mSpinEffect + delta;
+    targetSpin = std::max(MIN_SPIN, std::min(MAX_SPIN, targetSpin));
+    
+    // Interpolation pour un mouvement plus fluide
+    float lerpFactor = 0.1f; // Ajustable pour plus ou moins de fluidité
+    mSpinEffect = Ogre::Math::lerp(mSpinEffect, targetSpin, lerpFactor);
+    
+    updateSpinIndicatorDisplay();
+    
+    // Mettre à jour le preview de trajectoire si activé
+    if (mShowSpinPreview) {
+        updateTrajectoryPreview();
+    }
+}
 

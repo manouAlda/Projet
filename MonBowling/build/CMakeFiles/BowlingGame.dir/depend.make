@@ -510,6 +510,7 @@ CMakeFiles/BowlingGame.dir/src/core/Application.cpp.o: /usr/local/include/bullet
 CMakeFiles/BowlingGame.dir/src/core/Application.cpp.o: /usr/local/include/bullet/btBulletCollisionCommon.h
 CMakeFiles/BowlingGame.dir/src/core/Application.cpp.o: /usr/local/include/bullet/btBulletDynamicsCommon.h
 
+CMakeFiles/BowlingGame.dir/src/core/GameManager.cpp.o: ../include/core/AimingSystem.h
 CMakeFiles/BowlingGame.dir/src/core/GameManager.cpp.o: ../include/managers/PhysicsManager.h
 CMakeFiles/BowlingGame.dir/src/core/GameManager.cpp.o: ../include/objects/BowlingBall.h
 CMakeFiles/BowlingGame.dir/src/core/GameManager.cpp.o: ../include/objects/BowlingLane.h
@@ -813,10 +814,13 @@ CMakeFiles/BowlingGame.dir/src/core/GameState.cpp.o: ../src/core/GameState.cpp
 
 CMakeFiles/BowlingGame.dir/src/core/GameStateMachine.cpp.o: ../src/core/GameStateMachine.cpp
 
+CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../include/core/AimingSystem.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../include/core/Application.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../include/managers/AudioManager.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../include/managers/PhysicsManager.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../include/objects/BowlingBall.h
+CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../include/objects/BowlingLane.h
+CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../include/objects/BowlingPin.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../media/sounds/api/core/inc/fmod.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../media/sounds/api/core/inc/fmod.hpp
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: ../media/sounds/api/core/inc/fmod_codec.h
@@ -995,6 +999,7 @@ CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/OgreVertexBon
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/OgreVertexIndexData.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/OgreViewport.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/OgreWorkQueue.h
+CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgreFont.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlay.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayContainer.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayElement.h
@@ -1002,6 +1007,8 @@ CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgreO
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayPrerequisites.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayProfileSessionListener.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlaySystem.h
+CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgrePanelOverlayElement.h
+CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/Overlay/OgreTextAreaOverlayElement.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/RTShaderSystem/OgreRTShaderConfig.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/RTShaderSystem/OgreRTShaderExports.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/OGRE/RTShaderSystem/OgreRTShaderSystem.h
@@ -1128,6 +1135,52 @@ CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/bullet/LinearMath/
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/bullet/btBulletCollisionCommon.h
 CMakeFiles/BowlingGame.dir/src/main.cpp.o: /usr/local/include/bullet/btBulletDynamicsCommon.h
 
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../media/sounds/api/core/inc/fmod.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../media/sounds/api/core/inc/fmod.hpp
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../media/sounds/api/core/inc/fmod_codec.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../media/sounds/api/core/inc/fmod_common.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../media/sounds/api/core/inc/fmod_dsp.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../media/sounds/api/core/inc/fmod_dsp_effects.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../media/sounds/api/core/inc/fmod_errors.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../media/sounds/api/core/inc/fmod_output.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../include/managers/AudioManager.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: ../src/managers/AudioManager.cpp
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreAlignedAllocator.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreBuildSettings.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreColourValue.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreCommon.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreConfig.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreException.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreExports.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreHeaderPrefix.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreHeaderSuffix.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreLog.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreLogManager.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreMath.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreMatrix3.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreMatrix4.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreMemoryAllocatorConfig.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreMurmurHash3.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgrePlatform.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgrePrerequisites.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreQuaternion.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreSharedPtr.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreSingleton.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreStdHeaders.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreString.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreStringConverter.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreStringVector.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/OgreVector.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefines.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefinesBoost.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefinesNone.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefinesPoco.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefinesSTD.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadHeaders.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadHeadersBoost.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadHeadersPoco.h
+CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadHeadersSTD.h
+
 CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o: ../include/managers/CameraController.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o: ../src/managers/CameraController.cpp
 CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o: /usr/local/include/OGRE/Bites/OgreBitesPrerequisites.h
@@ -1227,10 +1280,13 @@ CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o: /usr/local/inclu
 CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadHeadersPoco.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadHeadersSTD.h
 
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: ../include/core/AimingSystem.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: ../include/managers/PhysicsManager.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: ../include/objects/BowlingBall.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: ../include/managers/CameraFollower.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: ../src/managers/CameraFollower.cpp
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Bites/OgreBitesPrerequisites.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Bites/OgreInput.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Bullet/OgreBullet.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Bullet/OgreBulletExports.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Ogre.h
@@ -1354,7 +1410,9 @@ CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreSceneManager.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreSceneNode.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreSceneQuery.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreScriptCompiler.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreScriptLoader.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreScriptTranslator.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreSerializer.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreShadowCameraSetup.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreShadowCameraSetupFocused.h
@@ -1390,6 +1448,14 @@ CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreVertexIndexData.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreViewport.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/OgreWorkQueue.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Overlay/OgreFont.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlay.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayContainer.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayElement.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayManager.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayPrerequisites.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Overlay/OgrePanelOverlayElement.h
+CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Overlay/OgreTextAreaOverlayElement.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefines.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefinesBoost.h
 CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefinesNone.h
@@ -1771,9 +1837,12 @@ CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o: /usr/local/include
 
 CMakeFiles/BowlingGame.dir/src/managers/ResourceManager.cpp.o: ../src/managers/ResourceManager.cpp
 
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: ../include/core/AimingSystem.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: ../include/managers/PhysicsManager.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: ../include/objects/BowlingBall.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: ../src/objects/BowlingBall.cpp
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Bites/OgreBitesPrerequisites.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Bites/OgreInput.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Bullet/OgreBullet.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Bullet/OgreBulletExports.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Ogre.h
@@ -1897,7 +1966,9 @@ CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGR
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreSceneManager.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreSceneNode.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreSceneQuery.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreScriptCompiler.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreScriptLoader.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreScriptTranslator.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreSerializer.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreShadowCameraSetup.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreShadowCameraSetupFocused.h
@@ -1933,6 +2004,14 @@ CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGR
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreVertexIndexData.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreViewport.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/OgreWorkQueue.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Overlay/OgreFont.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlay.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayContainer.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayElement.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayManager.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Overlay/OgreOverlayPrerequisites.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Overlay/OgrePanelOverlayElement.h
+CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Overlay/OgreTextAreaOverlayElement.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefines.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefinesBoost.h
 CMakeFiles/BowlingGame.dir/src/objects/BowlingBall.cpp.o: /usr/local/include/OGRE/Threading/OgreThreadDefinesNone.h

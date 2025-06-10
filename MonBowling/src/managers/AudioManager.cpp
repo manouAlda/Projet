@@ -1,5 +1,4 @@
-// Fichier : AudioManager.cpp
-#include "../../include/managers/AudioManager.h" // Adapter le chemin si nécessaire
+#include "../../include/managers/AudioManager.h" 
 
 // Initialisation du pointeur statique
 AudioManager* AudioManager::mInstance = nullptr;

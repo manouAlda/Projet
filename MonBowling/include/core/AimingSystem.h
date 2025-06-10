@@ -21,15 +21,24 @@ const float POWER_INCREMENT = 25.0f; // Augmentation de puissance par seconde (o
 const float MIN_SPIN = -1.0f;
 const float MAX_SPIN = 1.0f;
 const float SPIN_INCREMENT = 1.5f; // Augmentation de spin par seconde (ou par appui)
+const float MAX_SPIN_RATE = 2.0f;
+const float SPIN_SENSITIVITY = 0.05f;
 
+struct SpinInfo {
+    float spinY = 0.0f;    // Spin principal (hook)
+    float spinX = 0.0f;    // Spin avant/arrière  
+    float spinZ = 0.0f;    // Spin latéral
+    float totalSpin = 0.0f;
+};
+
+struct SpinDebugInfo {
+    float rawSpinValue = 0.0f;
+    float normalizedSpin = 0.0f;
+    float finalAngularVelocity = 0.0f;
+    bool isSpinActive = false;
+};
 class AimingSystem {
     private:
-        void createAimingArrow();
-        void createOverlays(); // Fonction regroupant la création des overlays
-        void updateAimingArrow();
-        void updatePowerBarDisplay(); 
-        void updateSpinIndicatorDisplay(); 
-
         Ogre::SceneManager* scene;
         Ogre::Camera* camera;
 
@@ -57,11 +66,22 @@ class AimingSystem {
         float mPowerValue;        // Puissance actuelle (0-MAX_POWER)
         float mSpinEffect;        // Effet actuel (-1.0 à 1.0)
 
+        float mMaxSpinRate;        // Vitesse de changement du spin
+        float mSpinSensitivity;    // Sensibilité du contrôle de spin
+        bool mShowSpinPreview;     // Option pour afficher un aperçu de la trajectoire
+
         // Variables pour la gestion des touches maintenues (optionnel, si on veut une augmentation continue)
         // bool mKeyUpPressed;
         // bool mKeyDownPressed;
         // bool mKeyLeftPressed;
         // bool mKeyRightPressed;
+
+        void createAimingArrow();
+        void createOverlays(); // Fonction regroupant la création des overlays
+        void updateAimingArrow();
+        void updatePowerBarDisplay(); 
+        void updateSpinIndicatorDisplay(); 
+        void updateTrajectoryPreview();
 
     public:
         AimingSystem(Ogre::SceneManager* sceneMgr, Ogre::Camera* camera);
@@ -79,6 +99,7 @@ class AimingSystem {
         bool isAimingActive() const;
         void startPowerPhase(); // Appelé quand on passe à l'état POWER
         void resetAiming();     // Réinitialise tout (direction, puissance, spin)
+        SpinDebugInfo getSpinDebugInfo() const;
 
         // Getters pour le lancement
         Ogre::Vector3 getAimingDirection() const;
@@ -88,6 +109,7 @@ class AimingSystem {
         // Méthodes pour ajuster puissance/spin (appelées par handleKeyPress)
         void adjustPower(float delta);
         void adjustSpin(float delta);
+        void adjustSpinSmooth(float delta);
 };
 
 #endif 

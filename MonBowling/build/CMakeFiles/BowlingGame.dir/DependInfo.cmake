@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/linda/L3/git/projet/MonBowling/src/core/GameState.cpp" "/home/linda/L3/git/projet/MonBowling/build/CMakeFiles/BowlingGame.dir/src/core/GameState.cpp.o"
   "/home/linda/L3/git/projet/MonBowling/src/core/GameStateMachine.cpp" "/home/linda/L3/git/projet/MonBowling/build/CMakeFiles/BowlingGame.dir/src/core/GameStateMachine.cpp.o"
   "/home/linda/L3/git/projet/MonBowling/src/main.cpp" "/home/linda/L3/git/projet/MonBowling/build/CMakeFiles/BowlingGame.dir/src/main.cpp.o"
+  "/home/linda/L3/git/projet/MonBowling/src/managers/AudioManager.cpp" "/home/linda/L3/git/projet/MonBowling/build/CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o"
   "/home/linda/L3/git/projet/MonBowling/src/managers/CameraController.cpp" "/home/linda/L3/git/projet/MonBowling/build/CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o"
   "/home/linda/L3/git/projet/MonBowling/src/managers/CameraFollower.cpp" "/home/linda/L3/git/projet/MonBowling/build/CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o"
   "/home/linda/L3/git/projet/MonBowling/src/managers/PhysicsManager.cpp" "/home/linda/L3/git/projet/MonBowling/build/CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o"

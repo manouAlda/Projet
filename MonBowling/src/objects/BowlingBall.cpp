@@ -57,10 +57,10 @@ void BowlingBall::create(const Ogre::Vector3& position) {
                 mass, ballEntity, Ogre::Bullet::CT_SPHERE);
 
         if (ballBody) {
-            ballBody->setFriction(0.5f);
-            ballBody->setRestitution(0.1f);
-            ballBody->setRollingFriction(0.1f);
-            ballBody->setSpinningFriction(0.1f);
+            ballBody->setFriction(0.3f);
+            ballBody->setRestitution(0.3f);
+            ballBody->setRollingFriction(0.3f);
+            ballBody->setSpinningFriction(0.2f);
 
             // Empêcher la désactivation pour que la boule continue de rouler
             ballBody->setActivationState(DISABLE_DEACTIVATION);
@@ -117,23 +117,36 @@ void BowlingBall::reset() {
 void BowlingBall::launch(const Ogre::Vector3& direction, float power, float spin) {
     if (ballBody) {
         Ogre::Vector3 normalizedDir = direction.normalisedCopy();
-
+        
         // Application de la force linéaire (vitesse initiale)
         btVector3 velocity(normalizedDir.x * power,
-                           normalizedDir.y * power, 
-                           normalizedDir.z * power);
+                          normalizedDir.y * power, 
+                          normalizedDir.z * power);
         ballBody->setLinearVelocity(velocity);
-
-        btVector3 angularVelocity(spin * 0.1f, spin, 0); 
+        
+        // SPIN SIMPLIFIÉ - Rotation uniquement autour de l'axe Y (vertical)
+        // C'est le type de spin principal au bowling
+        btVector3 angularVelocity(
+            0.0f,      // Pas de rotation sur X
+            spin*20.0f,      // Rotation principale sur Y (effet hook/curve)
+            0.0f       // Pas de rotation sur Z
+        );
+        
         ballBody->setAngularVelocity(angularVelocity);
-
-        // Réactiver le corps au cas où il se serait désactivé
+        
+        // CRUCIAL: Vérifier et ajuster les propriétés de friction
+        ballBody->setFriction(0.8f);        // Friction élevée
+        ballBody->setRollingFriction(0.3f);  // Friction de roulement
+        ballBody->setSpinningFriction(0.2f); // Friction de spin
+        
+        // Réactiver le corps
         ballBody->activate(true);
-
         rolling = true;
-        Ogre::LogManager::getSingleton().logMessage("BowlingBall::launch - Boule lancée.");
-    } else {
-        Ogre::LogManager::getSingleton().logWarning("BowlingBall::launch - Tentative de lancement mais ballBody est nul.");
+        
+        Ogre::LogManager::getSingleton().logMessage(
+            "BowlingBall::launch - Vitesse: " + Ogre::StringConverter::toString(power) +
+            " Spin Y: " + Ogre::StringConverter::toString(spin) +
+            " Direction: " + Ogre::StringConverter::toString(normalizedDir));
     }
 }
 
@@ -157,11 +170,27 @@ void BowlingBall::update(float deltaTime) {
         btQuaternion rotation = transform.getRotation();
         ballNode->setOrientation(rotation.w(), rotation.x(), rotation.y(), rotation.z());
 
+        updateSpin(deltaTime);
+
+        btVector3 velocity = ballBody->getLinearVelocity();
+        btVector3 angularVelocity = ballBody->getAngularVelocity();
+        float linearSpeedSq = velocity.length2();
+        float angularSpeedSq = angularVelocity.length2();
+
+        // Ajouter ce log toutes les 30 frames environ pour ne pas surcharger la console
+        static int frameCount = 0;
+        if (++frameCount % 10 == 0) {
+            Ogre::LogManager::getSingleton().logMessage("BowlingBall::update - Vitesse linéaire: " + 
+                Ogre::StringConverter::toString(sqrt(linearSpeedSq)) + 
+                ", Vitesse angulaire: " + Ogre::StringConverter::toString(sqrt(angularSpeedSq)) +
+                ", Seuil: " + Ogre::StringConverter::toString(STOP_VELOCITY_THRESHOLD));
+        }
+
         // --- Vérification des conditions d'arrêt --- 
 
-        // 1. Vérification de la limite Y
-        if (position.y() >= STOP_Y_LIMIT) {
-            Ogre::LogManager::getSingleton().logMessage("BowlingBall::update - Limite Y atteinte (" +
+        // 1. Vérification de la limite z
+        if (position.z() <= -15.0f) {
+            Ogre::LogManager::getSingleton().logMessage("BowlingBall::update - Limite Z atteinte (" +
                 Ogre::StringConverter::toString(position.y()) + "). Arrêt de la boule.");
             ballBody->setLinearVelocity(btVector3(0, 0, 0));
             ballBody->setAngularVelocity(btVector3(0, 0, 0));
@@ -183,6 +212,41 @@ void BowlingBall::update(float deltaTime) {
                 ballBody->setAngularVelocity(btVector3(0, 0, 0));
                 rolling = false;
             }
+        }
+
+    }
+}
+
+void BowlingBall::updateSpin(float deltaTime) {
+    if (ballBody && rolling) {
+        // Récupérer la vélocité actuelle
+        btVector3 currentVelocity = ballBody->getLinearVelocity();
+        btVector3 currentAngular = ballBody->getAngularVelocity();
+        
+        // Calculer la vitesse de la boule
+        float speed = currentVelocity.length();
+        
+        // Si la boule roule encore (vitesse > seuil minimal)
+        if (speed > 0.1f) {
+            // Appliquer une friction différentielle basée sur le spin
+            // Cela permet à la boule de "hooker" (courber sa trajectoire)
+            
+            // Calculer la direction actuelle
+            btVector3 direction = currentVelocity.normalized();
+            
+            // Force latérale basée sur le spin Y (effet Magnus simplifié)
+            float spinEffect = currentAngular.y() * 0.3f; // Facteur d'effet
+            
+            // Vecteur perpendiculaire à la direction (pour la force latérale)
+            btVector3 rightVector(-direction.z(), 0, direction.x());
+            
+            // Appliquer une force latérale
+            btVector3 sideForce = rightVector * spinEffect * speed * deltaTime;
+            ballBody->applyCentralForce(sideForce);
+            
+            // Réduire progressivement le spin (friction)
+            btVector3 dampedAngular = currentAngular * (1.0f - deltaTime * 0.005f);
+            ballBody->setAngularVelocity(dampedAngular);
         }
     }
 }
@@ -206,6 +270,18 @@ Ogre::Vector3 BowlingBall::getVelocity() const {
         return Ogre::Vector3(velocity.x(), velocity.y(), velocity.z());
     }
     return Ogre::Vector3::ZERO;
+}
+
+SpinInfo BowlingBall::getCurrentSpinInfo() const {
+    SpinInfo info;
+    if (ballBody) {
+        btVector3 angular = ballBody->getAngularVelocity();
+        info.spinY = angular.y();
+        info.spinX = angular.x();
+        info.spinZ = angular.z();
+        info.totalSpin = angular.length();
+    }
+    return info;
 }
 
 // --- Setters --- 

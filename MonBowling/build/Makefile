@@ -285,6 +285,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/BowlingGame.dir/build.make CMakeFiles/BowlingGame.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/managers/AudioManager.o: src/managers/AudioManager.cpp.o
+
+.PHONY : src/managers/AudioManager.o
+
+# target to build an object file
+src/managers/AudioManager.cpp.o:
+	$(MAKE) -f CMakeFiles/BowlingGame.dir/build.make CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o
+.PHONY : src/managers/AudioManager.cpp.o
+
+src/managers/AudioManager.i: src/managers/AudioManager.cpp.i
+
+.PHONY : src/managers/AudioManager.i
+
+# target to preprocess a source file
+src/managers/AudioManager.cpp.i:
+	$(MAKE) -f CMakeFiles/BowlingGame.dir/build.make CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.i
+.PHONY : src/managers/AudioManager.cpp.i
+
+src/managers/AudioManager.s: src/managers/AudioManager.cpp.s
+
+.PHONY : src/managers/AudioManager.s
+
+# target to generate assembly for a file
+src/managers/AudioManager.cpp.s:
+	$(MAKE) -f CMakeFiles/BowlingGame.dir/build.make CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.s
+.PHONY : src/managers/AudioManager.cpp.s
+
 src/managers/CameraController.o: src/managers/CameraController.cpp.o
 
 .PHONY : src/managers/CameraController.o
@@ -609,6 +636,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/managers/AudioManager.o"
+	@echo "... src/managers/AudioManager.i"
+	@echo "... src/managers/AudioManager.s"
 	@echo "... src/managers/CameraController.o"
 	@echo "... src/managers/CameraController.i"
 	@echo "... src/managers/CameraController.s"

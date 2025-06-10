@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/BowlingGame.dir/src/core/GameState.cpp.o"
   "CMakeFiles/BowlingGame.dir/src/core/GameStateMachine.cpp.o"
   "CMakeFiles/BowlingGame.dir/src/main.cpp.o"
+  "CMakeFiles/BowlingGame.dir/src/managers/AudioManager.cpp.o"
   "CMakeFiles/BowlingGame.dir/src/managers/CameraController.cpp.o"
   "CMakeFiles/BowlingGame.dir/src/managers/CameraFollower.cpp.o"
   "CMakeFiles/BowlingGame.dir/src/managers/PhysicsManager.cpp.o"
